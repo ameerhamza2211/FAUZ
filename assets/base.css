@@ -673,7 +673,7 @@ img { max-width: 100%; }
   top: 130px;
 }
 
-.fz-ritual__eyebrow { color: var(--fz-mint); }
+.fz-ritual__eyebrow { color: var(--fz-ritual-accent, #FFFFFF); }
 
 .fz-ritual__h2 {
   font-family: var(--fz-font-display);
@@ -686,7 +686,7 @@ img { max-width: 100%; }
 .fz-ritual__text {
   font-size: 16px;
   line-height: 1.7;
-  color: var(--fz-muted-grey-2);
+  color: var(--fz-ritual-text, #FFFFFF);
   margin: 0;
   text-wrap: pretty;
   font-weight: 300;
@@ -709,7 +709,7 @@ img { max-width: 100%; }
 .fz-ritual-row__n {
   font-family: var(--fz-font-display);
   font-size: 36px;
-  color: var(--fz-mint);
+  color: var(--fz-ritual-accent, #FFFFFF);
 }
 
 .fz-ritual-row__img {
@@ -729,7 +729,7 @@ img { max-width: 100%; }
   font-size: 11px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--fz-mint);
+  color: var(--fz-ritual-accent, #FFFFFF);
 }
 
 .fz-ritual-row__name {
@@ -739,7 +739,7 @@ img { max-width: 100%; }
 
 .fz-ritual-row__desc {
   font-size: 14px;
-  color: var(--fz-muted-grey-2);
+  color: var(--fz-ritual-text, #FFFFFF);
   max-width: 44ch;
   font-weight: 300;
 }

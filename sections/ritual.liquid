@@ -1,4 +1,11 @@
-<section id="ritual" class="fz-ritual">
+<section
+  id="ritual"
+  class="fz-ritual"
+  style="
+    --fz-ritual-text: {{ section.settings.text_color }};
+    --fz-ritual-accent: {{ section.settings.accent_color }};
+  "
+>
   <div class="fz-ritual__inner">
     <div class="fz-ritual__grid">
       <div class="fz-ritual__intro">
@@ -63,6 +70,24 @@
       "id": "text",
       "label": "Paragraph",
       "default": "Skincare doesn't need to be complicated — it needs to be consistent. Cleanse, treat, protect. That's the whole ritual."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#FFFFFF",
+      "info": "Intro paragraph and step descriptions"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent text color",
+      "default": "#FFFFFF",
+      "info": "Eyebrow, step numbers, and step labels"
     }
   ],
   "blocks": [

@@ -151,6 +151,90 @@
         "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced."
       }
     },
+    "promise_quote_zPmqVa": {
+      "type": "promise-quote",
+      "blocks": {
+        "claim_3J7BjC": {
+          "type": "claim",
+          "settings": {
+            "text": "Paraben-free"
+          }
+        },
+        "claim_YgbT6D": {
+          "type": "claim",
+          "settings": {
+            "text": "Cruelty-free"
+          }
+        },
+        "claim_cD6aW3": {
+          "type": "claim",
+          "settings": {
+            "text": "Non-comedogenic"
+          }
+        },
+        "claim_pPjXMy": {
+          "type": "claim",
+          "settings": {
+            "text": "All skin types"
+          }
+        }
+      },
+      "block_order": [
+        "claim_3J7BjC",
+        "claim_YgbT6D",
+        "claim_cD6aW3",
+        "claim_pPjXMy"
+      ],
+      "name": "Our promise",
+      "settings": {
+        "eyebrow": "Our promise",
+        "quote": "Your skin is as unique as you are. We formulate for that — nothing more, nothing less."
+      }
+    },
+    "ritual_EdXnF9": {
+      "type": "ritual",
+      "blocks": {
+        "step_iKkdnA": {
+          "type": "step",
+          "settings": {
+            "step": "Cleanse",
+            "product": "fauz-cleanser-gentle-daily-face-wash",
+            "title": "Gentle Daily Cleanser",
+            "description": "Lift away the day without stripping the barrier."
+          }
+        },
+        "step_zcTYiL": {
+          "type": "step",
+          "settings": {
+            "step": "Treat",
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion",
+            "title": "Exfoliating Serum",
+            "description": "Target blackheads, blemishes and uneven tone overnight."
+          }
+        },
+        "step_NQT7Bp": {
+          "type": "step",
+          "settings": {
+            "step": "Protect",
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine",
+            "title": "Sun Screen SPF 60",
+            "description": "High protection with aloe and caffeine, zero white cast."
+          }
+        }
+      },
+      "block_order": [
+        "step_iKkdnA",
+        "step_zcTYiL",
+        "step_NQT7Bp"
+      ],
+      "name": "The Fauz ritual",
+      "settings": {
+        "eyebrow": "The Fauz ritual",
+        "heading_line_1": "Three steps.",
+        "heading_line_2": "Every day.",
+        "text": "Skincare doesn't need to be complicated — it needs to be consistent. Cleanse, treat, protect. That's the whole ritual."
+      }
+    },
     "editorial": {
       "type": "editorial",
       "blocks": {
@@ -191,6 +275,8 @@
     "marquee",
     "showcase",
     "ingredients",
+    "promise_quote_zPmqVa",
+    "ritual_EdXnF9",
     "editorial"
   ]
 }

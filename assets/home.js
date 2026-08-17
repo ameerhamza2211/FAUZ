@@ -286,15 +286,21 @@
     var mm = gsap.matchMedia();
 
     mm.add('(min-width: 1101px)', function () {
+      function getHeaderOffset() {
+        var root = getComputedStyle(document.documentElement);
+        var h = parseFloat(root.getPropertyValue('--fz-header-height')) || 100;
+        return h + 16;
+      }
+
       function getScrollDistance() {
-        return Math.max(window.innerHeight * 0.52, 420) * (panels.length - 1);
+        return Math.max(window.innerHeight * 0.55, 440) * (panels.length - 1);
       }
 
       var st = ScrollTrigger.create({
         trigger: section,
-        start: 'top top',
+        start: function () { return 'top top+=' + getHeaderOffset(); },
         end: function () { return '+=' + getScrollDistance(); },
-        pin: '.fz-ingredients__sticky',
+        pin: '.fz-ingredients__layout',
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,

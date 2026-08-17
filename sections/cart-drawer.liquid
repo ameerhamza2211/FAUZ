@@ -1,0 +1,81 @@
+<div id="FzCartDrawerInner">
+  <div class="fz-cart-overlay" data-cart-close></div>
+  <aside class="fz-drawer" id="FzCartDrawer" role="dialog" aria-modal="true" aria-label="Cart" aria-hidden="true">
+    <div class="fz-drawer__head">
+      <span class="fz-drawer__title">Your cart · <span data-cart-count>{{ cart.item_count }}</span></span>
+      <button type="button" class="fz-drawer__close" data-cart-close aria-label="Close cart">✕</button>
+    </div>
+
+    <div class="fz-drawer__body">
+      {%- if cart.item_count == 0 -%}
+        <div class="fz-drawer__empty">
+          <span class="fz-drawer__empty-title">Your cart is empty</span>
+          <span class="fz-drawer__empty-sub">Start your ritual — your skin will thank you.</span>
+          <a class="fz-btn fz-btn--primary fz-btn--primary-accent" href="{{ routes.all_products_collection_url }}" data-cart-close>Shop the collection</a>
+        </div>
+      {%- else -%}
+        {%- for item in cart.items -%}
+          {%- liquid
+            assign row_tint = 'offwhite'
+            for c in item.product.collections
+              if c.handle == 'sun-care'
+                assign row_tint = 'mint'
+              endif
+            endfor
+          -%}
+          <div class="fz-cart-row">
+            <div class="fz-cart-row__media{% if row_tint == 'mint' %} fz-cart-row__media--mint{% endif %}">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: item.product.title }}
+              {%- endif -%}
+            </div>
+            <div class="fz-cart-row__body">
+              <span class="fz-cart-row__name">{{ item.product.title }}</span>
+              <div class="fz-cart-row__controls">
+                <div class="fz-cart-row__qty">
+                  <button
+                    type="button"
+                    data-line="{{ forloop.index }}"
+                    data-line-change="{{ item.quantity | minus: 1 }}"
+                    aria-label="Decrease quantity"
+                  >−</button>
+                  <span>{{ item.quantity }}</span>
+                  <button
+                    type="button"
+                    data-line="{{ forloop.index }}"
+                    data-line-change="{{ item.quantity | plus: 1 }}"
+                    aria-label="Increase quantity"
+                  >+</button>
+                </div>
+                <button
+                  type="button"
+                  class="fz-cart-row__remove"
+                  data-line="{{ forloop.index }}"
+                  data-line-change="0"
+                >Remove</button>
+              </div>
+            </div>
+            <span class="fz-cart-row__total">{{ item.final_line_price | money }}</span>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="fz-drawer__foot">
+        <div class="fz-drawer__subtotal">
+          <span>Subtotal</span><span>{{ cart.total_price | money }}</span>
+        </div>
+        <span class="fz-drawer__note">Shipping and taxes calculated at checkout.</span>
+        <a class="fz-drawer__checkout" href="{{ routes.cart_url }}/checkout">Checkout — {{ cart.total_price | money }}</a>
+      </div>
+    {%- endif -%}
+  </aside>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

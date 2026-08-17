@@ -1,0 +1,16 @@
+<div class="fz-page">
+  <h1 class="fz-page__title">Order {{ order.name }}</h1>
+  <p class="fz-empty-note">{{ order.created_at | date: '%B %e, %Y' }} · {{ order.financial_status_label }}</p>
+  <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 32px;">
+    {% for line_item in order.line_items %}
+      <div style="display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--fz-hairline); padding-bottom: 14px;">
+        <span>{{ line_item.title }} × {{ line_item.quantity }}</span>
+        <span>{{ line_item.final_line_price | money }}</span>
+      </div>
+    {% endfor %}
+    <div style="display: flex; justify-content: space-between; font-size: 17px;">
+      <span>Total</span><span>{{ order.total_net_amount | money }}</span>
+    </div>
+  </div>
+  <p style="margin-top: 32px;"><a class="fz-btn fz-btn--outline" href="{{ routes.account_url }}">Back to account</a></p>
+</div>

@@ -1,0 +1,72 @@
+{% comment %}
+  Shared product card.
+  Accepts:
+    card_product  — product object (required)
+    show_sub      — boolean, show subtitle line (default true)
+    show_add      — boolean, show quick-add pill (default true)
+    show_tag      — boolean, show pill tag (default true)
+{% endcomment %}
+
+{%- liquid
+  assign show_sub = show_sub | default: true, allow_false: true
+  assign show_add = show_add | default: true, allow_false: true
+  assign show_tag = show_tag | default: true, allow_false: true
+
+  # Tint: sun-care products sit on mint, everything else on off-white.
+  # Override per product with metafield custom.card_tint (mint / offwhite).
+  assign tint = 'offwhite'
+  for c in card_product.collections
+    if c.handle == 'sun-care'
+      assign tint = 'mint'
+    endif
+  endfor
+  if card_product.metafields.custom.card_tint != blank
+    assign tint = card_product.metafields.custom.card_tint
+  endif
+
+  # Pill tag from known merch tags
+  assign card_tag = ''
+  for t in card_product.tags
+    if t == 'Bestseller' or t == 'New' or t == 'Daily essential'
+      assign card_tag = t
+      break
+    endif
+  endfor
+
+  assign sub = card_product.metafields.custom.subtitle.value
+-%}
+
+<div class="fz-card">
+  <a class="fz-card__link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}"></a>
+  <div class="fz-card__media{% if tint == 'mint' %} fz-card__media--mint{% endif %}">
+    {%- if show_tag and card_tag != blank -%}
+      <span class="fz-card__tag">{{ card_tag }}</span>
+    {%- endif -%}
+    {%- if card_product.featured_image -%}
+      {{ card_product.featured_image
+        | image_url: width: 900
+        | image_tag: class: 'fz-card__img', widths: '360, 540, 720, 900', loading: 'lazy', alt: card_product.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'fz-card__img' }}
+    {%- endif -%}
+    {%- if show_add -%}
+      {%- if card_product.available -%}
+        <button
+          type="button"
+          class="fz-card__add"
+          data-quick-add="{{ card_product.selected_or_first_available_variant.id }}"
+          aria-label="Add {{ card_product.title | escape }} to cart"
+        >Add</button>
+      {%- else -%}
+        <button type="button" class="fz-card__add" disabled>Sold out</button>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+  <div class="fz-card__info">
+    <div class="fz-card__name">{{ card_product.title }}</div>
+    {%- if show_sub and sub != blank -%}
+      <div class="fz-card__sub">{{ sub }}</div>
+    {%- endif -%}
+    <div class="fz-card__price">{{ card_product.price | money }}</div>
+  </div>
+</div>

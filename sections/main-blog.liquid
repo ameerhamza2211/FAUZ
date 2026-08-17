@@ -1,0 +1,35 @@
+<div class="fz-page fz-page--wide">
+  <h1 class="fz-page__title">{{ blog.title }}</h1>
+  {%- paginate blog.articles by 12 -%}
+    <div class="fz-grid-3">
+      {%- for article in blog.articles -%}
+        <a class="fz-card" href="{{ article.url }}">
+          {%- if article.image -%}
+            <div class="fz-card__media">
+              {{ article.image | image_url: width: 900 | image_tag: class: 'fz-card__img', loading: 'lazy', alt: article.title }}
+            </div>
+          {%- endif -%}
+          <div class="fz-card__info">
+            <div class="fz-card__name">{{ article.title }}</div>
+            <div class="fz-card__sub">{{ article.published_at | date: '%B %e, %Y' }}</div>
+          </div>
+        </a>
+      {%- else -%}
+        <p class="fz-empty-note">No posts yet.</p>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      <nav class="fz-pagination" aria-label="Pagination">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">Prev</a>{%- endif -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": []
+}
+{% endschema %}

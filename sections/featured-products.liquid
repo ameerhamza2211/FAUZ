@@ -1,0 +1,72 @@
+<section class="fz-container fz-section">
+  <div class="fz-section__head">
+    <h2 class="fz-h2">{{ section.settings.heading }}</h2>
+    <span class="fz-section__note">{{ section.settings.note }}</span>
+  </div>
+  <div class="fz-grid-4">
+    {%- liquid
+      assign limit = section.settings.products_to_show
+      if section.blocks.size > 0
+        for block in section.blocks limit: limit
+          if block.settings.product != blank
+            render 'product-card', card_product: block.settings.product
+          endif
+        endfor
+      elsif section.settings.collection != blank
+        for product in section.settings.collection.products limit: limit
+          render 'product-card', card_product: product
+        endfor
+      else
+        for product in collections.all.products limit: limit
+          render 'product-card', card_product: product
+        endfor
+      endif
+    -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The favourites",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The favourites"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Right-side note",
+      "default": "Loved for a reason"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Used when no product blocks are added."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "The favourites" }]
+}
+{% endschema %}

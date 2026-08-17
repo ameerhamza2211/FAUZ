@@ -1,0 +1,30 @@
+<div class="fz-page">
+  <h1 class="fz-page__title">{{ page.title | default: 'Contact us' }}</h1>
+  {%- if page.content != blank -%}
+    <div class="fz-page__body" style="margin-bottom: 32px;">{{ page.content }}</div>
+  {%- endif -%}
+
+  {%- form 'contact', class: 'fz-form' -%}
+    {%- if form.posted_successfully? -%}
+      <div class="fz-form__success">Thanks for reaching out — we'll get back to you soon.</div>
+    {%- endif -%}
+    {%- if form.errors -%}
+      <div class="fz-form__errors">
+        {%- for field in form.errors -%}
+          <div>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    <input class="fz-input" type="text" name="contact[name]" placeholder="Name" autocomplete="name" value="{{ form.name }}">
+    <input class="fz-input" type="email" name="contact[email]" placeholder="Email" autocomplete="email" required value="{{ form.email }}">
+    <textarea class="fz-input" name="contact[body]" placeholder="Message" required>{{ form.body }}</textarea>
+    <div><button type="submit" class="fz-btn fz-btn--primary fz-btn--primary-accent">Send message</button></div>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": []
+}
+{% endschema %}

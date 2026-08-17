@@ -1,0 +1,91 @@
+<footer class="fz-footer">
+  <div class="fz-footer__inner">
+    <div class="fz-footer__grid">
+      <div class="fz-footer__brand">
+        {% render 'logo-lockup', footer: true %}
+        <p class="fz-footer__blurb">{{ section.settings.blurb }}</p>
+      </div>
+
+      <div class="fz-footer__col">
+        <div class="fz-footer__heading">{{ section.settings.shop_heading }}</div>
+        {%- if section.settings.shop_menu != blank -%}
+          {%- for link in section.settings.shop_menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        {%- else -%}
+          <a href="{{ routes.collections_url }}/skincare">Skincare</a>
+          <a href="{{ routes.collections_url }}/haircare">Haircare</a>
+          <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
+          <a href="{{ routes.all_products_collection_url }}">All products</a>
+        {%- endif -%}
+      </div>
+
+      <div class="fz-footer__col">
+        <div class="fz-footer__heading">{{ section.settings.help_heading }}</div>
+        {%- if section.settings.help_menu != blank -%}
+          {%- for link in section.settings.help_menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        {%- else -%}
+          <a href="/pages/contact">Contact us</a>
+          <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="fz-footer__bottom">
+      <span class="fz-footer__legal">© {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. All rights reserved.</span>
+      <span class="fz-footer__hashtag">{{ section.settings.hashtag }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "blurb",
+      "label": "Brand blurb",
+      "default": "Modern, simple, premium care for skin and hair. Formulated with intention — never compared."
+    },
+    {
+      "type": "text",
+      "id": "shop_heading",
+      "label": "Shop column heading",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Shop menu",
+      "info": "Leave empty for the default collection links."
+    },
+    {
+      "type": "text",
+      "id": "help_heading",
+      "label": "Help column heading",
+      "default": "Help"
+    },
+    {
+      "type": "link_list",
+      "id": "help_menu",
+      "label": "Help menu",
+      "info": "Leave empty for Contact us + Privacy policy."
+    },
+    {
+      "type": "text",
+      "id": "legal_name",
+      "label": "Legal name",
+      "default": "Fauz Cosmetics"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Hashtag",
+      "default": "#NeverCompare"
+    }
+  ]
+}
+{% endschema %}

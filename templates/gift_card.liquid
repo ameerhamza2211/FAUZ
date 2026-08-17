@@ -1,0 +1,29 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ shop.name }} — Gift card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Allura&display=swap" rel="stylesheet">
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <div class="fz-password" style="background: var(--fz-mint); min-height: 100vh;">
+      {% render 'logo-lockup' %}
+      <h1 class="fz-page__title" style="margin: 0;">Gift card</h1>
+      <p style="font-size: 21px; margin: 0;">{{ gift_card.initial_value | money }}</p>
+      <p class="fz-empty-note">Use this code at checkout:</p>
+      <p style="font-size: 24px; letter-spacing: 0.14em; border: 1px solid var(--fz-ink); border-radius: 999px; padding: 14px 34px;">{{ gift_card.code | format_code }}</p>
+      {%- if gift_card.expired -%}
+        <p class="fz-empty-note">This gift card has expired.</p>
+      {%- else -%}
+        <p class="fz-empty-note">Balance: {{ gift_card.balance | money }}</p>
+        <a class="fz-btn fz-btn--primary fz-btn--primary-accent" href="{{ shop.url }}">Shop the collection</a>
+      {%- endif -%}
+    </div>
+  </body>
+</html>

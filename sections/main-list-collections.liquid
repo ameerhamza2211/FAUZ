@@ -1,0 +1,26 @@
+<div class="fz-page fz-page--wide">
+  <h1 class="fz-page__title">Collections</h1>
+  <div class="fz-cats">
+    {%- for c in collections -%}
+      {%- unless c.handle == 'frontpage' -%}
+        <a class="fz-cat-card fz-cat-card--{% cycle 'mint', 'offwhite' %}" href="{{ c.url }}">
+          <div class="fz-cat-card__name">{{ c.title }}</div>
+          <div class="fz-cat-card__desc">{{ c.products_count }} {% if c.products_count == 1 %}product{% else %}products{% endif %}</div>
+          {%- liquid
+            assign cimg = c.featured_image | default: c.products.first.featured_image
+          -%}
+          {%- if cimg != blank -%}
+            {{ cimg | image_url: width: 800 | image_tag: class: 'fz-cat-card__img', loading: 'lazy', alt: c.title }}
+          {%- endif -%}
+        </a>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": []
+}
+{% endschema %}

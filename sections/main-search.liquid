@@ -1,0 +1,50 @@
+<div class="fz-page fz-page--wide">
+  <h1 class="fz-page__title">Search</h1>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" class="fz-form" style="flex-direction: row; gap: 10px; margin-bottom: 44px;">
+    <input
+      class="fz-input"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="Search products"
+      aria-label="Search"
+    >
+    <button type="submit" class="fz-btn fz-btn--primary fz-btn--primary-accent">Search</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- if search.results_count == 0 -%}
+      <p class="fz-empty-note">No results for “{{ search.terms | escape }}”.</p>
+    {%- else -%}
+      {%- paginate search.results by 24 -%}
+        <div class="fz-grid-3">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', card_product: item %}
+            {%- else -%}
+              <div class="fz-card">
+                <div class="fz-card__info">
+                  <div class="fz-card__name"><a href="{{ item.url }}">{{ item.title }}</a></div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="fz-pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">Prev</a>{%- endif -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

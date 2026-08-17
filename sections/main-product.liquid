@@ -1,0 +1,201 @@
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+
+  # Category + collection context
+  assign product_collection = ''
+  for c in product.collections
+    unless c.handle == 'all' or c.handle == 'frontpage'
+      assign product_collection = c
+      break
+    endunless
+  endfor
+
+  assign tint = 'offwhite'
+  if product_collection.handle == 'sun-care'
+    assign tint = 'mint'
+  endif
+  if product.metafields.custom.card_tint != blank
+    assign tint = product.metafields.custom.card_tint
+  endif
+
+  assign size = product.metafields.custom.size.value
+  assign benefits = product.metafields.custom.benefits.value
+  assign how_to = product.metafields.custom.how_to_use.value
+  assign badges = product.metafields.custom.badges.value
+-%}
+
+<div class="fz-product">
+  <a class="fz-back" href="{{ product_collection.url | default: routes.all_products_collection_url }}">← Back to the collection</a>
+
+  <div class="fz-product__grid">
+    <div class="fz-product__media">
+      <div class="fz-product__main{% if tint == 'mint' %} fz-product__main--mint{% endif %}">
+        {%- if product.featured_image -%}
+          {%- assign main_alt = product.featured_image.alt | default: product.title -%}
+          <img
+            src="{{ product.featured_image | image_url: width: 1200 }}"
+            srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 900 }} 900w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+            sizes="(max-width: 900px) 100vw, 660px"
+            class="fz-product__main-img"
+            data-main-image
+            width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}"
+            alt="{{ main_alt | escape }}"
+          >
+        {%- else -%}
+          {{ 'product-4' | placeholder_svg_tag: 'fz-product__main-img' }}
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="fz-thumbs">
+          {%- for image in product.images -%}
+            <button
+              type="button"
+              class="fz-thumb{% if forloop.first %} is-active{% endif %}"
+              data-thumb="{{ image | image_url: width: 1200 }}"
+              data-thumb-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 900 }} 900w, {{ image | image_url: width: 1200 }} 1200w"
+              aria-label="View image {{ forloop.index }}"
+            >
+              <img src="{{ image | image_url: width: 160 }}" loading="lazy" width="76" height="76" alt="View {{ forloop.index }}">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="fz-product__info">
+      <div class="fz-product__head">
+        {%- if product_collection != blank -%}
+          <div class="fz-eyebrow fz-product__cat">{{ product_collection.title }}</div>
+        {%- endif -%}
+        <h1 class="fz-product__title">{{ product.title }}</h1>
+        <div class="fz-product__price">
+          {{ variant.price | money }}
+          {%- if size != blank %} <span class="fz-product__size">· {{ size }}</span>{% endif -%}
+        </div>
+      </div>
+
+      {%- liquid
+        assign blurb = product.metafields.custom.blurb.value
+      -%}
+      {%- if blurb != blank -%}
+        <div class="fz-product__blurb"><p>{{ blurb }}</p></div>
+      {%- elsif product.description != blank -%}
+        <div class="fz-product__blurb">{{ product.description }}</div>
+      {%- endif -%}
+
+      {%- if benefits != blank -%}
+        <div class="fz-benefits">
+          {%- for b in benefits -%}
+            <div class="fz-benefits__row"><span class="fz-diamond">◆</span><span>{{ b }}</span></div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- form 'product', product, data-fz-atc-form: '' -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <div class="fz-buy" data-buy-area>
+          <div class="fz-qty">
+            <button type="button" class="fz-qty__btn" data-qty-change="-1" aria-label="Decrease quantity">−</button>
+            <span class="fz-qty__num" data-qty-num>1</span>
+            <button type="button" class="fz-qty__btn" data-qty-change="1" aria-label="Increase quantity">+</button>
+            <input type="hidden" name="quantity" value="1" data-qty-input>
+          </div>
+          {%- if variant.available -%}
+            <button type="submit" class="fz-atc">
+              Add to cart — <span data-atc-price data-unit-price="{{ variant.price }}">{{ variant.price | money }}</span>
+            </button>
+          {%- else -%}
+            <button type="button" class="fz-atc" disabled>Sold out</button>
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+
+      {%- if badges != blank -%}
+        <div class="fz-badges">
+          {%- for bd in badges -%}
+            <span class="fz-badge">✓ {{ bd }}</span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="fz-accordions">
+        {%- if how_to != blank -%}
+          <div class="fz-acc">
+            <button type="button" class="fz-acc__toggle" data-acc-toggle aria-expanded="false">
+              <span>How to use</span><span class="fz-acc__sym">+</span>
+            </button>
+            <div class="fz-acc__body">
+              {%- for step in how_to -%}
+                <div class="fz-acc__line"><span class="fz-acc__n">{{ forloop.index }}.</span><span>{{ step }}</span></div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+        <div class="fz-acc">
+          <button type="button" class="fz-acc__toggle" data-acc-toggle aria-expanded="false">
+            <span>Good to know</span><span class="fz-acc__sym">+</span>
+          </button>
+          <div class="fz-acc__body">
+            <div class="fz-acc__line"><span class="fz-acc__n">·</span><span>Consistency unlocks the best results — make it part of your ritual.</span></div>
+            <div class="fz-acc__line"><span class="fz-acc__n">·</span><span>Do not use on irritated or broken skin; stop if irritation persists.</span></div>
+            <div class="fz-acc__line"><span class="fz-acc__n">·</span><span>{% if size != blank %}{{ size }} · {% endif %}Product by Fauz Cosmetics.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- liquid
+    # Related: same collection first, then fill from all
+    assign related_handles = ''
+    assign related_count = 0
+    if product_collection != blank
+      for p in product_collection.products
+        if p.id != product.id and related_count < 3
+          assign related_handles = related_handles | append: p.handle | append: ','
+          assign related_count = related_count | plus: 1
+        endif
+      endfor
+    endif
+    if related_count < 3
+      for p in collections.all.products
+        assign already = related_handles | split: ','
+        unless p.id == product.id or already contains p.handle
+          if related_count < 3
+            assign related_handles = related_handles | append: p.handle | append: ','
+            assign related_count = related_count | plus: 1
+          endif
+        endunless
+      endfor
+    endif
+    assign related_list = related_handles | split: ','
+  -%}
+
+  {%- if related_count > 0 -%}
+    <div class="fz-related">
+      <h2 class="fz-related__title">{{ section.settings.related_heading }}</h2>
+      <div class="fz-grid-3">
+        {%- for h in related_list -%}
+          {%- if h != blank -%}
+            {% render 'product-card', card_product: all_products[h], show_sub: false %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related products heading",
+      "default": "Pairs well with"
+    }
+  ]
+}
+{% endschema %}

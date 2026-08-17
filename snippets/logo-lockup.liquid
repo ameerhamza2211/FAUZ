@@ -1,0 +1,11 @@
+{% comment %}
+  FAUZ logo lockup: wordmark + "YOU ARE Unique" script line.
+  Accepts: footer (boolean) — renders the larger footer variant.
+{% endcomment %}
+<span class="{% if footer %}fz-footer__logo{% else %}fz-logo{% endif %}">
+  <span class="fz-logo__word">FAUZ</span>
+  <span class="fz-logo__tag">
+    <span class="fz-logo__youare">You are</span>
+    <span class="fz-logo__script">Unique</span>
+  </span>
+</span>

@@ -1,0 +1,25 @@
+<div class="fz-page">
+  <h1 class="fz-page__title">Log in</h1>
+  {% form 'customer_login', class: 'fz-form' %}
+    {% if form.errors %}<div class="fz-form__errors">{{ form.errors | default_errors }}</div>{% endif %}
+    <input class="fz-input" type="email" name="customer[email]" placeholder="Email" autocomplete="email" required>
+    <input class="fz-input" type="password" name="customer[password]" placeholder="Password" autocomplete="current-password" required>
+    <div><button type="submit" class="fz-btn fz-btn--primary fz-btn--primary-accent">Log in</button></div>
+    <p class="fz-empty-note">
+      <a href="#recover" onclick="document.getElementById('RecoverForm').style.display='block'; return false;">Forgot your password?</a>
+      · <a href="{{ routes.account_register_url }}">Create account</a>
+    </p>
+  {% endform %}
+
+  <div id="RecoverForm" style="display: none; margin-top: 40px;">
+    <h2 class="fz-h2" style="font-size: 32px; margin-bottom: 20px;">Reset your password</h2>
+    {% form 'recover_customer_password', class: 'fz-form' %}
+      {% if form.posted_successfully? %}
+        <div class="fz-form__success">We've sent you an email with a link to update your password.</div>
+      {% endif %}
+      {% if form.errors %}<div class="fz-form__errors">{{ form.errors | default_errors }}</div>{% endif %}
+      <input class="fz-input" type="email" name="email" placeholder="Email" autocomplete="email" required>
+      <div><button type="submit" class="fz-btn fz-btn--outline">Send reset link</button></div>
+    {% endform %}
+  </div>
+</div>

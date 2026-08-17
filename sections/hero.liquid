@@ -1,0 +1,112 @@
+<section class="fz-hero">
+  <div class="fz-hero__inner">
+    <div class="fz-hero__copy">
+      <div class="fz-eyebrow fz-hero__eyebrow">{{ section.settings.eyebrow }}</div>
+      <h1 class="fz-hero__h1">
+        {{- section.settings.heading_pre }} <span class="fz-hero__script">{{ section.settings.heading_script }}</span>.<br>
+        {{ section.settings.heading_rest -}}
+      </h1>
+      <p class="fz-hero__text">{{ section.settings.text }}</p>
+      <div class="fz-hero__actions">
+        {%- if section.settings.button_1_label != blank -%}
+          <a class="fz-btn fz-btn--primary" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a class="fz-btn fz-btn--outline" href="{{ section.settings.button_2_link | default: '#ritual' }}">{{ section.settings.button_2_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- liquid
+      assign hero_img_class = 'fz-hero__img fz-hero__img--' | append: section.settings.shape
+      assign hero_alt = section.settings.image.alt | default: 'FAUZ product range'
+    -%}
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image
+        | image_url: width: 1400
+        | image_tag:
+          class: hero_img_class,
+          widths: '700, 1000, 1400',
+          loading: 'eager',
+          alt: hero_alt }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'fz-hero__img fz-hero__img--rectangle' }}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Fauz Cosmetics"
+    },
+    {
+      "type": "text",
+      "id": "heading_pre",
+      "label": "Heading — before script word",
+      "default": "You are"
+    },
+    {
+      "type": "text",
+      "id": "heading_script",
+      "label": "Heading — script word",
+      "default": "unique"
+    },
+    {
+      "type": "text",
+      "id": "heading_rest",
+      "label": "Heading — second line",
+      "default": "Never compare."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Paragraph",
+      "default": "Modern, minimal skincare and haircare — formulated for your skin, not someone else's. Paraben-free, cruelty-free, and made to be part of a ritual you keep."
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Primary button label",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Secondary button label",
+      "default": "The ritual"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary button link",
+      "info": "Defaults to the ritual section anchor (#ritual)."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "shape",
+      "label": "Image shape",
+      "options": [
+        { "value": "arch", "label": "Arch" },
+        { "value": "rectangle", "label": "Rectangle" }
+      ],
+      "default": "arch"
+    }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

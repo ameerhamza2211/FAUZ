@@ -1,0 +1,50 @@
+<section class="fz-promise">
+  <div class="fz-eyebrow fz-promise__eyebrow">{{ section.settings.eyebrow }}</div>
+  <h2 class="fz-promise__quote">&ldquo;{{ section.settings.quote }}&rdquo;</h2>
+  <div class="fz-promise__claims">
+    {%- for block in section.blocks -%}
+      <span class="fz-promise__claim" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our promise",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our promise"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "Your skin is as unique as you are. We formulate for that — nothing more, nothing less."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "claim",
+      "name": "Claim",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Paraben-free" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Our promise",
+      "blocks": [
+        { "type": "claim", "settings": { "text": "Paraben-free" } },
+        { "type": "claim", "settings": { "text": "Cruelty-free" } },
+        { "type": "claim", "settings": { "text": "Non-comedogenic" } },
+        { "type": "claim", "settings": { "text": "All skin types" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

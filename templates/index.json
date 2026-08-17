@@ -1,0 +1,181 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "shape": "arch",
+        "image": "shopify://shop_images/WhatsApp_Image_2026-08-13_at_7.03.29_PM.jpg"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {}
+    },
+    "category_grid": {
+      "type": "category-grid",
+      "blocks": {
+        "cat_skincare": {
+          "type": "category",
+          "settings": {
+            "description": "Cleanse, treat, renew",
+            "tint": "mint",
+            "collection": "skincare"
+          }
+        },
+        "cat_haircare": {
+          "type": "category",
+          "settings": {
+            "description": "Stronger from the root",
+            "tint": "offwhite",
+            "collection": "haircare"
+          }
+        },
+        "cat_suncare": {
+          "type": "category",
+          "settings": {
+            "description": "Daily protection, no white cast",
+            "tint": "mint",
+            "collection": "sun-care"
+          }
+        }
+      },
+      "block_order": [
+        "cat_skincare",
+        "cat_haircare",
+        "cat_suncare"
+      ],
+      "settings": {}
+    },
+    "featured": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "The favourites",
+        "note": "Loved for a reason",
+        "products_to_show": 4
+      },
+      "blocks": {
+        "p_serum": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
+          }
+        },
+        "p_shampoo": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
+          }
+        },
+        "p_sunscreen": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
+          }
+        },
+        "p_cleanser": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-cleanser-gentle-daily-face-wash"
+          }
+        }
+      },
+      "block_order": [
+        "p_serum",
+        "p_shampoo",
+        "p_sunscreen",
+        "p_cleanser"
+      ]
+    },
+    "ritual": {
+      "type": "ritual",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step": "Cleanse",
+            "title": "Gentle Daily Cleanser",
+            "description": "Lift away the day without stripping the barrier.",
+            "product": "fauz-cleanser-gentle-daily-face-wash"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step": "Treat",
+            "title": "Exfoliating Serum",
+            "description": "Target blackheads, blemishes and uneven tone overnight.",
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step": "Protect",
+            "title": "Sun Screen SPF 60",
+            "description": "High protection with aloe and caffeine, zero white cast.",
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {}
+    },
+    "promise": {
+      "type": "promise-quote",
+      "blocks": {
+        "claim_1": {
+          "type": "claim",
+          "settings": {
+            "text": "Paraben-free"
+          }
+        },
+        "claim_2": {
+          "type": "claim",
+          "settings": {
+            "text": "Cruelty-free"
+          }
+        },
+        "claim_3": {
+          "type": "claim",
+          "settings": {
+            "text": "Non-comedogenic"
+          }
+        },
+        "claim_4": {
+          "type": "claim",
+          "settings": {
+            "text": "All skin types"
+          }
+        }
+      },
+      "block_order": [
+        "claim_1",
+        "claim_2",
+        "claim_3",
+        "claim_4"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "category_grid",
+    "featured",
+    "ritual",
+    "promise"
+  ]
+}

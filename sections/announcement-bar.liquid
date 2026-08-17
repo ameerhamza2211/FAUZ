@@ -1,0 +1,23 @@
+{%- if section.settings.show_announcement -%}
+  <div class="fz-announcement">{{ section.settings.text }}</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Free nationwide delivery on orders over Rs. 5,000"
+    }
+  ]
+}
+{% endschema %}

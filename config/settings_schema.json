@@ -1,0 +1,31 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "FAUZ",
+    "theme_version": "1.0.0",
+    "theme_author": "Fauz Cosmetics",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://shopify.dev/docs/storefronts/themes"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Typography"
+      },
+      {
+        "type": "paragraph",
+        "content": "Display headings use Italiana and the script lockup uses Allura (Google Fonts stand-ins for Aquila / Autography). Body text uses Helvetica Neue. To use licensed Aquila webfonts, add the font files to assets and swap the @font-face in base.css."
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "paragraph",
+        "content": "Brand palette (ink #111414, mint #C1DBD8, off-white #E8EAE9) is defined as CSS variables in base.css per the 2024 brand guide."
+      }
+    ]
+  }
+]

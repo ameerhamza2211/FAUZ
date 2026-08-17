@@ -1,0 +1,100 @@
+<div class="fz-collection">
+  <div class="fz-collection__head">
+    <div class="fz-eyebrow fz-collection__eyebrow">{{ section.settings.eyebrow }}</div>
+    <div class="fz-collection__titlerow">
+      <h1 class="fz-collection__title">
+        {%- if collection.handle == 'all' -%}Everything{%- else -%}{{ collection.title }}{%- endif -%}
+      </h1>
+      <span class="fz-collection__count">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</span>
+    </div>
+  </div>
+
+  {%- if section.settings.show_filters -%}
+    <div class="fz-chips">
+      <a class="fz-chip{% if collection.handle == 'all' %} fz-chip--active{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
+      {%- liquid
+        assign filter_cols = section.settings.filter_collections
+        if filter_cols == blank or filter_cols.count == 0
+          assign fallback_handles = 'skincare,haircare,sun-care' | split: ','
+        endif
+      -%}
+      {%- if fallback_handles -%}
+        {%- for h in fallback_handles -%}
+          {%- assign fc = collections[h] -%}
+          {%- if fc != blank -%}
+            <a class="fz-chip{% if collection.handle == fc.handle %} fz-chip--active{% endif %}" href="{{ fc.url }}">{{ fc.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for fc in filter_cols -%}
+          <a class="fz-chip{% if collection.handle == fc.handle %} fz-chip--active{% endif %}" href="{{ fc.url }}">{{ fc.title }}</a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    <div class="fz-grid-3">
+      {%- for product in collection.products -%}
+        {% render 'product-card', card_product: product %}
+      {%- else -%}
+        <p class="fz-empty-note">No products here yet.</p>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="fz-pagination" aria-label="Pagination">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}">Prev</a>
+        {%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}
+            <span class="fz-pagination__current">{{ part.title }}</span>
+          {%- else -%}
+            <span>{{ part.title }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}">Next</a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show category filter pills",
+      "default": true
+    },
+    {
+      "type": "collection_list",
+      "id": "filter_collections",
+      "label": "Filter collections",
+      "info": "Shown as pills after \"All\"."
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 6,
+      "max": 48,
+      "step": 3,
+      "default": 24
+    }
+  ]
+}
+{% endschema %}

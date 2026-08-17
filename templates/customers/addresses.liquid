@@ -1,0 +1,12 @@
+<div class="fz-page">
+  <h1 class="fz-page__title">Addresses</h1>
+  <p class="fz-empty-note">Manage your saved addresses at checkout, or contact us for help.</p>
+  <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 32px; max-width: 460px;">
+    {% for address in customer.addresses %}
+      <div style="border: 1px solid var(--fz-hairline-2); border-radius: 14px; padding: 18px 24px;">
+        {{ address | format_address }}
+      </div>
+    {% endfor %}
+  </div>
+  <p style="margin-top: 32px;"><a class="fz-btn fz-btn--outline" href="{{ routes.account_url }}">Back to account</a></p>
+</div>

@@ -1,0 +1,92 @@
+<section id="ritual" class="fz-ritual">
+  <div class="fz-ritual__inner">
+    <div class="fz-ritual__grid">
+      <div class="fz-ritual__intro">
+        <div class="fz-eyebrow fz-ritual__eyebrow">{{ section.settings.eyebrow }}</div>
+        <h2 class="fz-ritual__h2">{{ section.settings.heading_line_1 }}<br>{{ section.settings.heading_line_2 }}</h2>
+        <p class="fz-ritual__text">{{ section.settings.text }}</p>
+      </div>
+      <div class="fz-ritual__rows">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign p = block.settings.product
+            assign row_name = block.settings.title | default: p.title
+            assign row_desc = block.settings.description
+            assign row_number = forloop.index | prepend: '0'
+          -%}
+          <a class="fz-ritual-row" href="{{ p.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+            <div class="fz-ritual-row__n">{{ row_number }}</div>
+            {%- if p.featured_image -%}
+              {{ p.featured_image
+                | image_url: width: 300
+                | image_tag: class: 'fz-ritual-row__img', loading: 'lazy', alt: row_name }}
+            {%- else -%}
+              {{ 'product-3' | placeholder_svg_tag: 'fz-ritual-row__img' }}
+            {%- endif -%}
+            <div class="fz-ritual-row__body">
+              <div class="fz-ritual-row__step">{{ block.settings.step }}</div>
+              <div class="fz-ritual-row__name">{{ row_name }}</div>
+              <div class="fz-ritual-row__desc">{{ row_desc }}</div>
+            </div>
+            <div class="fz-ritual-row__price">{% if p != blank %}{{ p.price | money }}{% endif %}</div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Fauz ritual",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Fauz ritual"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Three steps."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "Every day."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Paragraph",
+      "default": "Skincare doesn't need to be complicated — it needs to be consistent. Cleanse, treat, protect. That's the whole ritual."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "step", "label": "Step label", "default": "Cleanse" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "text", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "The Fauz ritual",
+      "blocks": [
+        { "type": "step", "settings": { "step": "Cleanse", "title": "Gentle Daily Cleanser", "description": "Lift away the day without stripping the barrier." } },
+        { "type": "step", "settings": { "step": "Treat", "title": "Exfoliating Serum", "description": "Target blackheads, blemishes and uneven tone overnight." } },
+        { "type": "step", "settings": { "step": "Protect", "title": "Sun Screen SPF 60", "description": "High protection with aloe and caffeine, zero white cast." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

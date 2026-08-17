@@ -1,0 +1,71 @@
+<div class="fz-header-wrap">
+  <header class="fz-header">
+    <button
+      type="button"
+      class="fz-menu-toggle"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="FzMobileNav"
+      aria-label="Menu"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="fz-header__nav" aria-label="Main navigation">
+      {%- if section.settings.menu != blank -%}
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}">Shop all</a>
+        <a href="{{ routes.collections_url }}/skincare">Skincare</a>
+        <a href="{{ routes.collections_url }}/haircare">Haircare</a>
+        <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
+      {%- endif -%}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="fz-logo" aria-label="{{ shop.name }} — home">
+      {% render 'logo-lockup' %}
+    </a>
+
+    <div class="fz-header__right">
+      <span class="fz-header__hashtag">{{ section.settings.hashtag }}</span>
+      <button type="button" class="fz-cart-toggle" data-cart-open aria-haspopup="dialog">
+        Cart · <span data-cart-count>{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="fz-mobile-nav" id="FzMobileNav" aria-label="Mobile navigation">
+    {%- if section.settings.menu != blank -%}
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}">Shop all</a>
+      <a href="{{ routes.collections_url }}/skincare">Skincare</a>
+      <a href="{{ routes.collections_url }}/haircare">Haircare</a>
+      <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
+    {%- endif -%}
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Leave empty to use the default Shop all / Skincare / Haircare / Sun care links."
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Right-side label",
+      "default": "#NeverCompare"
+    }
+  ]
+}
+{% endschema %}

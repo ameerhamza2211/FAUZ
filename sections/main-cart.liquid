@@ -1,0 +1,53 @@
+<div class="fz-page fz-page--wide">
+  <h1 class="fz-page__title">Your cart</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p class="fz-empty-note">Your cart is empty. Start your ritual — your skin will thank you.</p>
+    <p style="margin-top: 24px;">
+      <a class="fz-btn fz-btn--primary fz-btn--primary-accent" href="{{ routes.all_products_collection_url }}">Shop the collection</a>
+    </p>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post">
+      <div style="display: flex; flex-direction: column; gap: 20px; max-width: 720px;">
+        {%- for item in cart.items -%}
+          <div class="fz-cart-row">
+            <div class="fz-cart-row__media">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: item.product.title }}
+              {%- endif -%}
+            </div>
+            <div class="fz-cart-row__body">
+              <span class="fz-cart-row__name"><a href="{{ item.url }}">{{ item.product.title }}</a></span>
+              <div class="fz-cart-row__controls">
+                <div class="fz-cart-row__qty">
+                  <button type="button" data-line="{{ forloop.index }}" data-line-change="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity">−</button>
+                  <span>{{ item.quantity }}</span>
+                  <button type="button" data-line="{{ forloop.index }}" data-line-change="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity">+</button>
+                </div>
+                <button type="button" class="fz-cart-row__remove" data-line="{{ forloop.index }}" data-line-change="0">Remove</button>
+              </div>
+            </div>
+            <span class="fz-cart-row__total">{{ item.final_line_price | money }}</span>
+          </div>
+        {%- endfor -%}
+
+        <div class="fz-drawer__subtotal" style="border-top: 1px solid var(--fz-hairline); padding-top: 20px;">
+          <span>Subtotal</span><span>{{ cart.total_price | money }}</span>
+        </div>
+        <span class="fz-drawer__note">Shipping and taxes calculated at checkout.</span>
+        <div>
+          <button type="submit" name="checkout" class="fz-drawer__checkout" style="width: auto; padding-left: 48px; padding-right: 48px;">
+            Checkout — {{ cart.total_price | money }}
+          </button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

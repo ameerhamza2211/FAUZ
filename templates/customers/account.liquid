@@ -1,0 +1,19 @@
+<div class="fz-page fz-page--wide">
+  <h1 class="fz-page__title">My account</h1>
+  <p class="fz-empty-note">{{ customer.name }} · <a href="{{ routes.account_logout_url }}">Log out</a></p>
+  <h2 class="fz-h2" style="font-size: 32px; margin: 40px 0 20px;">Order history</h2>
+  {% paginate customer.orders by 20 %}
+    {% if customer.orders.size == 0 %}
+      <p class="fz-empty-note">You haven't placed any orders yet.</p>
+    {% else %}
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px;">
+        {% for order in customer.orders %}
+          <a href="{{ order.customer_url }}" style="display: flex; justify-content: space-between; gap: 16px; border: 1px solid var(--fz-hairline-2); border-radius: 14px; padding: 18px 24px;">
+            <span>{{ order.name }} · {{ order.created_at | date: '%B %e, %Y' }}</span>
+            <span>{{ order.total_net_amount | money }}</span>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endpaginate %}
+</div>

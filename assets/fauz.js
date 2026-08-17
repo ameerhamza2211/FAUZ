@@ -233,6 +233,22 @@
     if (e.key === 'Escape') closeCart();
   });
 
+  /* ---------- Header scroll state (non-home pages) ---------- */
+
+  if (!window.FAUZ || !window.FAUZ.isHome) {
+    var headerWrap = document.querySelector('[data-header]');
+    var announcementBar = document.querySelector('.fz-announcement');
+    if (headerWrap) {
+      var updateHeader = function () {
+        var scrolled = window.scrollY > 48;
+        headerWrap.classList.toggle('is-scrolled', scrolled);
+        if (announcementBar) announcementBar.classList.toggle('is-hidden', scrolled);
+      };
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      updateHeader();
+    }
+  }
+
   // PDP add-to-cart form: intercept, add via AJAX, open drawer
   document.addEventListener('submit', function (e) {
     var form = e.target.closest('form[data-fz-atc-form]');

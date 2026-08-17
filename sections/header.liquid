@@ -17,24 +17,19 @@
           <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
         {%- endfor -%}
       {%- else -%}
-        <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}">Shop</a>
-        <a href="{{ section.settings.collections_link | default: routes.collections_url }}">Collections</a>
-        <a href="{{ section.settings.about_link | default: '/pages/about' }}">About</a>
-        <a href="{{ section.settings.journal_link | default: routes.blogs_url }}">Journal</a>
+        <a href="{{ routes.all_products_collection_url }}">Shop all</a>
+        <a href="{{ routes.collections_url }}/skincare">Skincare</a>
+        <a href="{{ routes.collections_url }}/haircare">Haircare</a>
+        <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
       {%- endif -%}
     </nav>
 
-    <a href="{{ routes.root_url }}" class="fz-logo" aria-label="{{ shop.name }} — home">
-      {% render 'logo-lockup' %}
+    <a href="{{ routes.root_url }}" class="fz-header__logo" aria-label="{{ shop.name }} — home">
+      {% render 'logo-lockup', header: true %}
     </a>
 
     <div class="fz-header__right">
-      <a href="{{ routes.search_url }}" class="fz-header__icon-link" aria-label="Search">
-        <span class="fz-header__icon-label">Search</span>
-      </a>
-      <a href="{{ routes.account_url }}" class="fz-header__icon-link" aria-label="Account">
-        <span class="fz-header__icon-label">Account</span>
-      </a>
+      <span class="fz-header__hashtag">{{ section.settings.hashtag }}</span>
       <button type="button" class="fz-cart-toggle" data-cart-open aria-haspopup="dialog">
         Cart · <span data-cart-count>{{ cart.item_count }}</span>
       </button>
@@ -47,10 +42,10 @@
         <a href="{{ link.url }}">{{ link.title }}</a>
       {%- endfor -%}
     {%- else -%}
-      <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}">Shop</a>
-      <a href="{{ section.settings.collections_link | default: routes.collections_url }}">Collections</a>
-      <a href="{{ section.settings.about_link | default: '/pages/about' }}">About</a>
-      <a href="{{ section.settings.journal_link | default: routes.blogs_url }}">Journal</a>
+      <a href="{{ routes.all_products_collection_url }}">Shop all</a>
+      <a href="{{ routes.collections_url }}/skincare">Skincare</a>
+      <a href="{{ routes.collections_url }}/haircare">Haircare</a>
+      <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
     {%- endif -%}
     <a href="{{ routes.search_url }}">Search</a>
     <a href="{{ routes.account_url }}">Account</a>
@@ -65,28 +60,13 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu",
-      "info": "Leave empty to use the default Shop / Collections / About / Journal links."
+      "info": "Leave empty to use the default Shop all / Skincare / Haircare / Sun care links."
     },
     {
-      "type": "url",
-      "id": "shop_link",
-      "label": "Shop link",
-      "info": "Used when no menu is set."
-    },
-    {
-      "type": "url",
-      "id": "collections_link",
-      "label": "Collections link"
-    },
-    {
-      "type": "url",
-      "id": "about_link",
-      "label": "About link"
-    },
-    {
-      "type": "url",
-      "id": "journal_link",
-      "label": "Journal link"
+      "type": "text",
+      "id": "hashtag",
+      "label": "Hashtag",
+      "default": "#NeverCompare"
     }
   ]
 }

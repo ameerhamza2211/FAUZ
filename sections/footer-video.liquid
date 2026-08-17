@@ -18,8 +18,8 @@
         muted
         loop
         playsinline
-        preload="none"
-        poster="{% if section.settings.poster != blank %}{{ section.settings.poster | image_url: width: 1600 }}{% endif %}"
+        preload="metadata"
+        {% if section.settings.poster != blank %}poster="{{ section.settings.poster | image_url: width: 1600 }}"{% endif %}
       >
         <source src="{{ section.settings.video_url }}" type="video/mp4">
       </video>
@@ -43,7 +43,6 @@
       <a
         class="fz-btn fz-btn--primary fz-btn--editorial fz-footer-video__cta"
         href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
-        data-cursor="cta"
       >{{ section.settings.button_label }}</a>
     {%- endif -%}
   </div>
@@ -92,6 +91,7 @@
       "type": "text",
       "id": "video_url",
       "label": "External MP4 URL",
+      "default": "https://cdn.shopify.com/videos/c/o/v/4ceb9c01a1fc491faa779e420ecc9236.mp4",
       "info": "Fallback if no Shopify video is uploaded."
     },
     {

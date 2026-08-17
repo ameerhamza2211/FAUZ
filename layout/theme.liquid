@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#FAFBFA">
+    <meta name="theme-color" content="#C1DBD8">
 
     <title>
       {{- page_title -}}
@@ -49,13 +49,6 @@
 
   <body class="{% if template.name == 'index' %}fz-home{% endif %}">
     <a class="fz-skip-link" href="#MainContent">Skip to content</a>
-
-    {%- if template.name == 'index' -%}
-      <div class="fz-cursor" id="FzCursor" aria-hidden="true">
-        <span class="fz-cursor__ring"></span>
-        <span class="fz-cursor__label"></span>
-      </div>
-    {%- endif -%}
 
     {% sections 'header-group' %}
 

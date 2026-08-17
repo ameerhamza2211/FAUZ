@@ -2,133 +2,40 @@
   <div class="fz-showcase__pin">
     <div class="fz-showcase__intro">
       <p class="fz-eyebrow">{{ section.settings.eyebrow }}</p>
-      <h2 class="fz-showcase__heading">{{ section.settings.heading }}</h2>
-      <p class="fz-showcase__note">{{ section.settings.note }}</p>
+      <div class="fz-showcase__intro-row">
+        <h2 class="fz-showcase__heading">{{ section.settings.heading }}</h2>
+        <p class="fz-showcase__note">{{ section.settings.note }}</p>
+      </div>
+      <div class="fz-showcase__counter" data-showcase-counter aria-hidden="true">
+        <span data-showcase-current>01</span>
+        <span class="fz-showcase__counter-sep">/</span>
+        <span data-showcase-total>01</span>
+      </div>
     </div>
 
-    <div class="fz-showcase__viewport">
+    <div class="fz-showcase__stage">
       <div class="fz-showcase__track" data-showcase-track>
         {%- liquid
           assign limit = section.settings.products_to_show
-          assign product_count = 0
-
-          if section.blocks.size > 0
-            for block in section.blocks
-              if block.settings.product != blank
-                assign product_count = product_count | plus: 1
-              endif
-            endfor
-          elsif section.settings.collection != blank
-            assign product_count = section.settings.collection.products_count
-          else
-            assign product_count = collections.all.products_count
-          endif
+          assign slide_index = 0
         -%}
 
         {%- if section.blocks.size > 0 -%}
           {%- for block in section.blocks limit: limit -%}
-            {%- assign product = block.settings.product -%}
-            {%- if product != blank -%}
-              <article class="fz-showcase__card" data-showcase-card data-cursor="view" {{ block.shopify_attributes }}>
-                <a class="fz-showcase__card-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a>
-                <div class="fz-showcase__card-media">
-                  {%- if product.featured_image -%}
-                    {{ product.featured_image
-                      | image_url: width: 1000
-                      | image_tag: class: 'fz-showcase__card-img', widths: '500, 700, 1000', loading: 'lazy', alt: product.title }}
-                  {%- else -%}
-                    {{ 'product-1' | placeholder_svg_tag: 'fz-showcase__card-img' }}
-                  {%- endif -%}
-                </div>
-                <div class="fz-showcase__card-body">
-                  <h3 class="fz-showcase__card-title">{{ product.title }}</h3>
-                  {%- if product.description != blank -%}
-                    <p class="fz-showcase__card-desc">{{ product.description | strip_html | truncate: 120 }}</p>
-                  {%- endif -%}
-                  <div class="fz-showcase__card-foot">
-                    <span class="fz-showcase__card-price">{{ product.price | money }}</span>
-                    {%- if product.available -%}
-                      <button
-                        type="button"
-                        class="fz-btn fz-btn--primary fz-btn--editorial fz-showcase__card-atc"
-                        data-quick-add="{{ product.selected_or_first_available_variant.id }}"
-                        data-cursor="cta"
-                      >Add to cart</button>
-                    {%- else -%}
-                      <span class="fz-showcase__card-sold">Sold out</span>
-                    {%- endif -%}
-                  </div>
-                </div>
-              </article>
+            {%- if block.settings.product != blank -%}
+              {% render 'showcase-product', card_product: block.settings.product, index: slide_index, block: block %}
+              {%- assign slide_index = slide_index | plus: 1 -%}
             {%- endif -%}
           {%- endfor -%}
         {%- elsif section.settings.collection != blank -%}
           {%- for product in section.settings.collection.products limit: limit -%}
-            <article class="fz-showcase__card" data-showcase-card data-cursor="view">
-              <a class="fz-showcase__card-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a>
-              <div class="fz-showcase__card-media">
-                {%- if product.featured_image -%}
-                  {{ product.featured_image
-                    | image_url: width: 1000
-                    | image_tag: class: 'fz-showcase__card-img', widths: '500, 700, 1000', loading: 'lazy', alt: product.title }}
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'fz-showcase__card-img' }}
-                {%- endif -%}
-              </div>
-              <div class="fz-showcase__card-body">
-                <h3 class="fz-showcase__card-title">{{ product.title }}</h3>
-                {%- if product.description != blank -%}
-                  <p class="fz-showcase__card-desc">{{ product.description | strip_html | truncate: 120 }}</p>
-                {%- endif -%}
-                <div class="fz-showcase__card-foot">
-                  <span class="fz-showcase__card-price">{{ product.price | money }}</span>
-                  {%- if product.available -%}
-                    <button
-                      type="button"
-                      class="fz-btn fz-btn--primary fz-btn--editorial fz-showcase__card-atc"
-                      data-quick-add="{{ product.selected_or_first_available_variant.id }}"
-                      data-cursor="cta"
-                    >Add to cart</button>
-                  {%- else -%}
-                    <span class="fz-showcase__card-sold">Sold out</span>
-                  {%- endif -%}
-                </div>
-              </div>
-            </article>
+            {% render 'showcase-product', card_product: product, index: slide_index %}
+            {%- assign slide_index = slide_index | plus: 1 -%}
           {%- endfor -%}
         {%- else -%}
           {%- for product in collections.all.products limit: limit -%}
-            <article class="fz-showcase__card" data-showcase-card data-cursor="view">
-              <a class="fz-showcase__card-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a>
-              <div class="fz-showcase__card-media">
-                {%- if product.featured_image -%}
-                  {{ product.featured_image
-                    | image_url: width: 1000
-                    | image_tag: class: 'fz-showcase__card-img', widths: '500, 700, 1000', loading: 'lazy', alt: product.title }}
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'fz-showcase__card-img' }}
-                {%- endif -%}
-              </div>
-              <div class="fz-showcase__card-body">
-                <h3 class="fz-showcase__card-title">{{ product.title }}</h3>
-                {%- if product.description != blank -%}
-                  <p class="fz-showcase__card-desc">{{ product.description | strip_html | truncate: 120 }}</p>
-                {%- endif -%}
-                <div class="fz-showcase__card-foot">
-                  <span class="fz-showcase__card-price">{{ product.price | money }}</span>
-                  {%- if product.available -%}
-                    <button
-                      type="button"
-                      class="fz-btn fz-btn--primary fz-btn--editorial fz-showcase__card-atc"
-                      data-quick-add="{{ product.selected_or_first_available_variant.id }}"
-                      data-cursor="cta"
-                    >Add to cart</button>
-                  {%- else -%}
-                    <span class="fz-showcase__card-sold">Sold out</span>
-                  {%- endif -%}
-                </div>
-              </div>
-            </article>
+            {% render 'showcase-product', card_product: product, index: slide_index %}
+            {%- assign slide_index = slide_index | plus: 1 -%}
           {%- endfor -%}
         {%- endif -%}
       </div>

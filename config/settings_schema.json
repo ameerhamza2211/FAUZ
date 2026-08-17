@@ -24,7 +24,7 @@
       },
       {
         "type": "paragraph",
-        "content": "Brand palette (ink #111414, mint #C1DBD8, off-white #E8EAE9) is defined as CSS variables in base.css per the 2024 brand guide."
+        "content": "Brand palette: Primary mint #C1DBD8, Secondary teal #548A83, off-white #E8EAE9, black #000000 — defined as CSS variables in base.css."
       }
     ]
   }

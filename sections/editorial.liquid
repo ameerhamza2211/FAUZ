@@ -11,7 +11,6 @@
     <article
       class="fz-editorial__block{{ layout_class }}"
       data-editorial-block
-      data-cursor="explore"
       {{ block.shopify_attributes }}
     >
       <div class="fz-editorial__media-wrap" data-editorial-media>
@@ -38,7 +37,6 @@
           <a
             class="fz-btn fz-btn--outline fz-btn--editorial"
             href="{{ block.settings.button_link | default: routes.all_products_collection_url }}"
-            data-cursor="cta"
           >{{ block.settings.button_label }}</a>
         {%- endif -%}
       </div>

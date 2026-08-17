@@ -13,12 +13,28 @@
   "sections": {
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "heading": "Join the ritual",
+        "text": "Exclusive deals and early access to new products. No noise.",
+        "success_text": "Welcome to FAUZ — you're on the list."
+      }
     },
     "footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "blurb": "Modern, simple, premium care for skin and hair. Formulated with intention — never compared.",
+        "shop_heading": "Shop",
+        "shop_menu": "",
+        "help_heading": "Help",
+        "help_menu": "",
+        "legal_name": "Fauz Cosmetics",
+        "hashtag": "#NeverCompare"
+      }
     }
   },
-  "order": ["newsletter", "footer"]
+  "order": [
+    "newsletter",
+    "footer"
+  ]
 }

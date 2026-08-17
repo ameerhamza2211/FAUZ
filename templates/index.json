@@ -17,19 +17,51 @@
         "heading_emphasis": "like you.",
         "text": "Clinically considered formulas for modern skin — clean, effective, and designed for daily ritual.",
         "button_label": "Shop the collection",
+        "button_link": "",
         "image": "shopify://shop_images/WhatsApp_Image_2026-08-13_at_7.03.29_PM.jpg"
       }
     },
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "m1": { "type": "item", "settings": { "text": "Clinically tested" } },
-        "m2": { "type": "item", "settings": { "text": "Clean formulas" } },
-        "m3": { "type": "item", "settings": { "text": "Vegan" } },
-        "m4": { "type": "item", "settings": { "text": "Cruelty free" } },
-        "m5": { "type": "item", "settings": { "text": "Made for modern skin" } }
+        "m1": {
+          "type": "item",
+          "settings": {
+            "text": "Clinically tested"
+          }
+        },
+        "m2": {
+          "type": "item",
+          "settings": {
+            "text": "Clean formulas"
+          }
+        },
+        "m3": {
+          "type": "item",
+          "settings": {
+            "text": "Vegan"
+          }
+        },
+        "m4": {
+          "type": "item",
+          "settings": {
+            "text": "Cruelty free"
+          }
+        },
+        "m5": {
+          "type": "item",
+          "settings": {
+            "text": "Made for modern skin"
+          }
+        }
       },
-      "block_order": ["m1", "m2", "m3", "m4", "m5"],
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ],
       "settings": {}
     },
     "showcase": {
@@ -60,11 +92,17 @@
           }
         }
       },
-      "block_order": ["p_serum", "p_cleanser", "p_sunscreen", "p_shampoo"],
+      "block_order": [
+        "p_serum",
+        "p_cleanser",
+        "p_sunscreen",
+        "p_shampoo"
+      ],
       "settings": {
         "eyebrow": "The edit",
         "heading": "Formulas worth the ritual",
         "note": "Scroll to explore",
+        "collection": "",
         "products_to_show": 4
       }
     },
@@ -75,7 +113,8 @@
           "type": "ingredient",
           "settings": {
             "name": "Niacinamide",
-            "description": "Helps refine texture, support the barrier, and even tone without irritation."
+            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
+            "image": "shopify://shop_images/fauz-brand-film-v5-poster.jpg"
           }
         },
         "i2": {
@@ -89,11 +128,16 @@
           "type": "ingredient",
           "settings": {
             "name": "Ceramides",
-            "description": "Reinforce the skin barrier so your routine protects as much as it perfects."
+            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
+            "image": "shopify://shop_images/fauz-brand-film-poster.jpg"
           }
         }
       },
-      "block_order": ["i1", "i2", "i3"],
+      "block_order": [
+        "i1",
+        "i2",
+        "i3"
+      ],
       "settings": {
         "eyebrow": "Inside the formula",
         "heading": "Actives with intention",
@@ -110,7 +154,8 @@
             "eyebrow": "The philosophy",
             "heading": "Skincare, simplified.",
             "text": "Fewer steps. Better results. A routine you will actually keep — morning to night.",
-            "button_label": "Discover the ritual"
+            "button_label": "Discover the ritual",
+            "button_link": ""
           }
         },
         "e2": {
@@ -120,11 +165,16 @@
             "eyebrow": "The promise",
             "heading": "Never compare.",
             "text": "Your skin is unique. Our formulas respect that — paraben-free, cruelty-free, made for real life.",
-            "button_label": "Shop all"
+            "button_label": "Shop all",
+            "button_link": "",
+            "image": "shopify://shop_images/image.png"
           }
         }
       },
-      "block_order": ["e1", "e2"],
+      "block_order": [
+        "e1",
+        "e2"
+      ],
       "settings": {}
     },
     "footer_video": {
@@ -133,7 +183,9 @@
         "eyebrow": "The ritual",
         "heading": "Your skin. Your ritual.",
         "text": "Begin with intention. Stay with consistency.",
-        "button_label": "Start your routine"
+        "button_label": "Start your routine",
+        "button_link": "",
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/4ceb9c01a1fc491faa779e420ecc9236.mp4"
       }
     }
   },

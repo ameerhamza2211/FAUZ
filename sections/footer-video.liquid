@@ -1,0 +1,105 @@
+<section class="fz-footer-video" data-footer-video>
+  <div class="fz-footer-video__media">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video
+        | video_tag:
+          class: 'fz-footer-video__video',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true,
+          preload: 'none',
+          image_size: '1600x' }}
+    {%- elsif section.settings.video_url != blank -%}
+      <video
+        class="fz-footer-video__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster="{% if section.settings.poster != blank %}{{ section.settings.poster | image_url: width: 1600 }}{% endif %}"
+      >
+        <source src="{{ section.settings.video_url }}" type="video/mp4">
+      </video>
+    {%- elsif section.settings.poster != blank -%}
+      {{ section.settings.poster
+        | image_url: width: 1600
+        | image_tag: class: 'fz-footer-video__poster', widths: '800, 1200, 1600', loading: 'lazy', alt: section.settings.heading }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'fz-footer-video__poster' }}
+    {%- endif -%}
+    <div class="fz-footer-video__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="fz-footer-video__content" data-footer-video-content>
+    <p class="fz-eyebrow fz-footer-video__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="fz-footer-video__heading">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}
+      <p class="fz-footer-video__text">{{ section.settings.text }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a
+        class="fz-btn fz-btn--primary fz-btn--editorial fz-footer-video__cta"
+        href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+        data-cursor="cta"
+      >{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Footer video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The ritual"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your skin. Your ritual."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Supporting text",
+      "default": "Begin with intention. Stay with consistency."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Start your routine"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Shopify-hosted video",
+      "info": "Preferred. Autoplays muted and loops."
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "External MP4 URL",
+      "info": "Fallback if no Shopify video is uploaded."
+    },
+    {
+      "type": "image_picker",
+      "id": "poster",
+      "label": "Poster / fallback image"
+    }
+  ],
+  "presets": [{ "name": "Footer video" }]
+}
+{% endschema %}

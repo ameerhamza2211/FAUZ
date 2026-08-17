@@ -1,0 +1,133 @@
+<section class="fz-editorial" data-editorial>
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign layout = block.settings.layout
+      if layout == 'image_right'
+        assign layout_class = ' fz-editorial__block--reverse'
+      else
+        assign layout_class = ''
+      endif
+    -%}
+    <article
+      class="fz-editorial__block{{ layout_class }}"
+      data-editorial-block
+      data-cursor="explore"
+      {{ block.shopify_attributes }}
+    >
+      <div class="fz-editorial__media-wrap" data-editorial-media>
+        <div class="fz-editorial__media-inner" data-editorial-scale>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image
+              | image_url: width: 1600
+              | image_tag: class: 'fz-editorial__img', widths: '800, 1200, 1600', loading: 'lazy', alt: block.settings.heading }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'fz-editorial__img' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="fz-editorial__copy" data-editorial-copy>
+        {%- if block.settings.eyebrow != blank -%}
+          <p class="fz-eyebrow">{{ block.settings.eyebrow }}</p>
+        {%- endif -%}
+        <h2 class="fz-editorial__heading">{{ block.settings.heading }}</h2>
+        {%- if block.settings.text != blank -%}
+          <p class="fz-editorial__text">{{ block.settings.text }}</p>
+        {%- endif -%}
+        {%- if block.settings.button_label != blank -%}
+          <a
+            class="fz-btn fz-btn--outline fz-btn--editorial"
+            href="{{ block.settings.button_link | default: routes.all_products_collection_url }}"
+            data-cursor="cta"
+          >{{ block.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+    </article>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Editorial",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story block",
+      "settings": [
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+            { "value": "image_left", "label": "Image left" },
+            { "value": "image_right", "label": "Image right" }
+          ],
+          "default": "image_left"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Skincare, simplified."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Body text",
+          "default": "Fewer steps. Better results. A routine you will actually keep."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Discover the ritual"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Editorial",
+      "blocks": [
+        {
+          "type": "story",
+          "settings": {
+            "eyebrow": "The philosophy",
+            "heading": "Skincare, simplified.",
+            "text": "Fewer steps. Better results. A routine you will actually keep — morning to night.",
+            "button_label": "Discover the ritual",
+            "layout": "image_left"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "eyebrow": "The promise",
+            "heading": "Never compare.",
+            "text": "Your skin is unique. Our formulas respect that — paraben-free, cruelty-free, made for real life.",
+            "button_label": "Shop all",
+            "layout": "image_right"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

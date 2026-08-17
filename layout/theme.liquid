@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#C1DBD8">
+    <meta name="theme-color" content="#FAFBFA">
 
     <title>
       {{- page_title -}}
@@ -23,22 +23,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Allura&display=swap" rel="stylesheet">
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'fauz.js' | asset_url }}" defer="defer"></script>
+
+    {%- if template.name == 'index' -%}
+      {{ 'home.css' | asset_url | stylesheet_tag }}
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+      <script src="{{ 'home.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
+    <script src="{{ 'fauz.js' | asset_url }}" defer></script>
 
     <script>
       window.FAUZ = {
         moneyFormat: {{ shop.money_format | json }},
         cartUrl: {{ routes.cart_url | json }},
         cartAddUrl: {{ routes.cart_add_url | json }},
-        cartChangeUrl: {{ routes.cart_change_url | json }}
+        cartChangeUrl: {{ routes.cart_change_url | json }},
+        isHome: {{ template.name == 'index' | json }}
       };
     </script>
 
     {{ content_for_header }}
   </head>
 
-  <body>
+  <body class="{% if template.name == 'index' %}fz-home{% endif %}">
     <a class="fz-skip-link" href="#MainContent">Skip to content</a>
+
+    {%- if template.name == 'index' -%}
+      <div class="fz-cursor" id="FzCursor" aria-hidden="true">
+        <span class="fz-cursor__ring"></span>
+        <span class="fz-cursor__label"></span>
+      </div>
+    {%- endif -%}
 
     {% sections 'header-group' %}
 

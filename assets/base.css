@@ -4,6 +4,7 @@
    ============================================================ */
 
 :root {
+  --fz-radius: 20px;
   --fz-ink: #111414;
   --fz-mint: #C1DBD8;
   --fz-offwhite: #E8EAE9;
@@ -210,6 +211,16 @@ img { max-width: 100%; }
   text-transform: uppercase;
   color: var(--fz-muted-grey);
 }
+
+.fz-header__icon-link {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fz-ink);
+  padding: 10px 0;
+  white-space: nowrap;
+}
+.fz-header__icon-link:hover { color: var(--fz-accent); }
 
 .fz-cart-toggle {
   background: none;
@@ -1463,6 +1474,7 @@ textarea.fz-input { border-radius: 16px; min-height: 140px; resize: vertical; }
   .fz-header__nav { display: none; }
   .fz-menu-toggle { display: flex; }
   .fz-header__hashtag { display: none; }
+  .fz-header__icon-label { display: none; }
 
   .fz-container { padding-left: 20px; padding-right: 20px; }
 

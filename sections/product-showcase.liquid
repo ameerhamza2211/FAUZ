@@ -1,0 +1,189 @@
+<section class="fz-showcase" data-showcase id="products">
+  <div class="fz-showcase__pin">
+    <div class="fz-showcase__intro">
+      <p class="fz-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="fz-showcase__heading">{{ section.settings.heading }}</h2>
+      <p class="fz-showcase__note">{{ section.settings.note }}</p>
+    </div>
+
+    <div class="fz-showcase__viewport">
+      <div class="fz-showcase__track" data-showcase-track>
+        {%- liquid
+          assign limit = section.settings.products_to_show
+          assign product_count = 0
+
+          if section.blocks.size > 0
+            for block in section.blocks
+              if block.settings.product != blank
+                assign product_count = product_count | plus: 1
+              endif
+            endfor
+          elsif section.settings.collection != blank
+            assign product_count = section.settings.collection.products_count
+          else
+            assign product_count = collections.all.products_count
+          endif
+        -%}
+
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks limit: limit -%}
+            {%- assign product = block.settings.product -%}
+            {%- if product != blank -%}
+              <article class="fz-showcase__card" data-showcase-card data-cursor="view" {{ block.shopify_attributes }}>
+                <a class="fz-showcase__card-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a>
+                <div class="fz-showcase__card-media">
+                  {%- if product.featured_image -%}
+                    {{ product.featured_image
+                      | image_url: width: 1000
+                      | image_tag: class: 'fz-showcase__card-img', widths: '500, 700, 1000', loading: 'lazy', alt: product.title }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'fz-showcase__card-img' }}
+                  {%- endif -%}
+                </div>
+                <div class="fz-showcase__card-body">
+                  <h3 class="fz-showcase__card-title">{{ product.title }}</h3>
+                  {%- if product.description != blank -%}
+                    <p class="fz-showcase__card-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+                  {%- endif -%}
+                  <div class="fz-showcase__card-foot">
+                    <span class="fz-showcase__card-price">{{ product.price | money }}</span>
+                    {%- if product.available -%}
+                      <button
+                        type="button"
+                        class="fz-btn fz-btn--primary fz-btn--editorial fz-showcase__card-atc"
+                        data-quick-add="{{ product.selected_or_first_available_variant.id }}"
+                        data-cursor="cta"
+                      >Add to cart</button>
+                    {%- else -%}
+                      <span class="fz-showcase__card-sold">Sold out</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- elsif section.settings.collection != blank -%}
+          {%- for product in section.settings.collection.products limit: limit -%}
+            <article class="fz-showcase__card" data-showcase-card data-cursor="view">
+              <a class="fz-showcase__card-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a>
+              <div class="fz-showcase__card-media">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image
+                    | image_url: width: 1000
+                    | image_tag: class: 'fz-showcase__card-img', widths: '500, 700, 1000', loading: 'lazy', alt: product.title }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'fz-showcase__card-img' }}
+                {%- endif -%}
+              </div>
+              <div class="fz-showcase__card-body">
+                <h3 class="fz-showcase__card-title">{{ product.title }}</h3>
+                {%- if product.description != blank -%}
+                  <p class="fz-showcase__card-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+                {%- endif -%}
+                <div class="fz-showcase__card-foot">
+                  <span class="fz-showcase__card-price">{{ product.price | money }}</span>
+                  {%- if product.available -%}
+                    <button
+                      type="button"
+                      class="fz-btn fz-btn--primary fz-btn--editorial fz-showcase__card-atc"
+                      data-quick-add="{{ product.selected_or_first_available_variant.id }}"
+                      data-cursor="cta"
+                    >Add to cart</button>
+                  {%- else -%}
+                    <span class="fz-showcase__card-sold">Sold out</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for product in collections.all.products limit: limit -%}
+            <article class="fz-showcase__card" data-showcase-card data-cursor="view">
+              <a class="fz-showcase__card-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a>
+              <div class="fz-showcase__card-media">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image
+                    | image_url: width: 1000
+                    | image_tag: class: 'fz-showcase__card-img', widths: '500, 700, 1000', loading: 'lazy', alt: product.title }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'fz-showcase__card-img' }}
+                {%- endif -%}
+              </div>
+              <div class="fz-showcase__card-body">
+                <h3 class="fz-showcase__card-title">{{ product.title }}</h3>
+                {%- if product.description != blank -%}
+                  <p class="fz-showcase__card-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+                {%- endif -%}
+                <div class="fz-showcase__card-foot">
+                  <span class="fz-showcase__card-price">{{ product.price | money }}</span>
+                  {%- if product.available -%}
+                    <button
+                      type="button"
+                      class="fz-btn fz-btn--primary fz-btn--editorial fz-showcase__card-atc"
+                      data-quick-add="{{ product.selected_or_first_available_variant.id }}"
+                      data-cursor="cta"
+                    >Add to cart</button>
+                  {%- else -%}
+                    <span class="fz-showcase__card-sold">Sold out</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The edit"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Formulas worth the ritual"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Supporting note",
+      "default": "Scroll to explore"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Used when no product blocks are added."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Product showcase" }]
+}
+{% endschema %}

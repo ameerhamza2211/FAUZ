@@ -1,21 +1,58 @@
-<div class="fz-marquee" aria-hidden="true">
-  <div class="fz-marquee__track">
-    <span class="fz-marquee__text">{{ section.settings.text }}&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-    <span class="fz-marquee__text">{{ section.settings.text }}&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+<div class="fz-marquee-premium" data-marquee aria-hidden="true">
+  <div class="fz-marquee-premium__track" data-marquee-track>
+    {%- for i in (1..4) -%}
+      <div class="fz-marquee-premium__group">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <span class="fz-marquee-premium__item">{{ block.settings.text }}</span>
+            <span class="fz-marquee-premium__dot">•</span>
+          {%- endfor -%}
+        {%- else -%}
+          <span class="fz-marquee-premium__item">Clinically tested</span>
+          <span class="fz-marquee-premium__dot">•</span>
+          <span class="fz-marquee-premium__item">Clean formulas</span>
+          <span class="fz-marquee-premium__dot">•</span>
+          <span class="fz-marquee-premium__item">Vegan</span>
+          <span class="fz-marquee-premium__dot">•</span>
+          <span class="fz-marquee-premium__item">Cruelty free</span>
+          <span class="fz-marquee-premium__dot">•</span>
+          <span class="fz-marquee-premium__item">Made for modern skin</span>
+          <span class="fz-marquee-premium__dot">•</span>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
   </div>
 </div>
 
 {% schema %}
 {
   "name": "Marquee",
-  "settings": [
+  "settings": [],
+  "blocks": [
     {
-      "type": "text",
-      "id": "text",
-      "label": "Text",
-      "default": "You are unique  ·  #NeverCompare  ·  Paraben-free  ·  Cruelty-free  ·  Modern. Simple. Premium."
+      "type": "item",
+      "name": "Marquee item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Clinically tested"
+        }
+      ]
     }
   ],
-  "presets": [{ "name": "Marquee" }]
+  "presets": [
+    {
+      "name": "Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Clinically tested" } },
+        { "type": "item", "settings": { "text": "Clean formulas" } },
+        { "type": "item", "settings": { "text": "Vegan" } },
+        { "type": "item", "settings": { "text": "Cruelty free" } },
+        { "type": "item", "settings": { "text": "Made for modern skin" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

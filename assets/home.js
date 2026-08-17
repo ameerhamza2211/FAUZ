@@ -220,6 +220,8 @@
         start: 'top top',
         end: function () { return '+=' + getTotalScroll(); },
         pin: '.fz-showcase__pin',
+        pinSpacing: true,
+        anticipatePin: 1,
         scrub: 0.6,
         invalidateOnRefresh: true,
         snap: slides.length > 1 ? {

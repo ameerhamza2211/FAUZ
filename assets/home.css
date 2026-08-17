@@ -254,22 +254,25 @@ html.lenis body {
 .fz-showcase {
   position: relative;
   background: var(--fz-bg);
-  overflow: hidden;
 }
 
 .fz-showcase__pin {
-  min-height: 100vh;
-  padding: 88px 0 72px;
+  min-height: 100svh;
+  height: 100svh;
+  max-height: 100svh;
+  padding: clamp(48px, 7vh, 88px) 0 clamp(28px, 4vh, 72px);
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .fz-showcase__intro {
   max-width: 1320px;
   width: 100%;
-  margin: 0 auto 40px;
+  margin: 0 auto clamp(16px, 2.5vh, 40px);
   padding: 0 40px;
   position: relative;
+  flex-shrink: 0;
 }
 
 .fz-showcase__intro-row {
@@ -315,24 +318,30 @@ html.lenis body {
 }
 
 .fz-showcase__stage {
-  flex: 1;
-  overflow: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .fz-showcase__track {
   display: flex;
-  height: 100%;
+  align-items: stretch;
+  min-height: 100%;
+  height: auto;
   will-change: transform;
 }
 
 .fz-showcase__slide {
   width: 100vw;
   flex-shrink: 0;
-  padding: 0 40px;
+  padding: 0 40px 20px;
   box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  align-self: stretch;
 }
 
 .fz-showcase__slide-inner {
@@ -341,8 +350,8 @@ html.lenis body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: center;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: start;
 }
 
 .fz-showcase__media {
@@ -350,9 +359,10 @@ html.lenis body {
   overflow: hidden;
   background: var(--fz-offwhite);
   aspect-ratio: 4 / 5;
-  max-height: min(68vh, 640px);
-  margin: 0 auto;
   width: 100%;
+  max-height: min(calc(100svh - 17rem), 560px);
+  height: auto;
+  margin: 0 auto;
 }
 
 .fz-showcase__media--mint {
@@ -381,8 +391,9 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 12px 0;
+  padding: 8px 0 4px;
   max-width: 420px;
+  min-width: 0;
 }
 
 .fz-showcase__index {
@@ -464,6 +475,36 @@ html.lenis body {
 .fz-showcase__view:hover {
   color: var(--fz-accent);
   border-color: var(--fz-accent);
+}
+
+/* Short viewports: keep the full slide visible without clipping */
+@media (max-height: 860px) {
+  .fz-showcase__pin {
+    padding-top: 40px;
+    padding-bottom: 24px;
+  }
+
+  .fz-showcase__intro {
+    margin-bottom: 12px;
+  }
+
+  .fz-showcase__heading {
+    font-size: clamp(28px, 4vw, 44px);
+  }
+
+  .fz-showcase__media {
+    max-height: min(calc(100svh - 15rem), 420px);
+  }
+
+  .fz-showcase__title {
+    font-size: clamp(24px, 2.8vw, 34px);
+  }
+
+  .fz-showcase__desc {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
 }
 
 /* ---------- Ingredient story ---------- */
@@ -823,12 +864,14 @@ html.lenis body {
 
   .fz-showcase__pin {
     min-height: auto;
+    height: auto;
+    max-height: none;
     padding: 72px 0 48px;
   }
 
   .fz-showcase__stage {
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -854,7 +897,7 @@ html.lenis body {
   }
 
   .fz-showcase__media {
-    max-height: 420px;
+    max-height: min(72vw, 480px);
   }
 
   .fz-showcase__copy {

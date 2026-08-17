@@ -119,21 +119,24 @@
           "type": "ingredient",
           "settings": {
             "name": "Niacinamide",
-            "description": "Helps refine texture, support the barrier, and even tone without irritation."
+            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
           }
         },
         "i2": {
           "type": "ingredient",
           "settings": {
             "name": "Hyaluronic acid",
-            "description": "Draws moisture into the skin for plump, comfortable hydration throughout the day."
+            "description": "Draws moisture into the skin for plump, comfortable hydration throughout the day.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
           }
         },
         "i3": {
           "type": "ingredient",
           "settings": {
             "name": "Ceramides",
-            "description": "Reinforce the skin barrier so your routine protects as much as it perfects."
+            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_4.png"
           }
         }
       },
@@ -151,6 +154,18 @@
     "editorial": {
       "type": "editorial",
       "blocks": {
+        "story_kEgk3Q": {
+          "type": "story",
+          "settings": {
+            "layout": "image_right",
+            "eyebrow": "",
+            "heading": "Skincare, simplified.",
+            "text": "Fewer steps. Better results. A routine you will actually keep.",
+            "button_label": "Discover the ritual",
+            "button_link": "",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
+          }
+        },
         "e1": {
           "type": "story",
           "settings": {
@@ -159,13 +174,16 @@
             "heading": "Skincare, simplified.",
             "text": "Fewer steps. Better results. A routine you will actually keep — morning to night.",
             "button_label": "Discover the ritual",
-            "button_link": ""
+            "button_link": "",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
           }
         }
       },
       "block_order": [
+        "story_kEgk3Q",
         "e1"
       ],
+      "disabled": true,
       "settings": {}
     }
   },

@@ -6,8 +6,8 @@
 :root {
   --fz-radius: 20px;
   --fz-radius-sm: 14px;
-  --fz-header-height: 88px;
-  --fz-header-height-scrolled: 72px;
+  --fz-header-height: 100px;
+  --fz-header-height-scrolled: 84px;
 }
 
 html.lenis,

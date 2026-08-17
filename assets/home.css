@@ -784,22 +784,26 @@ html.lenis body {
   border-radius: 24px;
   width: 100%;
   max-width: min(100%, clamp(360px, 42vw, 560px));
+  aspect-ratio: 1 / 1;
+  position: relative;
+  isolation: isolate;
 }
 
 .fz-editorial__media-inner {
-  border-radius: 24px;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   overflow: hidden;
   will-change: transform;
-  aspect-ratio: 1 / 1;
 }
 
 .fz-editorial__img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+  max-width: none;
   object-fit: cover;
   object-position: center center;
   display: block;
-  transform: scale(1.06);
   will-change: transform;
 }
 

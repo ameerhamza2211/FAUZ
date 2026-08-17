@@ -353,13 +353,27 @@
 
   function initEditorial() {
     document.querySelectorAll('[data-editorial-block]').forEach(function (block) {
-      var img = block.querySelector('[data-editorial-scale]');
+      var mediaInner = block.querySelector('[data-editorial-scale]');
+      var mediaImg = block.querySelector('.fz-editorial__img');
       var copy = block.querySelector('[data-editorial-copy]');
 
-      if (img) {
-        gsap.fromTo(img, { scale: 1.14 }, {
+      if (mediaImg) {
+        gsap.fromTo(mediaImg, { scale: 1.06 }, {
           scale: 1,
           ease: 'none',
+          transformOrigin: 'center center',
+          scrollTrigger: {
+            trigger: block,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      } else if (mediaInner) {
+        gsap.fromTo(mediaInner, { scale: 1.06 }, {
+          scale: 1,
+          ease: 'none',
+          transformOrigin: 'center center',
           scrollTrigger: {
             trigger: block,
             start: 'top bottom',

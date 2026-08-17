@@ -17,8 +17,8 @@
         <div class="fz-editorial__media-inner" data-editorial-scale>
           {%- if block.settings.image != blank -%}
             {{ block.settings.image
-              | image_url: width: 1600
-              | image_tag: class: 'fz-editorial__img', widths: '800, 1200, 1600', loading: 'lazy', alt: block.settings.heading }}
+              | image_url: width: 1200, height: 1200, crop: 'center'
+              | image_tag: class: 'fz-editorial__img', widths: '600, 900, 1200', loading: 'lazy', alt: block.settings.heading }}
           {%- else -%}
             {{ 'lifestyle-1' | placeholder_svg_tag: 'fz-editorial__img' }}
           {%- endif -%}

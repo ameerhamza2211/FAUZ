@@ -629,12 +629,16 @@ html.lenis body {
 
 .fz-ingredients__panels {
   position: relative;
-  min-height: clamp(420px, 52vh, 560px);
+  width: 100%;
+  --fz-ingredient-img: min(clamp(360px, 42vw, 520px), 48svh);
+  min-height: calc(var(--fz-ingredient-img) + 9rem);
 }
 
 .fz-ingredients__panel {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.45s ease, visibility 0.45s ease;
@@ -652,11 +656,16 @@ html.lenis body {
 }
 
 .fz-ingredients__panel-media {
+  width: var(--fz-ingredient-img);
+  max-width: 100%;
+  height: var(--fz-ingredient-img);
+  aspect-ratio: 1 / 1;
   border-radius: 24px;
   overflow: hidden;
   clip-path: inset(6% 6% 6% 6% round 24px);
   transition: clip-path 0.75s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: clip-path;
+  flex-shrink: 0;
 }
 
 .fz-ingredients__panel.is-active .fz-ingredients__panel-media {
@@ -665,8 +674,10 @@ html.lenis body {
 
 .fz-ingredients__panel-img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+  aspect-ratio: unset;
   object-fit: cover;
+  object-position: center center;
   display: block;
   transform: scale(1.06);
   transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
@@ -893,7 +904,13 @@ html.lenis body {
   }
 
   .fz-ingredients__panels {
+    --fz-ingredient-img: min(100%, clamp(280px, 78vw, 420px));
     min-height: auto;
+  }
+
+  .fz-ingredients__panel-media {
+    width: var(--fz-ingredient-img);
+    height: var(--fz-ingredient-img);
   }
 
   .fz-ingredients__panel {

@@ -561,22 +561,23 @@ html.lenis body {
 
 .fz-ingredients {
   background: var(--fz-offwhite);
-  padding: 120px 0;
+  padding: clamp(80px, 10vh, 120px) 0;
 }
 
 .fz-ingredients__layout {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 clamp(24px, 4vw, 40px);
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 80px;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(48px, 6vw, 80px);
   align-items: start;
 }
 
 .fz-ingredients__sticky {
   position: sticky;
-  top: calc(var(--fz-header-height) + 32px);
+  top: calc(var(--fz-header-height) + 24px);
+  align-self: start;
 }
 
 .fz-ingredients__heading {
@@ -589,10 +590,10 @@ html.lenis body {
 }
 
 .fz-ingredients__lead {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.75;
   color: var(--fz-body-text-color);
-  margin: 0 0 36px;
+  margin: 0 0 32px;
   font-weight: 300;
   max-width: 36ch;
 }
@@ -600,7 +601,7 @@ html.lenis body {
 .fz-ingredients__names {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .fz-ingredients__name {
@@ -609,11 +610,11 @@ html.lenis body {
   text-align: left;
   cursor: pointer;
   font-family: var(--fz-font-display);
-  font-size: clamp(22px, 3vw, 36px);
+  font-size: clamp(20px, 2.6vw, 34px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fz-muted-grey-2);
-  padding: 10px 0;
+  padding: 8px 0;
   transition: color 0.35s ease, transform 0.35s ease;
 }
 
@@ -623,12 +624,12 @@ html.lenis body {
 }
 
 .fz-ingredients__name.is-active {
-  transform: translateX(8px);
+  transform: translateX(6px);
 }
 
 .fz-ingredients__panels {
   position: relative;
-  min-height: 520px;
+  min-height: clamp(420px, 52vh, 560px);
 }
 
 .fz-ingredients__panel {
@@ -636,24 +637,26 @@ html.lenis body {
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
   display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 24px;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  pointer-events: none;
 }
 
 .fz-ingredients__panel.is-active {
   position: relative;
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .fz-ingredients__panel-media {
   border-radius: 24px;
   overflow: hidden;
-  clip-path: inset(8% 8% 8% 8% round 24px);
-  transition: clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: clip-path, transform;
+  clip-path: inset(6% 6% 6% 6% round 24px);
+  transition: clip-path 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path;
 }
 
 .fz-ingredients__panel.is-active .fz-ingredients__panel-media {
@@ -662,11 +665,11 @@ html.lenis body {
 
 .fz-ingredients__panel-img {
   width: 100%;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
-  transform: scale(1.08);
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1.06);
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .fz-ingredients__panel.is-active .fz-ingredients__panel-img {
@@ -675,7 +678,7 @@ html.lenis body {
 
 .fz-ingredients__panel-title {
   font-family: var(--fz-font-display);
-  font-size: 28px;
+  font-size: clamp(24px, 2.8vw, 30px);
   margin: 0 0 8px;
   font-weight: 400;
   color: var(--fz-heading-color);
@@ -866,11 +869,43 @@ html.lenis body {
 
   .fz-ingredients__layout {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 36px;
   }
 
   .fz-ingredients__sticky {
     position: static;
+    top: auto;
+  }
+
+  .fz-ingredients__names {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+  }
+
+  .fz-ingredients__name {
+    font-size: clamp(16px, 4vw, 22px);
+    padding: 6px 0;
+  }
+
+  .fz-ingredients__name.is-active {
+    transform: none;
+  }
+
+  .fz-ingredients__panels {
+    min-height: auto;
+  }
+
+  .fz-ingredients__panel {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    display: none;
+    pointer-events: auto;
+  }
+
+  .fz-ingredients__panel.is-active {
+    display: grid;
   }
 
   .fz-editorial__block,
@@ -983,25 +1018,6 @@ html.lenis body {
 
   .fz-showcase__copy {
     max-width: none;
-  }
-
-  .fz-ingredients {
-    padding: 80px 0;
-  }
-
-  .fz-ingredients__panels {
-    min-height: auto;
-  }
-
-  .fz-ingredients__panel {
-    position: relative;
-    opacity: 1;
-    visibility: visible;
-    display: none;
-  }
-
-  .fz-ingredients__panel.is-active {
-    display: grid;
   }
 
   .fz-footer-video {

@@ -46,9 +46,26 @@
     initEditorial();
     initFooterVideo();
     initIngredientTabs();
+    initScrollRefresh();
 
     ScrollTrigger.refresh();
   });
+
+  function initScrollRefresh() {
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        ScrollTrigger.refresh(true);
+      }, 250);
+    });
+
+    window.addEventListener('orientationchange', function () {
+      setTimeout(function () {
+        ScrollTrigger.refresh(true);
+      }, 400);
+    });
+  }
 
   /* ---------- Header ---------- */
 
@@ -187,57 +204,72 @@
 
     if (slides.length < 2) return;
 
-    if (window.innerWidth <= 900) {
+    var mm = gsap.matchMedia();
+
+    mm.add('(max-width: 900px)', function () {
       if (counterCurrent) counterCurrent.textContent = '01';
 
       var mobileStage = section.querySelector('.fz-showcase__stage');
-      if (mobileStage) {
-        mobileStage.addEventListener('scroll', function () {
-          var slideWidth = slides[0].offsetWidth || window.innerWidth;
-          var index = Math.round(mobileStage.scrollLeft / slideWidth);
-          index = Math.max(0, Math.min(index, slides.length - 1));
-          if (counterCurrent) {
-            counterCurrent.textContent = String(index + 1).padStart(2, '0');
-          }
-        }, { passive: true });
-      }
-      return;
-    }
+      if (!mobileStage) return;
 
-    function getSlideWidth() {
-      return window.innerWidth;
-    }
-
-    function getTotalScroll() {
-      return getSlideWidth() * (slides.length - 1);
-    }
-
-    gsap.to(track, {
-      x: function () { return -getTotalScroll(); },
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: function () { return '+=' + getTotalScroll(); },
-        pin: '.fz-showcase__pin',
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 0.6,
-        invalidateOnRefresh: true,
-        snap: slides.length > 1 ? {
-          snapTo: function (value) {
-            var step = 1 / (slides.length - 1);
-            return Math.round(value / step) * step;
-          },
-          duration: { min: 0.12, max: 0.28 },
-          ease: 'power1.inOut'
-        } : false,
-        onUpdate: function (self) {
-          if (!counterCurrent || slides.length < 2) return;
-          var index = Math.round(self.progress * (slides.length - 1));
+      var onMobileScroll = function () {
+        var slideWidth = slides[0].offsetWidth || window.innerWidth;
+        var index = Math.round(mobileStage.scrollLeft / slideWidth);
+        index = Math.max(0, Math.min(index, slides.length - 1));
+        if (counterCurrent) {
           counterCurrent.textContent = String(index + 1).padStart(2, '0');
         }
+      };
+
+      mobileStage.addEventListener('scroll', onMobileScroll, { passive: true });
+
+      return function () {
+        mobileStage.removeEventListener('scroll', onMobileScroll);
+      };
+    });
+
+    mm.add('(min-width: 901px)', function () {
+      function getSlideWidth() {
+        return window.innerWidth;
       }
+
+      function getTotalScroll() {
+        return getSlideWidth() * (slides.length - 1);
+      }
+
+      var tween = gsap.to(track, {
+        x: function () { return -getTotalScroll(); },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: function () { return '+=' + getTotalScroll(); },
+          pin: '.fz-showcase__pin',
+          pinSpacing: true,
+          anticipatePin: 1,
+          scrub: 0.55,
+          invalidateOnRefresh: true,
+          snap: slides.length > 1 ? {
+            snapTo: function (value) {
+              var step = 1 / (slides.length - 1);
+              return Math.round(value / step) * step;
+            },
+            duration: { min: 0.12, max: 0.28 },
+            ease: 'power1.inOut'
+          } : false,
+          onUpdate: function (self) {
+            if (!counterCurrent || slides.length < 2) return;
+            var index = Math.round(self.progress * (slides.length - 1));
+            counterCurrent.textContent = String(index + 1).padStart(2, '0');
+          }
+        }
+      });
+
+      return function () {
+        if (tween && tween.scrollTrigger) tween.scrollTrigger.kill();
+        tween.kill();
+        gsap.set(track, { clearProps: 'transform' });
+      };
     });
   }
 
@@ -245,28 +277,36 @@
 
   function initIngredients() {
     var section = document.querySelector('[data-ingredients]');
-    if (!section || window.innerWidth <= 900) return;
+    if (!section) return;
 
     var panels = section.querySelectorAll('[data-ingredient-panel]');
     var triggers = section.querySelectorAll('[data-ingredient-trigger]');
     if (panels.length < 2) return;
 
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: function () { return '+=' + (panels.length * window.innerHeight * 0.6); },
-      pin: '.fz-ingredients__sticky',
-      pinSpacing: true
-    });
+    var mm = gsap.matchMedia();
 
-    panels.forEach(function (panel, i) {
-      ScrollTrigger.create({
+    mm.add('(min-width: 1101px)', function () {
+      function getScrollDistance() {
+        return Math.max(window.innerHeight * 0.52, 420) * (panels.length - 1);
+      }
+
+      var st = ScrollTrigger.create({
         trigger: section,
-        start: function () { return 'top+=' + (i * window.innerHeight * 0.45) + ' top'; },
-        end: function () { return 'top+=' + ((i + 1) * window.innerHeight * 0.45) + ' top'; },
-        onEnter: function () { activateIngredient(i, triggers, panels); },
-        onEnterBack: function () { activateIngredient(i, triggers, panels); }
+        start: 'top top',
+        end: function () { return '+=' + getScrollDistance(); },
+        pin: '.fz-ingredients__sticky',
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) {
+          var index = Math.round(self.progress * (panels.length - 1));
+          activateIngredient(index, triggers, panels);
+        }
       });
+
+      return function () {
+        st.kill();
+      };
     });
   }
 

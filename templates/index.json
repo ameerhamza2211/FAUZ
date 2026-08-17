@@ -154,18 +154,6 @@
     "editorial": {
       "type": "editorial",
       "blocks": {
-        "story_kEgk3Q": {
-          "type": "story",
-          "settings": {
-            "layout": "image_right",
-            "eyebrow": "",
-            "heading": "Skincare, simplified.",
-            "text": "Fewer steps. Better results. A routine you will actually keep.",
-            "button_label": "Discover the ritual",
-            "button_link": "",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
-          }
-        },
         "e1": {
           "type": "story",
           "settings": {
@@ -177,11 +165,23 @@
             "button_link": "",
             "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
           }
+        },
+        "story_kEgk3Q": {
+          "type": "story",
+          "settings": {
+            "layout": "image_right",
+            "eyebrow": "",
+            "heading": "Skincare, simplified.",
+            "text": "Fewer steps. Better results. A routine you will actually keep.",
+            "button_label": "Discover the ritual",
+            "button_link": "",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
+          }
         }
       },
       "block_order": [
-        "story_kEgk3Q",
-        "e1"
+        "e1",
+        "story_kEgk3Q"
       ],
       "settings": {}
     }

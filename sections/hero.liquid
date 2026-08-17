@@ -14,6 +14,21 @@
   endif
 
   assign hero_alt = section.settings.image.alt | default: shop.name
+
+  assign grad_enabled = section.settings.gradient_overlay_enable
+  assign grad_style = section.settings.gradient_style | default: 'bottom_fade'
+  assign grad_c1 = section.settings.gradient_color_1 | default: '#E8EAE9'
+  assign grad_c2 = section.settings.gradient_color_2 | default: '#C1DBD8'
+  assign grad_opacity = section.settings.gradient_opacity | default: 85 | times: 1.0 | divided_by: 100
+
+  assign grad_c1_soft = grad_c1 | color_modify: 'alpha', 0.94
+  assign grad_c1_mid = grad_c1 | color_modify: 'alpha', 0.62
+  assign grad_c1_light = grad_c1 | color_modify: 'alpha', 0.14
+  assign grad_c1_clear = grad_c1 | color_modify: 'alpha', 0
+  assign grad_c1_side = grad_c1 | color_modify: 'alpha', 0.55
+  assign grad_c2_glow = grad_c2 | color_modify: 'alpha', 0.55
+  assign grad_c2_soft = grad_c2 | color_modify: 'alpha', 0.35
+  assign grad_c1_floor = grad_c1 | color_modify: 'alpha', 0.95
 -%}
 
 {% style %}
@@ -23,7 +38,7 @@
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-    background: var(--fz-offwhite, #E8EAE9);
+    background: {{ grad_c1 }};
   }
   @supports (min-height: 100svh) {
     #shopify-section-{{ section.id }} .fz-hero-premium { min-height: 100svh; }
@@ -44,14 +59,41 @@
     display: block;
   }
 
+  #shopify-section-{{ section.id }} .fz-hero-premium__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
   #shopify-section-{{ section.id }} .fz-hero-premium__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
+    opacity: {{ grad_opacity }};
+    {%- case grad_style -%}
+      {%- when 'left_fade' -%}
+    background: linear-gradient(to right, {{ grad_c1_soft }} 0%, {{ grad_c1_light }} 42%, {{ grad_c1_clear }} 72%);
+      {%- when 'diagonal' -%}
     background:
-      linear-gradient(to top, rgba(250, 251, 250, 0.94) 0%, rgba(250, 251, 250, 0.62) 30%, rgba(250, 251, 250, 0.14) 58%, rgba(250, 251, 250, 0) 100%),
-      linear-gradient(to right, rgba(250, 251, 250, 0.55) 0%, rgba(250, 251, 250, 0) 55%);
+      linear-gradient(135deg, {{ grad_c1_soft }} 0%, {{ grad_c2_glow }} 48%, {{ grad_c1_clear }} 100%);
+      {%- when 'radial' -%}
+    background:
+      radial-gradient(ellipse 85% 70% at 72% 38%, {{ grad_c2_glow }} 0%, {{ grad_c1_clear }} 62%),
+      radial-gradient(ellipse 55% 45% at 18% 82%, {{ grad_c1_floor }} 0%, {{ grad_c1_clear }} 72%);
+      {%- when 'linear' -%}
+    background: linear-gradient(180deg, {{ grad_c1 }} 0%, {{ grad_c2 }} 100%);
+      {%- when 'full_blend' -%}
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, {{ grad_c2_glow }} 0%, {{ grad_c1_clear }} 65%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, {{ grad_c1_floor }} 0%, {{ grad_c1_clear }} 70%),
+      linear-gradient(180deg, {{ grad_c1 }} 0%, {{ grad_c2 }} 100%);
+      {%- else -%}
+    background:
+      linear-gradient(to top, {{ grad_c1_soft }} 0%, {{ grad_c1_mid }} 30%, {{ grad_c1_light }} 58%, {{ grad_c1_clear }} 100%),
+      linear-gradient(to right, {{ grad_c1_side }} 0%, {{ grad_c1_clear }} 55%);
+    {%- endcase -%}
   }
 
   #shopify-section-{{ section.id }} .fz-hero-premium__inner {
@@ -83,12 +125,14 @@
         loading: 'eager',
         allow_placeholder: false -%}
     </div>
-    <div class="fz-hero-premium__scrim"></div>
   {%- else -%}
     <div class="fz-hero-premium__bg" aria-hidden="true">
-      <div class="fz-hero-premium__gradient"></div>
       <div class="fz-hero-premium__grain"></div>
     </div>
+  {%- endif -%}
+
+  {%- if grad_enabled -%}
+    <div class="fz-hero-premium__scrim" aria-hidden="true"></div>
   {%- endif -%}
 
   <div class="fz-hero-premium__inner">
@@ -181,6 +225,58 @@
       "id": "video",
       "label": "Background video",
       "info": "Used when Background type is Background video. Plays muted and looped."
+    },
+    {
+      "type": "header",
+      "content": "Gradient overlay"
+    },
+    {
+      "type": "paragraph",
+      "content": "Customize the gradient over your banner. Defaults match FAUZ theme colors (off-white #E8EAE9 and mint #C1DBD8) — change them to any colors you like."
+    },
+    {
+      "type": "checkbox",
+      "id": "gradient_overlay_enable",
+      "label": "Show gradient overlay",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "gradient_style",
+      "label": "Gradient style",
+      "options": [
+        { "value": "bottom_fade", "label": "Bottom fade — best for text over photo/video" },
+        { "value": "left_fade", "label": "Left fade" },
+        { "value": "diagonal", "label": "Diagonal blend" },
+        { "value": "radial", "label": "Radial glow" },
+        { "value": "linear", "label": "Simple top to bottom" },
+        { "value": "full_blend", "label": "Full blend — no photo (gradient only)" }
+      ],
+      "default": "bottom_fade"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_1",
+      "label": "Gradient color 1",
+      "default": "#E8EAE9",
+      "info": "Primary tone — theme off-white by default."
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_2",
+      "label": "Gradient color 2",
+      "default": "#C1DBD8",
+      "info": "Secondary tone — theme mint by default."
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity",
+      "label": "Overlay strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 85
     }
   ],
   "presets": [{ "name": "Hero" }]

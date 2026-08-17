@@ -11,18 +11,17 @@
   "type": "footer",
   "name": "Footer group",
   "sections": {
-    "newsletter": {
-      "type": "newsletter",
-      "disabled": true,
-      "settings": {
-        "heading": "Join the ritual",
-        "text": "Exclusive deals and early access to new products. No noise.",
-        "success_text": "Welcome to FAUZ — you're on the list."
-      }
-    },
     "footer": {
       "type": "footer",
       "settings": {
+        "show_video": true,
+        "video": "shopify://files/videos/fauz-brand-film.mp4",
+        "video_url": "",
+        "video_eyebrow": "",
+        "video_heading": "",
+        "video_text": "",
+        "video_button_label": "",
+        "video_button_link": "",
         "blurb": "Modern, simple, premium care for skin and hair. Formulated with intention — never compared.",
         "shop_heading": "Shop",
         "shop_menu": "",
@@ -34,7 +33,6 @@
     }
   },
   "order": [
-    "newsletter",
     "footer"
   ]
 }

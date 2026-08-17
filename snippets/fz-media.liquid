@@ -1,0 +1,64 @@
+{%- comment -%}
+  Shared media slot: renders a looping video when one is set, otherwise the
+  image, otherwise a placeholder. Used by the hero, the category cards and the
+  ritual rows so all three behave identically.
+
+  Accepts: video, image, class_name, alt, loading ('lazy' by default)
+
+  Two things worth knowing:
+
+  1. Shopify transcodes an uploaded video into several renditions and returns
+     them smallest-first. A browser picks the FIRST <source> it can play, so
+     emitting them in the given order would silently serve 480p to everyone.
+     This picks the widest mp4 rendition instead.
+
+  2. The poster prefers the video's own preview frame over the supplied image.
+     The two are usually different pictures, and a mismatched poster makes the
+     media visibly pop the moment playback starts. The preview frame is the
+     video's own first frame, so the swap is invisible. The image is still the
+     fallback when there is no video at all.
+
+  The video carries .fz-video-media so fauz-motion.js can pause it off-screen
+  and leave it alone under prefers-reduced-motion.
+{%- endcomment -%}
+
+{%- liquid
+  assign img_loading = loading | default: 'lazy'
+  assign best_w = 0
+  assign best_url = ''
+  assign best_mime = 'video/mp4'
+  for source in video.sources
+    if source.format == 'mp4' and source.width > best_w
+      assign best_w = source.width
+      assign best_url = source.url
+      assign best_mime = source.mime_type
+    endif
+  endfor
+-%}
+
+{%- if best_url != blank -%}
+  <video
+    class="{{ class_name }} fz-video-media"
+    data-fz-video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="none"
+    aria-hidden="true"
+    tabindex="-1"
+    {% if video.preview_image %}
+      poster="{{ video.preview_image | image_url: width: 1200 }}"
+    {% elsif image != blank %}
+      poster="{{ image | image_url: width: 1200 }}"
+    {% endif %}
+  >
+    <source src="{{ best_url }}" type="{{ best_mime }}">
+  </video>
+{%- elsif image != blank -%}
+  {{ image
+    | image_url: width: 1400
+    | image_tag: class: class_name, widths: '400, 700, 1000, 1400', loading: img_loading, alt: alt }}
+{%- elsif allow_placeholder != false -%}
+  {{ 'product-2' | placeholder_svg_tag: class_name }}
+{%- endif -%}

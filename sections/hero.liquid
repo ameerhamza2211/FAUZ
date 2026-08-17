@@ -1,10 +1,95 @@
+{%- liquid
+  assign bg_type = section.settings.background_type | default: 'none'
+  assign bg_video = blank
+  assign bg_image = blank
+  assign has_bg_media = false
+
+  if bg_type == 'video' and section.settings.video != blank
+    assign bg_video = section.settings.video
+    assign bg_image = section.settings.image
+    assign has_bg_media = true
+  elsif bg_type == 'image' and section.settings.image != blank
+    assign bg_image = section.settings.image
+    assign has_bg_media = true
+  endif
+
+  assign hero_alt = section.settings.image.alt | default: shop.name
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .fz-hero-premium {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--fz-offwhite, #E8EAE9);
+  }
+  @supports (min-height: 100svh) {
+    #shopify-section-{{ section.id }} .fz-hero-premium { min-height: 100svh; }
+  }
+
+  #shopify-section-{{ section.id }} .fz-hero-premium__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .fz-hero-premium__media .fz-hero-premium__bg-media,
+  #shopify-section-{{ section.id }} .fz-hero-premium__media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .fz-hero-premium__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(to top, rgba(250, 251, 250, 0.94) 0%, rgba(250, 251, 250, 0.62) 30%, rgba(250, 251, 250, 0.14) 58%, rgba(250, 251, 250, 0) 100%),
+      linear-gradient(to right, rgba(250, 251, 250, 0.55) 0%, rgba(250, 251, 250, 0) 55%);
+  }
+
+  #shopify-section-{{ section.id }} .fz-hero-premium__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px 88px;
+  }
+
+  #shopify-section-{{ section.id }} .fz-hero-premium__copy {
+    max-width: 42rem;
+  }
+
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .fz-hero-premium__inner { padding: 0 20px 64px; }
+  }
+{% endstyle %}
+
 <section class="fz-hero-premium" data-hero>
-  <div class="fz-hero-premium__bg" aria-hidden="true">
-    <div class="fz-hero-premium__gradient"></div>
-    <div class="fz-hero-premium__grain"></div>
-    <div class="fz-hero-premium__orb fz-hero-premium__orb--1" data-hero-parallax="0.15"></div>
-    <div class="fz-hero-premium__orb fz-hero-premium__orb--2" data-hero-parallax="0.25"></div>
-  </div>
+  {%- if has_bg_media -%}
+    <div class="fz-hero-premium__media" aria-hidden="true">
+      {%- render 'fz-media',
+        video: bg_video,
+        image: bg_image,
+        class_name: 'fz-hero-premium__bg-media',
+        alt: hero_alt,
+        loading: 'eager',
+        allow_placeholder: false -%}
+    </div>
+    <div class="fz-hero-premium__scrim"></div>
+  {%- else -%}
+    <div class="fz-hero-premium__bg" aria-hidden="true">
+      <div class="fz-hero-premium__gradient"></div>
+      <div class="fz-hero-premium__grain"></div>
+    </div>
+  {%- endif -%}
 
   <div class="fz-hero-premium__inner">
     <div class="fz-hero-premium__copy">
@@ -20,29 +105,6 @@
             class="fz-btn fz-btn--primary fz-btn--editorial"
             href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
           >{{ section.settings.button_label }}</a>
-        {%- endif -%}
-      </div>
-    </div>
-
-    <div class="fz-hero-premium__visual" data-hero-visual>
-      <div class="fz-hero-premium__visual-frame" data-hero-scale>
-        {%- liquid
-          assign hero_alt = section.settings.image.alt
-          if hero_alt == blank
-            assign hero_alt = shop.name
-          endif
-        -%}
-        {%- if section.settings.image != blank -%}
-          {{ section.settings.image
-            | image_url: width: 1600
-            | image_tag:
-              class: 'fz-hero-premium__img',
-              widths: '800, 1000, 1200, 1600',
-              loading: 'eager',
-              fetchpriority: 'high',
-              alt: hero_alt }}
-        {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'fz-hero-premium__img' }}
         {%- endif -%}
       </div>
     </div>
@@ -94,9 +156,31 @@
       "label": "Primary CTA link"
     },
     {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background type",
+      "options": [
+        { "value": "none", "label": "None (gradient)" },
+        { "value": "image", "label": "Background image" },
+        { "value": "video", "label": "Background video" }
+      ],
+      "default": "none"
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "Hero visual"
+      "label": "Background image",
+      "info": "Used when Background type is Background image. Also used as video poster."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Used when Background type is Background video. Plays muted and looped."
     }
   ],
   "presets": [{ "name": "Hero" }]

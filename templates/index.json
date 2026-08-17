@@ -17,7 +17,10 @@
         "heading_emphasis": "like you.",
         "text": "Clinically considered formulas for modern skin — clean, effective, and designed for daily ritual.",
         "button_label": "Shop the collection",
-        "button_link": ""
+        "button_link": "",
+        "background_type": "video",
+        "image": "shopify://shop_images/fauz-brand-film-v5-poster.jpg",
+        "video": "shopify://files/videos/fauz-brand-film-v5.mp4"
       }
     },
     "marquee": {

@@ -34,13 +34,20 @@
 
     <script src="{{ 'fauz.js' | asset_url }}" defer></script>
 
+    {%- liquid
+      assign fz_is_home = false
+      if template.name == 'index'
+        assign fz_is_home = true
+      endif
+    -%}
+
     <script>
       window.FAUZ = {
         moneyFormat: {{ shop.money_format | json }},
         cartUrl: {{ routes.cart_url | json }},
         cartAddUrl: {{ routes.cart_add_url | json }},
         cartChangeUrl: {{ routes.cart_change_url | json }},
-        isHome: {{ template.name == 'index' | json }}
+        isHome: {{ fz_is_home | json }}
       };
     </script>
 

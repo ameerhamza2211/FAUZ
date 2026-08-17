@@ -112,8 +112,7 @@
           "type": "ingredient",
           "settings": {
             "name": "Niacinamide",
-            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
-            "image": "shopify://shop_images/fauz-brand-film-v5-poster.jpg"
+            "description": "Helps refine texture, support the barrier, and even tone without irritation."
           }
         },
         "i2": {
@@ -127,8 +126,7 @@
           "type": "ingredient",
           "settings": {
             "name": "Ceramides",
-            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
-            "image": "shopify://shop_images/fauz-brand-film-poster.jpg"
+            "description": "Reinforce the skin barrier so your routine protects as much as it perfects."
           }
         }
       },
@@ -156,23 +154,10 @@
             "button_label": "Discover the ritual",
             "button_link": ""
           }
-        },
-        "e2": {
-          "type": "story",
-          "settings": {
-            "layout": "image_right",
-            "eyebrow": "The promise",
-            "heading": "Never compare.",
-            "text": "Your skin is unique. Our formulas respect that — paraben-free, cruelty-free, made for real life.",
-            "button_label": "Shop all",
-            "button_link": "",
-            "image": "shopify://shop_images/image.png"
-          }
         }
       },
       "block_order": [
-        "e1",
-        "e2"
+        "e1"
       ],
       "settings": {}
     },

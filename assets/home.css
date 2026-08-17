@@ -564,6 +564,39 @@ html.lenis body {
   padding: clamp(80px, 10vh, 120px) 0;
 }
 
+@media (min-width: 1101px) {
+  .fz-ingredients {
+    padding: 0;
+  }
+
+  .fz-ingredients__layout {
+    --fz-ingredient-viewport: calc(100svh - var(--fz-header-height) - 32px);
+    --fz-ingredient-copy-space: 8.75rem;
+    height: var(--fz-ingredient-viewport);
+    min-height: var(--fz-ingredient-viewport);
+    max-height: var(--fz-ingredient-viewport);
+    align-items: center;
+  }
+
+  .fz-ingredients__panels {
+    --fz-ingredient-img: min(
+      100%,
+      clamp(340px, 38vw, 480px),
+      calc(var(--fz-ingredient-viewport) - var(--fz-ingredient-copy-space))
+    );
+    min-height: calc(var(--fz-ingredient-img) + var(--fz-ingredient-copy-space));
+    max-height: 100%;
+  }
+
+  .fz-ingredients__panel-media {
+    width: var(--fz-ingredient-img);
+    height: var(--fz-ingredient-img);
+    max-height: var(--fz-ingredient-img);
+    aspect-ratio: 1 / 1;
+    margin-bottom: 20px;
+  }
+}
+
 .fz-ingredients__layout {
   max-width: 1320px;
   margin: 0 auto;

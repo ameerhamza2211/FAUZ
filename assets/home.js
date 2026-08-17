@@ -289,8 +289,10 @@
       function getHeaderOffset() {
         var root = getComputedStyle(document.documentElement);
         var h = parseFloat(root.getPropertyValue('--fz-header-height')) || 100;
-        return h + 16;
+        return h + 24;
       }
+
+      var layout = section.querySelector('.fz-ingredients__layout');
 
       function getScrollDistance() {
         return Math.max(window.innerHeight * 0.55, 440) * (panels.length - 1);
@@ -298,9 +300,16 @@
 
       var st = ScrollTrigger.create({
         trigger: section,
-        start: function () { return 'top top+=' + getHeaderOffset(); },
+        start: function () {
+          var headerOffset = getHeaderOffset();
+          if (!layout) return 'top top+=' + headerOffset;
+          var available = window.innerHeight - headerOffset;
+          var layoutHeight = layout.offsetHeight;
+          var centerOffset = Math.max(0, (available - layoutHeight) / 2);
+          return 'top top+=' + (headerOffset + centerOffset);
+        },
         end: function () { return '+=' + getScrollDistance(); },
-        pin: '.fz-ingredients__layout',
+        pin: layout || '.fz-ingredients__layout',
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,

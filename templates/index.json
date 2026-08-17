@@ -18,13 +18,9 @@
         "text": "Clinically considered formulas for modern skin — clean, effective, and designed for daily ritual.",
         "button_label": "Shop the collection",
         "button_link": "",
-        "background_type": "image",
-        "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_05_38_32_PM.png",
-        "gradient_overlay_enable": true,
-        "gradient_style": "bottom_fade",
-        "gradient_color_1": "#C1DBD8",
-        "gradient_color_2": "#c1dbd8",
-        "gradient_opacity": 85
+        "background_type": "video",
+        "image": "shopify://shop_images/fauz-brand-film-v5-poster.jpg",
+        "video": "shopify://files/videos/fauz-brand-film-v5.mp4"
       }
     },
     "marquee": {
@@ -167,17 +163,6 @@
         "e1"
       ],
       "settings": {}
-    },
-    "footer_video": {
-      "type": "footer-video",
-      "settings": {
-        "eyebrow": "The ritual",
-        "heading": "Your skin. Your ritual.",
-        "text": "Begin with intention. Stay with consistency.",
-        "button_label": "Start your routine",
-        "button_link": "",
-        "video_url": "https://cdn.shopify.com/videos/c/o/v/4ceb9c01a1fc491faa779e420ecc9236.mp4"
-      }
     }
   },
   "order": [
@@ -185,7 +170,6 @@
     "marquee",
     "showcase",
     "ingredients",
-    "editorial",
-    "footer_video"
+    "editorial"
   ]
 }

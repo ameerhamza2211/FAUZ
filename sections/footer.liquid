@@ -1,41 +1,101 @@
 <footer class="fz-footer">
-  <div class="fz-footer__inner">
-    <div class="fz-footer__grid">
-      <div class="fz-footer__brand">
-        {% render 'logo-lockup', footer: true %}
-        <p class="fz-footer__blurb">{{ section.settings.blurb }}</p>
+  {%- if section.settings.show_video -%}
+    <div class="fz-footer__video" data-footer-video>
+      <div class="fz-footer__video-media" aria-hidden="true">
+        {%- if section.settings.video != blank -%}
+          {%- render 'fz-media',
+            video: section.settings.video,
+            image: section.settings.video_poster,
+            class_name: 'fz-footer__video-el',
+            alt: section.settings.video_heading,
+            loading: 'lazy',
+            allow_placeholder: false -%}
+        {%- elsif section.settings.video_url != blank -%}
+          <video
+            class="fz-footer__video-el fz-video-media"
+            data-fz-video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-hidden="true"
+            tabindex="-1"
+            {% if section.settings.video_poster != blank %}
+              poster="{{ section.settings.video_poster | image_url: width: 1600 }}"
+            {% endif %}
+          >
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          </video>
+        {%- elsif section.settings.video_poster != blank -%}
+          {{ section.settings.video_poster
+            | image_url: width: 1600
+            | image_tag: class: 'fz-footer__video-el', widths: '800, 1200, 1600', loading: 'lazy', alt: section.settings.video_heading }}
+        {%- endif -%}
+        <div class="fz-footer__video-overlay"></div>
       </div>
 
-      <div class="fz-footer__col">
-        <div class="fz-footer__heading">{{ section.settings.shop_heading }}</div>
-        {%- if section.settings.shop_menu != blank -%}
-          {%- for link in section.settings.shop_menu.links -%}
-            <a href="{{ link.url }}">{{ link.title }}</a>
-          {%- endfor -%}
-        {%- else -%}
-          <a href="{{ routes.collections_url }}/skincare">Skincare</a>
-          <a href="{{ routes.collections_url }}/haircare">Haircare</a>
-          <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
-          <a href="{{ routes.all_products_collection_url }}">All products</a>
-        {%- endif -%}
-      </div>
-
-      <div class="fz-footer__col">
-        <div class="fz-footer__heading">{{ section.settings.help_heading }}</div>
-        {%- if section.settings.help_menu != blank -%}
-          {%- for link in section.settings.help_menu.links -%}
-            <a href="{{ link.url }}">{{ link.title }}</a>
-          {%- endfor -%}
-        {%- else -%}
-          <a href="/pages/contact">Contact us</a>
-          <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>
-        {%- endif -%}
-      </div>
+      {%- if section.settings.video_heading != blank or section.settings.video_eyebrow != blank -%}
+        <div class="fz-footer__video-content" data-footer-video-content>
+          {%- if section.settings.video_eyebrow != blank -%}
+            <p class="fz-eyebrow fz-footer__video-eyebrow">{{ section.settings.video_eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.video_heading != blank -%}
+            <h2 class="fz-footer__video-heading">{{ section.settings.video_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.video_text != blank -%}
+            <p class="fz-footer__video-text">{{ section.settings.video_text }}</p>
+          {%- endif -%}
+          {%- if section.settings.video_button_label != blank -%}
+            <a
+              class="fz-btn fz-btn--primary fz-btn--editorial fz-footer__video-cta"
+              href="{{ section.settings.video_button_link | default: routes.all_products_collection_url }}"
+            >{{ section.settings.video_button_label }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
+  {%- endif -%}
 
-    <div class="fz-footer__bottom">
-      <span class="fz-footer__legal">© {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. All rights reserved.</span>
-      <span class="fz-footer__hashtag">{{ section.settings.hashtag }}</span>
+  <div class="fz-footer__main">
+    <div class="fz-footer__inner">
+      <div class="fz-footer__grid">
+        <div class="fz-footer__brand">
+          {% render 'logo-lockup', footer: true %}
+          <p class="fz-footer__blurb">{{ section.settings.blurb }}</p>
+        </div>
+
+        <div class="fz-footer__col">
+          <div class="fz-footer__heading">{{ section.settings.shop_heading }}</div>
+          {%- if section.settings.shop_menu != blank -%}
+            {%- for link in section.settings.shop_menu.links -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="{{ routes.collections_url }}/skincare">Skincare</a>
+            <a href="{{ routes.collections_url }}/haircare">Haircare</a>
+            <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
+            <a href="{{ routes.all_products_collection_url }}">All products</a>
+          {%- endif -%}
+        </div>
+
+        <div class="fz-footer__col">
+          <div class="fz-footer__heading">{{ section.settings.help_heading }}</div>
+          {%- if section.settings.help_menu != blank -%}
+            {%- for link in section.settings.help_menu.links -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="/pages/contact">Contact us</a>
+            <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="fz-footer__bottom">
+        <span class="fz-footer__legal">© {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. All rights reserved.</span>
+        <span class="fz-footer__hashtag">{{ section.settings.hashtag }}</span>
+      </div>
     </div>
   </div>
 </footer>
@@ -44,6 +104,66 @@
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Video band"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video",
+      "label": "Show video above footer",
+      "default": true
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Footer video",
+      "info": "Shopify-hosted video. Autoplays muted and loops."
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "External MP4 URL",
+      "info": "Fallback if no Shopify video is uploaded."
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Video poster / fallback image"
+    },
+    {
+      "type": "text",
+      "id": "video_eyebrow",
+      "label": "Video eyebrow",
+      "default": "The ritual"
+    },
+    {
+      "type": "text",
+      "id": "video_heading",
+      "label": "Video heading",
+      "default": "Your skin. Your ritual."
+    },
+    {
+      "type": "textarea",
+      "id": "video_text",
+      "label": "Video supporting text",
+      "default": "Begin with intention. Stay with consistency."
+    },
+    {
+      "type": "text",
+      "id": "video_button_label",
+      "label": "Video button label",
+      "default": "Start your routine"
+    },
+    {
+      "type": "url",
+      "id": "video_button_link",
+      "label": "Video button link"
+    },
+    {
+      "type": "header",
+      "content": "Footer content"
+    },
     {
       "type": "textarea",
       "id": "blurb",

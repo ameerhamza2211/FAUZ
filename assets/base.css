@@ -26,6 +26,11 @@
   --fz-font-display: 'Italiana', serif;
   --fz-font-script: 'Allura', cursive;
   --fz-font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Overridden from Theme settings → Brand */
+  --fz-heading-color: #000000;
+  --fz-body-text-color: #000000;
+  --fz-eyebrow-color: #548A83;
 }
 
 * { box-sizing: border-box; }
@@ -80,6 +85,7 @@ img { max-width: 100%; }
   font-size: 12px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
+  color: var(--fz-eyebrow-color);
 }
 
 .fz-h2 {
@@ -87,6 +93,7 @@ img { max-width: 100%; }
   font-size: 44px;
   font-weight: 400;
   margin: 0;
+  color: var(--fz-heading-color);
 }
 
 .fz-btn {
@@ -388,6 +395,7 @@ img { max-width: 100%; }
   font-weight: 400;
   margin: 0;
   text-wrap: balance;
+  color: var(--fz-heading-color);
 }
 
 .fz-hero__script {
@@ -400,7 +408,7 @@ img { max-width: 100%; }
 .fz-hero__text {
   font-size: 17px;
   line-height: 1.7;
-  color: var(--fz-on-mint);
+  color: var(--fz-body-text-color);
   max-width: 46ch;
   margin: 0;
   text-wrap: pretty;

@@ -25,6 +25,27 @@
       {
         "type": "paragraph",
         "content": "Brand palette: Primary mint #C1DBD8, Secondary teal #548A83, off-white #E8EAE9, black #000000 — defined as CSS variables in base.css."
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading color",
+        "default": "#000000",
+        "info": "Applies to section titles, hero headlines, and other display headings."
+      },
+      {
+        "type": "color",
+        "id": "body_text_color",
+        "label": "Body text color",
+        "default": "#000000",
+        "info": "Applies to paragraphs and supporting copy under headings."
+      },
+      {
+        "type": "color",
+        "id": "eyebrow_color",
+        "label": "Eyebrow / label color",
+        "default": "#548A83",
+        "info": "Small uppercase labels above headings (e.g. Fauz Cosmetics, The edit)."
       }
     ]
   }

@@ -22,6 +22,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Allura&display=swap" rel="stylesheet">
 
+    {% style %}
+      :root {
+        --fz-heading-color: {{ settings.heading_color }};
+        --fz-body-text-color: {{ settings.body_text_color }};
+        --fz-eyebrow-color: {{ settings.eyebrow_color }};
+      }
+    {% endstyle %}
+
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {%- if template.name == 'index' -%}

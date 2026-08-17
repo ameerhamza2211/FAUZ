@@ -782,20 +782,24 @@ html.lenis body {
 .fz-editorial__media-wrap {
   overflow: hidden;
   border-radius: 24px;
+  width: 100%;
+  max-width: min(100%, clamp(360px, 42vw, 560px));
 }
 
 .fz-editorial__media-inner {
   border-radius: 24px;
   overflow: hidden;
   will-change: transform;
+  aspect-ratio: 1 / 1;
 }
 
 .fz-editorial__img {
   width: 100%;
-  aspect-ratio: 5 / 6;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
+  object-position: center center;
   display: block;
-  transform: scale(1.12);
+  transform: scale(1.06);
   will-change: transform;
 }
 
@@ -987,6 +991,11 @@ html.lenis body {
   .fz-editorial__block--reverse .fz-editorial__media-wrap,
   .fz-editorial__block--reverse .fz-editorial__copy {
     order: unset;
+  }
+
+  .fz-editorial__media-wrap {
+    max-width: min(100%, clamp(280px, 88vw, 480px));
+    margin: 0 auto;
   }
 }
 

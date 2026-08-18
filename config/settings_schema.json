@@ -22,7 +22,7 @@
         "type": "image_picker",
         "id": "logo",
         "label": "Logo image",
-        "info": "Optional override. The theme uses assets/fauz-logo.png by default in the header and footer."
+        "info": "Optional override for both header and footer. By default the theme uses fauz-logo-black.png in the header and fauz-logo-white.png in the footer."
       },
       {
         "type": "text",

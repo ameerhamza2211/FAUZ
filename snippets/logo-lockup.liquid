@@ -1,5 +1,5 @@
 {%- comment -%}
-  FAUZ logo lockup — brand PNG (FAUZ + YOU ARE Unique) or theme setting override.
+  FAUZ logo lockup — black logo on light surfaces, white logo on dark footer.
 
   Accepts:
     footer {boolean} — footer variant
@@ -15,13 +15,13 @@
   endif
 
   if giant
-    assign root_class = 'fz-logo fz-logo--giant'
+    assign root_class = 'fz-logo fz-logo--giant fz-logo--on-dark'
   elsif footer
-    assign root_class = 'fz-footer__logo'
+    assign root_class = 'fz-footer__logo fz-logo--on-dark'
   elsif header
-    assign root_class = 'fz-header__logo-mark'
+    assign root_class = 'fz-header__logo-mark fz-logo--on-light'
   else
-    assign root_class = 'fz-logo'
+    assign root_class = 'fz-logo fz-logo--on-light'
   endif
 
   assign tag_you = settings.tagline_you | default: 'YOU ARE'
@@ -29,6 +29,13 @@
 
   assign logo_image = settings.logo
   assign use_logo_image = true
+
+  if giant or footer
+    assign logo_asset = 'fauz-logo-white.png'
+  else
+    assign logo_asset = 'fauz-logo-black.png'
+  endif
+
   if logo_image != blank
     assign logo_alt = logo_image.alt | default: shop.name
   else
@@ -60,7 +67,7 @@
       {%- else -%}
         <img
           class="fz-logo__img"
-          src="{{ 'fauz-logo.png' | asset_url }}"
+          src="{{ logo_asset | asset_url }}"
           alt="{{ logo_alt | escape }}"
           width="480"
           height="160"

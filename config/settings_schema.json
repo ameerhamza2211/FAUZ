@@ -31,6 +31,32 @@
         "info": "Shown in the footer wordmark. Upload a light or alternate-color version for dark backgrounds. Default: fauz-logo-white.png."
       },
       {
+        "type": "header",
+        "content": "Header logo size"
+      },
+      {
+        "type": "range",
+        "id": "header_logo_height",
+        "label": "Desktop header logo height",
+        "min": 40,
+        "max": 96,
+        "step": 2,
+        "unit": "px",
+        "default": 60,
+        "info": "Logo height in the desktop header pill."
+      },
+      {
+        "type": "range",
+        "id": "header_logo_height_mobile",
+        "label": "Mobile header logo height",
+        "min": 32,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "default": 48,
+        "info": "Logo height in the mobile header."
+      },
+      {
         "type": "text",
         "id": "tagline_you",
         "label": "Tagline — small caps",

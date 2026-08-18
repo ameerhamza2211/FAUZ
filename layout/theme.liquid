@@ -27,6 +27,8 @@
         --fz-heading-color: {{ settings.heading_color }};
         --fz-body-text-color: {{ settings.body_text_color }};
         --fz-eyebrow-color: {{ settings.eyebrow_color }};
+        --fz-header-logo-height: {{ settings.header_logo_height | default: 60 }}px;
+        --fz-header-logo-height-mobile: {{ settings.header_logo_height_mobile | default: 48 }}px;
       }
     {% endstyle %}
 

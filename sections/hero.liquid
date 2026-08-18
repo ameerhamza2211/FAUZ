@@ -15,6 +15,32 @@
 
   assign hero_alt = section.settings.image.alt | default: shop.name
 
+  assign mobile_bg_type = section.settings.mobile_background_type | default: 'inherit'
+  assign mobile_bg_video = blank
+  assign mobile_bg_image = blank
+  assign use_mobile_layer = false
+  assign has_mobile_media = false
+
+  if mobile_bg_type == 'video' and section.settings.mobile_video != blank
+    assign mobile_bg_video = section.settings.mobile_video
+    assign mobile_bg_image = section.settings.mobile_image
+    if mobile_bg_image == blank
+      assign mobile_bg_image = section.settings.image
+    endif
+    assign use_mobile_layer = true
+    assign has_mobile_media = true
+  elsif mobile_bg_type == 'image' and section.settings.mobile_image != blank
+    assign mobile_bg_image = section.settings.mobile_image
+    assign use_mobile_layer = true
+    assign has_mobile_media = true
+  elsif mobile_bg_type == 'video' and section.settings.mobile_image != blank
+    assign mobile_bg_image = section.settings.mobile_image
+    assign use_mobile_layer = true
+    assign has_mobile_media = true
+  endif
+
+  assign mobile_hero_alt = section.settings.mobile_image.alt | default: hero_alt
+
   assign grad_enabled = section.settings.gradient_overlay_enable
   assign grad_style = section.settings.gradient_style | default: 'bottom_fade'
   assign grad_c1 = section.settings.gradient_color_1 | default: '#E8EAE9'
@@ -57,6 +83,25 @@
     object-fit: cover;
     object-position: center center;
     display: block;
+  }
+
+  #shopify-section-{{ section.id }} .fz-hero-premium__media--mobile {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .fz-hero-premium__media--hide-mobile {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .fz-hero-premium__media--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .fz-hero-premium__media--mobile .fz-hero-premium__bg-media,
+    #shopify-section-{{ section.id }} .fz-hero-premium__media--mobile video {
+      object-position: center center;
+    }
   }
 
   #shopify-section-{{ section.id }} .fz-hero-premium__bg {
@@ -117,7 +162,7 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
 <section class="fz-hero-premium" data-hero{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
   {%- if has_bg_media -%}
-    <div class="fz-hero-premium__media" aria-hidden="true">
+    <div class="fz-hero-premium__media fz-hero-premium__media--desktop{% if use_mobile_layer %} fz-hero-premium__media--hide-mobile{% endif %}" aria-hidden="true">
       {%- render 'fz-media',
         video: bg_video,
         image: bg_image,
@@ -126,11 +171,25 @@
         loading: 'eager',
         allow_placeholder: false -%}
     </div>
-  {%- else -%}
+  {%- endif -%}
+
+  {%- if use_mobile_layer and has_mobile_media -%}
+    <div class="fz-hero-premium__media fz-hero-premium__media--mobile" aria-hidden="true">
+      {%- render 'fz-media',
+        video: mobile_bg_video,
+        image: mobile_bg_image,
+        class_name: 'fz-hero-premium__bg-media',
+        alt: mobile_hero_alt,
+        loading: 'eager',
+        allow_placeholder: false -%}
+    </div>
+  {%- endif -%}
+
+  {%- unless has_bg_media or has_mobile_media -%}
     <div class="fz-hero-premium__bg" aria-hidden="true">
       <div class="fz-hero-premium__grain"></div>
     </div>
-  {%- endif -%}
+  {%- endunless -%}
 
   {%- if grad_enabled -%}
     <div class="fz-hero-premium__scrim" aria-hidden="true"></div>
@@ -221,6 +280,37 @@
       "id": "video",
       "label": "Background video",
       "info": "Used when Background type is Background video. Plays muted and looped."
+    },
+    {
+      "type": "header",
+      "content": "Mobile background"
+    },
+    {
+      "type": "paragraph",
+      "content": "Optional separate banner for phones and tablets (900px and below). Choose a type, then upload the mobile image or video."
+    },
+    {
+      "type": "select",
+      "id": "mobile_background_type",
+      "label": "Mobile background type",
+      "options": [
+        { "value": "inherit", "label": "Use desktop background" },
+        { "value": "image", "label": "Mobile image" },
+        { "value": "video", "label": "Mobile video" }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile banner image",
+      "info": "Portrait or square crops work best on mobile. Also used as poster when mobile video is set."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile banner video",
+      "info": "Used when Mobile background type is Mobile video. Vertical or square clips work best."
     },
     {
       "type": "header",

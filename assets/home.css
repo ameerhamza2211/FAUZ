@@ -253,15 +253,12 @@ html.lenis body {
 .fz-showcase {
   position: relative;
   background: var(--fz-bg);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .fz-showcase__pin {
   --fz-showcase-vh: calc(100svh - var(--fz-header-height));
-  --fz-showcase-img-size: min(
-    clamp(360px, 36vw, 520px),
-    calc(var(--fz-showcase-vh) - 280px)
-  );
+  --fz-showcase-img-size: 480px;
   position: relative;
   min-height: var(--fz-showcase-vh);
   max-height: var(--fz-showcase-vh);
@@ -272,8 +269,9 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: clamp(20px, 3vh, 32px);
+  gap: clamp(16px, 2.5vh, 28px);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .fz-showcase__intro {
@@ -312,14 +310,13 @@ html.lenis body {
 }
 
 .fz-showcase__scroll {
-  position: absolute;
-  left: var(--fz-gutter);
-  bottom: calc(var(--fz-showcase-pb, var(--fz-section-y)) - 4px);
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 14px;
   pointer-events: none;
-  z-index: 2;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .fz-showcase__scroll-text {
@@ -365,8 +362,7 @@ html.lenis body {
   flex: 1 1 auto;
   display: flex;
   align-items: center;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden;
   width: 100%;
   min-height: 0;
 }
@@ -417,9 +413,10 @@ html.lenis body {
   max-height: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
-  gap: clamp(44px, 6vw, 88px);
+  grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
+  gap: clamp(32px, 5vw, 72px);
   align-items: center;
+  overflow: hidden;
 }
 
 .fz-showcase__media {
@@ -470,10 +467,12 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 12px 0 clamp(20px, 3vh, 36px) 8px;
+  padding: 0 0 0 8px;
   max-width: 460px;
   min-width: 0;
+  max-height: 100%;
   justify-self: start;
+  overflow: hidden;
 }
 
 .fz-showcase__index {
@@ -571,48 +570,73 @@ html.lenis body {
   letter-spacing: 0.22em;
 }
 
-/* Short viewports: scale content to fit */
+/* Short viewports: tighten typography and spacing */
 @media (max-height: 860px) {
   .fz-showcase__pin {
-    --fz-showcase-img-size: min(
-      clamp(300px, 34vw, 440px),
-      calc(var(--fz-showcase-vh) - 240px)
-    );
-    padding-top: var(--fz-showcase-pt, var(--fz-section-y));
-    padding-bottom: var(--fz-showcase-pb, var(--fz-section-y));
-    gap: 16px;
-  }
-
-  .fz-showcase__intro {
-    margin-bottom: 20px;
+    gap: 14px;
+    padding-top: var(--fz-showcase-pt, clamp(40px, 5vh, 56px));
+    padding-bottom: var(--fz-showcase-pb, clamp(40px, 5vh, 56px));
   }
 
   .fz-showcase__heading {
     font-size: clamp(28px, 4vw, 44px);
   }
 
-  .fz-showcase__slide-inner {
-    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.82fr);
-    gap: clamp(36px, 5vw, 56px);
+  .fz-showcase__counter {
+    font-size: clamp(28px, 3vw, 44px);
   }
 
-  .fz-showcase__media {
-    width: var(--fz-showcase-img-size);
-    height: var(--fz-showcase-img-size);
+  .fz-showcase__slide-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.82fr);
+    gap: clamp(28px, 4vw, 48px);
   }
 
   .fz-showcase__title {
     font-size: clamp(28px, 3vw, 40px);
+    margin-bottom: 12px;
+  }
+
+  .fz-showcase__detail {
+    margin-bottom: 16px;
+    font-size: 11px;
   }
 
   .fz-showcase__desc {
     font-size: 14px;
-    line-height: 1.75;
-    margin-bottom: 26px;
+    line-height: 1.7;
+    margin-bottom: 20px;
   }
 
   .fz-showcase__index {
     margin-bottom: 14px;
+  }
+
+  .fz-showcase__foot {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-height: 720px) {
+  .fz-showcase__pin {
+    gap: 10px;
+    padding-top: var(--fz-showcase-pt, 36px);
+    padding-bottom: var(--fz-showcase-pb, 36px);
+  }
+
+  .fz-showcase__heading {
+    font-size: clamp(24px, 3.5vw, 36px);
+  }
+
+  .fz-showcase__scroll {
+    display: none;
+  }
+
+  .fz-showcase__desc {
+    display: none;
+  }
+
+  .fz-showcase__detail {
+    margin-bottom: 12px;
   }
 }
 
@@ -988,7 +1012,21 @@ html.lenis body {
   .fz-hero-premium__inner {
     grid-template-columns: 1fr;
     gap: 48px;
-    padding-top: calc(var(--fz-header-height) + 64px);
+    padding-top: calc(var(--fz-header-height) + var(--fz-section-y));
+  }
+
+  .fz-showcase__slide-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.9fr);
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  .fz-showcase__title {
+    font-size: clamp(32px, 3.8vw, 48px);
+  }
+
+  .fz-showcase__desc {
+    font-size: 15px;
+    margin-bottom: 24px;
   }
 
   .fz-hero-premium__visual-frame {

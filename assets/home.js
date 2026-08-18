@@ -86,6 +86,7 @@
       var height = Math.ceil(bottom);
       if (height > 0) {
         document.documentElement.style.setProperty('--fz-header-height', height + 'px');
+        window.dispatchEvent(new CustomEvent('fz:header-resize'));
       }
     }
 
@@ -234,6 +235,51 @@
     var counterCurrent = section.querySelector('[data-showcase-current]');
     var counterTotal = section.querySelector('[data-showcase-total]');
     var lastIndex = -1;
+    var syncTimer;
+
+    function syncShowcaseLayout() {
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        section.style.removeProperty('--fz-showcase-img-size');
+        return;
+      }
+
+      var pin = section.querySelector('.fz-showcase__pin');
+      var intro = section.querySelector('.fz-showcase__intro');
+      var scroll = section.querySelector('.fz-showcase__scroll');
+      if (!pin || !intro) return;
+
+      var pinStyle = getComputedStyle(pin);
+      var pt = parseFloat(pinStyle.paddingTop) || 0;
+      var pb = parseFloat(pinStyle.paddingBottom) || 0;
+      var gap = parseFloat(pinStyle.rowGap || pinStyle.gap) || 0;
+      var scrollH = scroll && getComputedStyle(scroll).display !== 'none' ? scroll.offsetHeight : 0;
+      var gapCount = scrollH ? 2 : 1;
+      var available = pin.clientHeight - intro.offsetHeight - scrollH - pt - pb - gap * gapCount;
+
+      if (available < 180) available = 180;
+
+      var stage = section.querySelector('.fz-showcase__stage');
+      var maxByWidth = stage ? stage.clientWidth * 0.44 : 520;
+      var size = Math.floor(Math.min(available, maxByWidth, 520));
+      size = Math.max(220, size);
+
+      pin.style.setProperty('--fz-showcase-img-size', size + 'px');
+    }
+
+    function scheduleShowcaseSync() {
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(function () {
+        syncShowcaseLayout();
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh(true);
+        }
+      }, 80);
+    }
+
+    syncShowcaseLayout();
+    window.addEventListener('resize', scheduleShowcaseSync);
+    window.addEventListener('load', syncShowcaseLayout);
+    window.addEventListener('fz:header-resize', scheduleShowcaseSync);
 
     function padIndex(num) {
       return String(num).padStart(2, '0');
@@ -283,6 +329,8 @@
     });
 
     mm.add('(min-width: 901px)', function () {
+      syncShowcaseLayout();
+
       function getHeaderOffset() {
         var root = getComputedStyle(document.documentElement);
         var h = parseFloat(root.getPropertyValue('--fz-header-height')) || 100;

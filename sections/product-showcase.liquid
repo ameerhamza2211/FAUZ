@@ -10,12 +10,6 @@
         <span data-showcase-total>01</span>
       </div>
     </div>
-    {%- if section.settings.note != blank -%}
-      <div class="fz-showcase__scroll" aria-hidden="true">
-        <span class="fz-showcase__scroll-text">{{ section.settings.note }}</span>
-        <span class="fz-showcase__scroll-line"></span>
-      </div>
-    {%- endif -%}
 
     <div class="fz-showcase__stage">
       <div class="fz-showcase__track" data-showcase-track>
@@ -44,6 +38,13 @@
         {%- endif -%}
       </div>
     </div>
+
+    {%- if section.settings.note != blank -%}
+      <div class="fz-showcase__scroll" aria-hidden="true">
+        <span class="fz-showcase__scroll-text">{{ section.settings.note }}</span>
+        <span class="fz-showcase__scroll-line"></span>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 

@@ -24,7 +24,9 @@
         "gradient_style": "bottom_fade",
         "gradient_color_1": "#c1dbd8",
         "gradient_color_2": "#c1dbd8",
-        "gradient_opacity": 85
+        "gradient_opacity": 85,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "marquee": {
@@ -68,7 +70,10 @@
         "m4",
         "m5"
       ],
-      "settings": {}
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     },
     "showcase": {
       "type": "product-showcase",
@@ -109,7 +114,9 @@
         "heading": "Formulas worth the ritual",
         "note": "Scroll to explore",
         "collection": "",
-        "products_to_show": 4
+        "products_to_show": 4,
+        "padding_top": 0,
+        "padding_bottom": 72
       }
     },
     "ingredients": {
@@ -148,7 +155,9 @@
       "settings": {
         "eyebrow": "Inside the formula",
         "heading": "Actives with intention",
-        "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced."
+        "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced.",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "promise_quote_zPmqVa": {
@@ -188,7 +197,9 @@
       "name": "Our promise",
       "settings": {
         "eyebrow": "Our promise",
-        "quote": "Your skin is as unique as you are. We formulate for that — nothing more, nothing less."
+        "quote": "Your skin is as unique as you are. We formulate for that — nothing more, nothing less.",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "ritual_EdXnF9": {
@@ -234,7 +245,9 @@
         "heading_line_2": "Every day.",
         "text": "Skincare doesn't need to be complicated — it needs to be consistent. Cleanse, treat, protect. That's the whole ritual.",
         "text_color": "#ffffff",
-        "accent_color": "#ffffff"
+        "accent_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "editorial": {
@@ -269,7 +282,10 @@
         "e1",
         "story_kEgk3Q"
       ],
-      "settings": {}
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [

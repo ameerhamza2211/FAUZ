@@ -32,29 +32,33 @@
       },
       {
         "type": "header",
-        "content": "Header logo size"
+        "content": "Header logo size — desktop"
       },
       {
         "type": "range",
         "id": "header_logo_height",
-        "label": "Desktop header logo height",
+        "label": "Desktop logo height",
         "min": 40,
         "max": 96,
         "step": 2,
         "unit": "px",
         "default": 60,
-        "info": "Logo height in the desktop header pill."
+        "info": "Logo size on desktop screens (901px and wider)."
+      },
+      {
+        "type": "header",
+        "content": "Header logo size — mobile"
       },
       {
         "type": "range",
         "id": "header_logo_height_mobile",
-        "label": "Mobile header logo height",
-        "min": 32,
-        "max": 72,
+        "label": "Mobile logo height",
+        "min": 28,
+        "max": 80,
         "step": 2,
         "unit": "px",
         "default": 48,
-        "info": "Logo height in the mobile header."
+        "info": "Logo size on phones and tablets (900px and below). Use mobile preview in the customizer to check."
       },
       {
         "type": "text",

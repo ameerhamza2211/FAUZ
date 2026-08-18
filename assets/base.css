@@ -2127,6 +2127,7 @@ body:not(.fz-home) #MainContent {
     min-height: 0;
   }
 
+  .fz-header__logo-mark .fz-logo__img,
   .fz-header__logo-mark.fz-logo--on-light .fz-logo__img {
     height: var(--fz-header-logo-height-mobile);
     max-height: var(--fz-header-logo-height-mobile);

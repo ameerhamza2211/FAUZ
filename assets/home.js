@@ -191,76 +191,103 @@
 
   function initShowcase() {
     var section = document.querySelector('[data-showcase]');
-    var track = document.querySelector('[data-showcase-track]');
+    var track = section && section.querySelector('[data-showcase-track]');
     if (!section || !track) return;
 
     var slides = track.querySelectorAll('[data-showcase-card]');
-    var counterCurrent = document.querySelector('[data-showcase-current]');
-    var counterTotal = document.querySelector('[data-showcase-total]');
+    var counterCurrent = section.querySelector('[data-showcase-current]');
+    var counterTotal = section.querySelector('[data-showcase-total]');
+    var lastIndex = -1;
+
+    function padIndex(num) {
+      return String(num).padStart(2, '0');
+    }
+
+    function setActiveSlide(index) {
+      index = Math.max(0, Math.min(index, slides.length - 1));
+      if (index === lastIndex) return;
+      lastIndex = index;
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle('is-active', i === index);
+      });
+      if (counterCurrent) counterCurrent.textContent = padIndex(index + 1);
+    }
 
     if (counterTotal) {
-      counterTotal.textContent = String(slides.length).padStart(2, '0');
+      counterTotal.textContent = padIndex(slides.length);
     }
+
+    if (slides.length < 1) return;
+    setActiveSlide(0);
 
     if (slides.length < 2) return;
 
     var mm = gsap.matchMedia();
 
     mm.add('(max-width: 900px)', function () {
-      if (counterCurrent) counterCurrent.textContent = '01';
-
       var mobileStage = section.querySelector('.fz-showcase__stage');
       if (!mobileStage) return;
 
+      function getMobileIndex() {
+        var slideWidth = slides[0].offsetWidth || mobileStage.clientWidth;
+        if (!slideWidth) return 0;
+        return Math.round(mobileStage.scrollLeft / slideWidth);
+      }
+
       var onMobileScroll = function () {
-        var slideWidth = slides[0].offsetWidth || window.innerWidth;
-        var index = Math.round(mobileStage.scrollLeft / slideWidth);
-        index = Math.max(0, Math.min(index, slides.length - 1));
-        if (counterCurrent) {
-          counterCurrent.textContent = String(index + 1).padStart(2, '0');
-        }
+        setActiveSlide(getMobileIndex());
       };
 
       mobileStage.addEventListener('scroll', onMobileScroll, { passive: true });
 
       return function () {
         mobileStage.removeEventListener('scroll', onMobileScroll);
+        lastIndex = -1;
       };
     });
 
     mm.add('(min-width: 901px)', function () {
-      function getSlideWidth() {
-        return window.innerWidth;
+      function getHeaderOffset() {
+        var root = getComputedStyle(document.documentElement);
+        var h = parseFloat(root.getPropertyValue('--fz-header-height')) || 100;
+        return h;
       }
 
-      function getTotalScroll() {
+      function getSlideWidth() {
+        return slides[0].offsetWidth || window.innerWidth;
+      }
+
+      function getHorizontalDistance() {
         return getSlideWidth() * (slides.length - 1);
       }
 
+      function getScrollPerSlide() {
+        return Math.max(window.innerHeight * 0.82, 560);
+      }
+
       var tween = gsap.to(track, {
-        x: function () { return -getTotalScroll(); },
+        x: function () { return -getHorizontalDistance(); },
         ease: 'none',
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
-          end: function () { return '+=' + getTotalScroll(); },
+          start: function () { return 'top top+=' + getHeaderOffset(); },
+          end: function () { return '+=' + getScrollPerSlide() * (slides.length - 1); },
           pin: '.fz-showcase__pin',
           pinSpacing: true,
           anticipatePin: 1,
-          scrub: 0.55,
+          scrub: 0.45,
           invalidateOnRefresh: true,
-          snap: slides.length > 1 ? {
+          snap: {
             snapTo: function (value) {
               var step = 1 / (slides.length - 1);
               return Math.round(value / step) * step;
             },
-            duration: { min: 0.12, max: 0.28 },
-            ease: 'power1.inOut'
-          } : false,
+            duration: { min: 0.18, max: 0.42 },
+            ease: 'power2.inOut'
+          },
           onUpdate: function (self) {
-            if (!counterCurrent || slides.length < 2) return;
             var index = Math.round(self.progress * (slides.length - 1));
-            counterCurrent.textContent = String(index + 1).padStart(2, '0');
+            setActiveSlide(index);
           }
         }
       });
@@ -269,6 +296,7 @@
         if (tween && tween.scrollTrigger) tween.scrollTrigger.kill();
         tween.kill();
         gsap.set(track, { clearProps: 'transform' });
+        lastIndex = -1;
       };
     });
   }

@@ -326,16 +326,18 @@ html.lenis body {
   justify-self: end;
   align-self: start;
   font-family: var(--fz-font-display);
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  color: var(--fz-muted-grey);
+  font-size: clamp(32px, 3.6vw, 52px);
+  letter-spacing: 0.06em;
+  color: var(--fz-heading-color);
   white-space: nowrap;
-  padding-top: 2px;
+  padding-top: 0;
+  line-height: 1;
 }
 
 .fz-showcase__counter-sep {
-  margin: 0 5px;
-  opacity: 0.4;
+  margin: 0 10px;
+  opacity: 0.28;
+  font-size: 0.72em;
 }
 
 .fz-showcase__stage {
@@ -361,6 +363,26 @@ html.lenis body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.fz-showcase__slide .fz-showcase__copy {
+  opacity: 0.35;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fz-showcase__slide .fz-showcase__media {
+  transform: scale(0.96);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fz-showcase__slide.is-active .fz-showcase__copy {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fz-showcase__slide.is-active .fz-showcase__media {
+  transform: scale(1);
 }
 
 .fz-showcase__slide-inner {
@@ -913,9 +935,13 @@ html.lenis body {
   .fz-marquee-premium__track,
   .fz-hero-premium__orb,
   .fz-showcase__track,
+  .fz-showcase__slide .fz-showcase__copy,
+  .fz-showcase__slide .fz-showcase__media,
   .fz-editorial__img {
     animation: none !important;
     transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -1049,16 +1075,12 @@ html.lenis body {
     grid-column: 1;
     grid-row: 3;
     justify-self: start;
-    margin-top: 8px;
+    margin-top: 12px;
+    font-size: clamp(28px, 8vw, 40px);
   }
 
   .fz-showcase__note {
     display: none;
-  }
-
-  .fz-hero-premium__scroll {
-    left: 20px;
-    bottom: 24px;
   }
 
   .fz-showcase__stage {
@@ -1067,6 +1089,9 @@ html.lenis body {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    margin: 0 -20px;
+    padding: 0 20px 8px;
+    width: calc(100% + 40px);
   }
 
   .fz-showcase__stage::-webkit-scrollbar {
@@ -1075,12 +1100,26 @@ html.lenis body {
 
   .fz-showcase__track {
     width: max-content;
+    transform: none !important;
   }
 
   .fz-showcase__slide {
     width: calc(100vw - 40px);
     padding: 0;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .fz-showcase__slide .fz-showcase__copy,
+  .fz-showcase__slide .fz-showcase__media {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .fz-showcase__slide.is-active .fz-showcase__copy,
+  .fz-showcase__slide.is-active .fz-showcase__media {
+    transform: none;
   }
 
   .fz-showcase__slide-inner {

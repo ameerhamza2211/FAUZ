@@ -186,7 +186,7 @@
         "primary_label": "Shop all products",
         "primary_link": "shopify://collections/all",
         "padding_top": 0,
-        "padding_bottom": 180
+        "padding_bottom": 120
       }
     },
     "ingredients": {

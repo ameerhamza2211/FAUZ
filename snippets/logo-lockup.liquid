@@ -1,11 +1,11 @@
 {%- comment -%}
-  FAUZ logo lockup — Aquila wordmark + YOU ARE Unique (Autography script).
+  FAUZ logo lockup — brand PNG (FAUZ + YOU ARE Unique) or theme setting override.
 
   Accepts:
     footer {boolean} — footer variant
     header {boolean} — compact header variant
     giant {boolean} — large footer wordmark
-    show_tagline {boolean} — show YOU ARE Unique line (default true)
+    show_tagline {boolean} — text tagline fallback when no image is used
 {%- endcomment -%}
 
 {%- liquid
@@ -26,35 +26,53 @@
 
   assign tag_you = settings.tagline_you | default: 'YOU ARE'
   assign tag_script = settings.tagline_script | default: 'Unique'
-  assign logo_alt = settings.logo.alt | default: shop.name
+
+  assign logo_image = settings.logo
+  assign use_logo_image = true
+  if logo_image != blank
+    assign logo_alt = logo_image.alt | default: shop.name
+  else
+    assign logo_alt = shop.name
+  endif
 -%}
 
-<span class="{{ root_class }}">
-  {%- if settings.logo != blank -%}
+<span class="{{ root_class }}{% if use_logo_image %} fz-logo--image{% endif %}">
+  {%- if use_logo_image -%}
     <span class="fz-logo__mark">
-      {%- if giant -%}
-        {{ settings.logo
-          | image_url: width: 1200
-          | image_tag:
-            class: 'fz-logo__img',
-            widths: '400, 800, 1200',
-            loading: 'lazy',
-            alt: logo_alt }}
+      {%- if logo_image != blank -%}
+        {%- if giant -%}
+          {{ logo_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'fz-logo__img',
+              widths: '400, 800, 1200',
+              loading: 'lazy',
+              alt: logo_alt }}
+        {%- else -%}
+          {{ logo_image
+            | image_url: width: 480
+            | image_tag:
+              class: 'fz-logo__img',
+              widths: '180, 280, 480',
+              loading: 'eager',
+              alt: logo_alt }}
+        {%- endif -%}
       {%- else -%}
-        {{ settings.logo
-          | image_url: width: 400
-          | image_tag:
-            class: 'fz-logo__img',
-            widths: '160, 240, 400',
-            loading: 'eager',
-            alt: logo_alt }}
+        <img
+          class="fz-logo__img"
+          src="{{ 'fauz-logo.png' | asset_url }}"
+          alt="{{ logo_alt | escape }}"
+          width="480"
+          height="160"
+          loading="{% if header %}eager{% else %}lazy{% endif %}"
+        >
       {%- endif -%}
     </span>
   {%- else -%}
     <span class="fz-logo__word"{% if giant %} aria-hidden="true"{% endif %}>FAUZ</span>
   {%- endif -%}
 
-  {%- if show_tag -%}
+  {%- if show_tag and use_logo_image == false -%}
     <span class="fz-logo__tag">
       <span class="fz-logo__youare">{{ tag_you }}</span>
       <span class="fz-logo__script">{{ tag_script }}</span>

@@ -385,14 +385,31 @@ img { max-width: 100%; }
   max-width: 100%;
 }
 
+.fz-logo--image .fz-logo__mark {
+  display: block;
+  line-height: 0;
+}
+
 .fz-header__logo-mark .fz-logo__img {
-  max-height: 42px;
+  max-height: 52px;
   width: auto;
+  filter: invert(1);
+}
+
+.fz-logo:not(.fz-logo--giant) .fz-logo__img {
+  max-height: 72px;
+  filter: invert(1);
 }
 
 .fz-logo--giant .fz-logo__img {
-  width: min(78vw, 900px);
+  width: min(78vw, 760px);
+  max-height: none;
   margin: 0 auto;
+  filter: none;
+}
+
+.fz-footer__brandmark .fz-logo--giant .fz-logo__img {
+  filter: none;
 }
 
 .fz-logo__tag,

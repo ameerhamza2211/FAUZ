@@ -22,7 +22,7 @@
         "type": "image_picker",
         "id": "logo",
         "label": "Logo image",
-        "info": "Optional PNG/SVG of the FAUZ wordmark. Replaces the text wordmark in the header and footer when set."
+        "info": "Optional override. The theme uses assets/fauz-logo.png by default in the header and footer."
       },
       {
         "type": "text",

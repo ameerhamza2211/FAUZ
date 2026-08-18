@@ -1961,6 +1961,31 @@ body:not(.fz-home) #MainContent {
     min-height: 56px;
     padding: 6px 10px 6px 14px;
     gap: 14px;
+  }
+
+  body.fz-home .fz-header {
+    background: rgba(255, 255, 255, 0.38);
+    -webkit-backdrop-filter: blur(28px) saturate(1.45);
+    backdrop-filter: blur(28px) saturate(1.45);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.72) inset,
+      0 12px 40px rgba(0, 0, 0, 0.07),
+      0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  body.fz-home .fz-header-wrap.is-scrolled .fz-header {
+    background: rgba(255, 255, 255, 0.58);
+    -webkit-backdrop-filter: blur(32px) saturate(1.5);
+    backdrop-filter: blur(32px) saturate(1.5);
+    border-color: rgba(255, 255, 255, 0.62);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.78) inset,
+      0 14px 44px rgba(0, 0, 0, 0.09),
+      0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  body:not(.fz-home) .fz-header {
     background: rgba(255, 255, 255, 0.94);
     -webkit-backdrop-filter: blur(20px) saturate(1.15);
     backdrop-filter: blur(20px) saturate(1.15);
@@ -1968,7 +1993,7 @@ body:not(.fz-home) #MainContent {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   }
 
-  .fz-header-wrap.is-scrolled .fz-header {
+  body:not(.fz-home) .fz-header-wrap.is-scrolled .fz-header {
     background: rgba(255, 255, 255, 0.97);
     border-color: rgba(17, 17, 17, 0.1);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
@@ -2006,6 +2031,16 @@ body:not(.fz-home) #MainContent {
     padding: 9px 16px;
     min-height: 36px;
     font-size: 10px;
+  }
+
+  body.fz-home .fz-cart-toggle {
+    background: rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(17, 17, 17, 0.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  body:not(.fz-home) .fz-cart-toggle {
     background: var(--fz-offwhite);
     border: 1px solid rgba(17, 17, 17, 0.14);
     -webkit-backdrop-filter: none;

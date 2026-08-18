@@ -108,16 +108,25 @@
       flex-direction: column;
       align-items: stretch;
       overflow: visible;
-      padding-top: calc(var(--fz-header-height) + 10px);
+      padding-top: 0;
+      background: transparent;
     }
 
     #shopify-section-{{ section.id }} .fz-hero-premium--has-media .fz-hero-premium__media {
       position: relative;
       inset: auto;
       width: 100%;
-      height: auto;
-      aspect-ratio: 4 / 5;
-      max-height: min(76svh, 680px);
+      height: 100svh;
+      min-height: 100svh;
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    @supports (height: 100dvh) {
+      #shopify-section-{{ section.id }} .fz-hero-premium--has-media .fz-hero-premium__media {
+        height: 100dvh;
+        min-height: 100dvh;
+      }
     }
 
     #shopify-section-{{ section.id }} .fz-hero-premium--has-media .fz-hero-premium__scrim {
@@ -125,7 +134,8 @@
     }
 
     #shopify-section-{{ section.id }} .fz-hero-premium--has-media .fz-hero-premium__inner {
-      padding: var(--fz-section-y) var(--fz-gutter) var(--fz-section-y-lg);
+      padding: var(--fz-section-y-lg) var(--fz-gutter);
+      background: {{ grad_c1 }};
     }
   }
 

@@ -393,12 +393,12 @@ img { max-width: 100%; }
 .fz-header__logo-mark .fz-logo__img {
   max-height: 52px;
   width: auto;
-  filter: invert(1);
+  filter: brightness(0);
 }
 
 .fz-logo:not(.fz-logo--giant) .fz-logo__img {
   max-height: 72px;
-  filter: invert(1);
+  filter: brightness(0);
 }
 
 .fz-logo--giant .fz-logo__img {

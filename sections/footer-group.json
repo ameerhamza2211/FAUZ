@@ -17,22 +17,41 @@
       "settings": {
         "heading": "Join the ritual",
         "text": "Exclusive deals and early access to new products. No noise.",
-        "success_text": "Welcome to FAUZ — you're on the list."
+        "success_text": "Welcome to FAUZ — you're on the list.",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "footer": {
       "type": "footer",
       "settings": {
         "show_video": true,
+        "video": "shopify://files/videos/fauz-cover-v2.mp4",
         "video_url": "https://cdn.shopify.com/videos/c/o/v/4ceb9c01a1fc491faa779e420ecc9236.mp4",
-        "video_poster": "",
-        "video_eyebrow": "The ritual",
-        "video_heading": "Your skin. Your ritual.",
-        "video_text": "Begin with intention. Stay with consistency.",
+        "video_eyebrow": "",
+        "video_heading": "",
+        "video_text": "",
         "video_button_label": "Start your routine",
         "video_button_link": "",
+        "nav_heading": "Quick navigation",
+        "nav_menu": "",
+        "social_heading": "Follow us",
+        "social_menu": "",
+        "social_instagram": "",
+        "social_facebook": "",
+        "social_tiktok": "",
+        "policy_heading": "Terms & policy",
+        "policy_menu": "",
+        "contact_address": "Race Course Road, Lahore, Pakistan",
+        "contact_phone": "(+92) 329 0889049",
+        "contact_phone_url": "",
+        "contact_hours": "Monday – Friday, 10am – 6pm",
+        "show_giant_logo": true,
+        "giant_logo_text": "FAUZ",
         "legal_name": "Fauz Cosmetics",
-        "hashtag": "#NeverCompare"
+        "hashtag": "#NeverCompare",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },

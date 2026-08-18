@@ -1,4 +1,5 @@
-<section class="fz-showcase" data-showcase id="products">
+{%- capture fz_showcase_spacing -%}{%- render 'fz-section-padding', section: section, output: 'variables', scope: 'showcase' -%}{%- endcapture -%}
+<section class="fz-showcase" data-showcase id="products"{% if fz_showcase_spacing != blank %} style="{{ fz_showcase_spacing | strip }}"{% endif %}>
   <div class="fz-showcase__pin">
     <div class="fz-showcase__intro">
       <p class="fz-eyebrow">{{ section.settings.eyebrow }}</p>
@@ -77,6 +78,32 @@
       "max": 8,
       "step": 1,
       "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
     }
   ],
   "blocks": [

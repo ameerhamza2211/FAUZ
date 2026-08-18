@@ -1,0 +1,20 @@
+{%- comment -%}
+  Theme editor section spacing.
+
+  @param section {object} required
+  @param output {string} optional — "padding" (default) or "variables"
+  @param scope {string} optional — used with output "variables", e.g. "showcase"
+{%- endcomment -%}
+
+{%- liquid
+  assign pt = section.settings.padding_top | default: 0 | plus: 0
+  assign pb = section.settings.padding_bottom | default: 0 | plus: 0
+-%}
+
+{%- if output == 'variables' and scope != blank -%}
+  {%- if pt > 0 -%}--fz-{{ scope }}-pt: {{ pt }}px;{%- endif -%}
+  {%- if pb > 0 -%}--fz-{{ scope }}-pb: {{ pb }}px;{%- endif -%}
+{%- else -%}
+  {%- if pt > 0 -%}padding-top: {{ pt }}px;{%- endif -%}
+  {%- if pb > 0 -%}padding-bottom: {{ pb }}px;{%- endif -%}
+{%- endif -%}

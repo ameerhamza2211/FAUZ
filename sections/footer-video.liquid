@@ -1,4 +1,5 @@
-<section class="fz-footer-video" data-footer-video>
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+<section class="fz-footer-video" data-footer-video{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
   <div class="fz-footer-video__media">
     {%- if section.settings.video != blank -%}
       {{ section.settings.video
@@ -98,6 +99,32 @@
       "type": "image_picker",
       "id": "poster",
       "label": "Poster / fallback image"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
     }
   ],
   "presets": [{ "name": "Footer video" }]

@@ -1,4 +1,5 @@
-<section class="fz-promise">
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+<section class="fz-promise"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
   <div class="fz-eyebrow fz-promise__eyebrow">{{ section.settings.eyebrow }}</div>
   <h2 class="fz-promise__quote">&ldquo;{{ section.settings.quote }}&rdquo;</h2>
   <div class="fz-promise__claims">
@@ -23,6 +24,32 @@
       "id": "quote",
       "label": "Quote",
       "default": "Your skin is as unique as you are. We formulate for that — nothing more, nothing less."
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
     }
   ],
   "blocks": [

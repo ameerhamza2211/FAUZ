@@ -1,4 +1,5 @@
-<div class="fz-page">
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+<div class="fz-page"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
   <h1 class="fz-page__title">{{ page.title }}</h1>
   <div class="fz-page__body">{{ page.content }}</div>
 </div>
@@ -6,6 +7,33 @@
 {% schema %}
 {
   "name": "Page",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    }
+  ]
 }
 {% endschema %}

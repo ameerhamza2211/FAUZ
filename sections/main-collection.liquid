@@ -1,4 +1,5 @@
-<div class="fz-collection">
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+<div class="fz-collection"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
   <div class="fz-collection__head">
     <div class="fz-eyebrow fz-collection__eyebrow">{{ section.settings.eyebrow }}</div>
     <div class="fz-collection__titlerow">
@@ -94,6 +95,32 @@
       "max": 48,
       "step": 3,
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
     }
   ]
 }

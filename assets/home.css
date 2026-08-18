@@ -261,6 +261,8 @@ html.lenis body {
   position: relative;
   min-height: 100svh;
   padding: calc(var(--fz-header-height) + 36px) 40px clamp(88px, 10vh, 132px);
+  padding-top: var(--fz-showcase-pt, calc(var(--fz-header-height) + 36px));
+  padding-bottom: var(--fz-showcase-pb, clamp(88px, 10vh, 132px));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -541,8 +543,8 @@ html.lenis body {
 /* Short viewports: scale content to fit */
 @media (max-height: 860px) {
   .fz-showcase__pin {
-    padding-top: calc(var(--fz-header-height) + 20px);
-    padding-bottom: clamp(72px, 9vh, 104px);
+    padding-top: var(--fz-showcase-pt, calc(var(--fz-header-height) + 20px));
+    padding-bottom: var(--fz-showcase-pb, clamp(72px, 9vh, 104px));
   }
 
   .fz-showcase__intro {
@@ -1051,8 +1053,8 @@ html.lenis body {
     padding-right: 20px;
     min-height: auto;
     justify-content: flex-start;
-    padding-top: 72px;
-    padding-bottom: 72px;
+    padding-top: var(--fz-showcase-pt, 72px);
+    padding-bottom: var(--fz-showcase-pb, 72px);
   }
 
   .fz-showcase__intro {

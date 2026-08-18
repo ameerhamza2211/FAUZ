@@ -1407,8 +1407,15 @@ html.lenis body {
   margin-right: auto;
   padding-top: var(--fz-section-y-lg);
   padding-bottom: var(--fz-section-y-lg);
-  background: var(--fz-bg);
+  background: var(--fz-secondary-offwhite);
   box-sizing: border-box;
+}
+
+.fz-feat-cols .fz-eyebrow {
+  font-family: var(--fz-font-label);
+  font-weight: 200;
+  letter-spacing: 0.32em;
+  color: var(--fz-secondary-teal);
 }
 
 .fz-feat-cols__head {
@@ -1421,7 +1428,13 @@ html.lenis body {
 }
 
 .fz-feat-cols__heading {
-  max-width: 16ch;
+  font-family: var(--fz-font-headline);
+  font-size: clamp(32px, 4.5vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fz-secondary-black);
+  max-width: none;
 }
 
 .fz-feat-cols__grid {
@@ -1446,9 +1459,9 @@ html.lenis body {
   padding: clamp(28px, 4vw, 44px);
   border-radius: calc(var(--fz-radius) + 4px);
   background:
-    radial-gradient(ellipse 70% 80% at 85% 50%, rgba(193, 219, 216, 0.14) 0%, transparent 60%),
-    linear-gradient(135deg, #2f5a55 0%, var(--fz-secondary-teal) 52%, #3d6e68 100%);
-  color: #fff;
+    radial-gradient(ellipse 72% 82% at 88% 42%, rgba(193, 219, 216, 0.28) 0%, transparent 62%),
+    var(--fz-secondary-teal);
+  color: var(--fz-secondary-offwhite);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
@@ -1478,48 +1491,54 @@ html.lenis body {
   align-items: center;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(193, 219, 216, 0.18);
+  border: 1px solid rgba(193, 219, 216, 0.38);
+  font-family: var(--fz-font-label);
   font-size: 10px;
-  letter-spacing: 0.18em;
+  font-weight: 200;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--fz-primary);
   margin-bottom: 18px;
 }
 
 .fz-feat-cols__panel-title {
-  font-family: var(--fz-font-display);
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
-  line-height: 1.05;
+  font-family: var(--fz-font-headline);
+  font-size: clamp(28px, 3.6vw, 40px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.08;
   margin: 0 0 16px;
-  color: #fff;
+  color: var(--fz-secondary-offwhite);
 }
 
 .fz-feat-cols__panel-desc {
-  font-family: var(--fz-font-desc);
+  font-family: var(--fz-font-body);
   font-size: 15px;
   line-height: 1.65;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.88);
+  font-weight: 400;
+  color: var(--fz-secondary-offwhite);
   margin: 0 0 28px;
   max-width: 38ch;
 }
 
 .fz-btn--light {
-  background: #fff;
-  color: var(--fz-ink);
-  border-color: #fff;
+  background: var(--fz-secondary-offwhite);
+  color: var(--fz-secondary-black);
+  border-color: var(--fz-secondary-offwhite);
 }
 
 .fz-btn--light:hover {
-  background: var(--fz-mint);
-  border-color: var(--fz-mint);
-  color: var(--fz-ink);
+  background: var(--fz-primary);
+  border-color: var(--fz-primary);
+  color: var(--fz-secondary-black);
 }
 
 .fz-feat-cols__panel-btn {
   border-radius: 999px;
+  font-family: var(--fz-font-headline);
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 11px;
@@ -1545,10 +1564,10 @@ html.lenis body {
 .fz-feat-cols__panel-frame {
   width: min(100%, 280px);
   aspect-ratio: 3 / 4;
-  background: rgba(255, 255, 255, 0.96);
+  background: var(--fz-secondary-offwhite);
   border-radius: calc(var(--fz-radius-sm) + 2px);
   padding: 14px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
 }
 
 .fz-feat-cols__panel-img {
@@ -1572,9 +1591,9 @@ html.lenis body {
   gap: 16px;
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid var(--fz-hairline);
+  border: 1px solid rgba(84, 138, 131, 0.16);
   border-radius: var(--fz-radius);
-  background: rgba(193, 219, 216, 0.35);
+  background: var(--fz-primary);
   cursor: pointer;
   text-align: left;
   font: inherit;
@@ -1592,9 +1611,9 @@ html.lenis body {
 }
 
 .fz-feat-cols__item.is-active {
-  background: #fff;
-  border-color: rgba(0, 0, 0, 0.06);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  background: var(--fz-secondary-offwhite);
+  border-color: rgba(84, 138, 131, 0.22);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
 }
 
 .fz-feat-cols__item-thumb {
@@ -1602,7 +1621,7 @@ html.lenis body {
   height: 72px;
   border-radius: var(--fz-radius-sm);
   overflow: hidden;
-  background: var(--fz-offwhite);
+  background: var(--fz-secondary-offwhite);
   flex-shrink: 0;
 }
 
@@ -1622,17 +1641,22 @@ html.lenis body {
 }
 
 .fz-feat-cols__item-label {
+  font-family: var(--fz-font-label);
   font-size: 10px;
-  letter-spacing: 0.2em;
+  font-weight: 200;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--fz-eyebrow-color);
+  color: var(--fz-secondary-teal);
 }
 
 .fz-feat-cols__item-title {
-  font-family: var(--fz-font-display);
-  font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.15;
-  color: var(--fz-heading-color);
+  font-family: var(--fz-font-headline);
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--fz-secondary-black);
 }
 
 .fz-feat-cols__item-go {
@@ -1642,7 +1666,7 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(84, 138, 131, 0.18);
+  background: rgba(84, 138, 131, 0.16);
   color: var(--fz-secondary-teal);
   transition:
     background 0.3s var(--fz-btn-ease),
@@ -1651,8 +1675,8 @@ html.lenis body {
 }
 
 .fz-feat-cols__item.is-active .fz-feat-cols__item-go {
-  background: var(--fz-ink);
-  color: #fff;
+  background: var(--fz-secondary-teal);
+  color: var(--fz-secondary-offwhite);
 }
 
 .fz-feat-cols__actions {
@@ -1667,6 +1691,35 @@ html.lenis body {
   border-radius: 999px;
   min-width: min(100%, 240px);
   justify-content: center;
+  font-family: var(--fz-font-headline);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.fz-feat-cols .fz-btn--outline {
+  background: var(--fz-secondary-offwhite);
+  color: var(--fz-secondary-black);
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+.fz-feat-cols .fz-btn--outline:hover {
+  background: var(--fz-secondary-teal);
+  border-color: var(--fz-secondary-teal);
+  color: var(--fz-secondary-offwhite);
+}
+
+.fz-feat-cols .fz-btn--primary {
+  background: var(--fz-secondary-black);
+  border-color: var(--fz-secondary-black);
+  color: var(--fz-secondary-offwhite);
+}
+
+.fz-feat-cols .fz-btn--primary:hover {
+  background: var(--fz-secondary-teal);
+  border-color: var(--fz-secondary-teal);
+  color: var(--fz-secondary-offwhite);
 }
 
 @media (max-width: 900px) {

@@ -27,6 +27,8 @@
   --fz-font-script: 'Allura', cursive;
   --fz-font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fz-font-desc: 'Montserrat', sans-serif;
+  --fz-font-headline: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --fz-font-label: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* Overridden from Theme settings → Brand */
   --fz-heading-color: #000000;

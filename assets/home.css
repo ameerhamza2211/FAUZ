@@ -131,6 +131,7 @@ html.lenis body {
 .fz-hero-premium__copy {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 28px;
 }
 
@@ -845,6 +846,7 @@ html.lenis body {
 .fz-editorial__copy {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 24px;
   padding: 20px 0;
 }
@@ -904,6 +906,9 @@ html.lenis body {
 .fz-footer-video__content {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   color: var(--fz-offwhite);
   padding: 80px 40px;
@@ -1178,9 +1183,5 @@ html.lenis body {
   .fz-showcase__foot {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .fz-showcase__atc {
-    width: 100%;
   }
 }

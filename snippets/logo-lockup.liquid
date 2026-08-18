@@ -1,5 +1,5 @@
 {%- comment -%}
-  FAUZ logo lockup — black logo on light surfaces, white logo on dark footer.
+  FAUZ logo lockup — header logo on light surfaces, footer logo on dark footer.
 
   Accepts:
     footer {boolean} — footer variant
@@ -27,12 +27,13 @@
   assign tag_you = settings.tagline_you | default: 'YOU ARE'
   assign tag_script = settings.tagline_script | default: 'Unique'
 
-  assign logo_image = settings.logo
   assign use_logo_image = true
 
   if giant or footer
+    assign logo_image = settings.logo_footer
     assign logo_asset = 'fauz-logo-white.png'
   else
+    assign logo_image = settings.logo
     assign logo_asset = 'fauz-logo-black.png'
   endif
 
@@ -55,13 +56,21 @@
               widths: '400, 800, 1200',
               loading: 'lazy',
               alt: logo_alt }}
+        {%- elsif header -%}
+          {{ logo_image
+            | image_url: width: 640
+            | image_tag:
+              class: 'fz-logo__img',
+              widths: '240, 360, 480, 640',
+              loading: 'eager',
+              alt: logo_alt }}
         {%- else -%}
           {{ logo_image
             | image_url: width: 480
             | image_tag:
               class: 'fz-logo__img',
               widths: '180, 280, 480',
-              loading: 'eager',
+              loading: 'lazy',
               alt: logo_alt }}
         {%- endif -%}
       {%- else -%}

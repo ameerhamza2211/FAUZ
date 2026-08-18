@@ -21,8 +21,14 @@
       {
         "type": "image_picker",
         "id": "logo",
-        "label": "Logo image",
-        "info": "Optional override for both header and footer. By default the theme uses fauz-logo-black.png in the header and fauz-logo-white.png in the footer."
+        "label": "Header logo",
+        "info": "Shown in the site header (desktop and mobile). Use a dark logo on the light header. Default: fauz-logo-black.png."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_footer",
+        "label": "Footer logo",
+        "info": "Shown in the footer wordmark. Upload a light or alternate-color version for dark backgrounds. Default: fauz-logo-white.png."
       },
       {
         "type": "text",

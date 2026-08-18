@@ -42,7 +42,7 @@
       },
       {
         "type": "paragraph",
-        "content": "Brand palette: Primary mint #C1DBD8, Secondary teal #548A83, off-white #E8EAE9, black #000000 — defined as CSS variables in base.css."
+        "content": "Fauz Brand Guidelines 2024 — Primary mint #C1DBD8, Secondary off-white #E8EAE9, Black #000000. Voice: Modern, Simple, Premium, Minimal."
       },
       {
         "type": "color",
@@ -62,7 +62,7 @@
         "type": "color",
         "id": "eyebrow_color",
         "label": "Eyebrow / label color",
-        "default": "#548A83",
+        "default": "#000000",
         "info": "Small uppercase labels above headings (e.g. Fauz Cosmetics, The edit)."
       }
     ]

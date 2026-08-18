@@ -1415,7 +1415,7 @@ html.lenis body {
   font-family: var(--fz-font-label);
   font-weight: 200;
   letter-spacing: 0.32em;
-  color: var(--fz-secondary-teal);
+  color: var(--fz-eyebrow-color);
 }
 
 .fz-feat-cols__head {
@@ -1459,8 +1459,8 @@ html.lenis body {
   padding: clamp(28px, 4vw, 44px);
   border-radius: calc(var(--fz-radius) + 4px);
   background:
-    radial-gradient(ellipse 72% 82% at 88% 42%, rgba(193, 219, 216, 0.28) 0%, transparent 62%),
-    var(--fz-secondary-teal);
+    radial-gradient(ellipse 72% 82% at 88% 42%, rgba(193, 219, 216, 0.35) 0%, transparent 62%),
+    var(--fz-secondary-black);
   color: var(--fz-secondary-offwhite);
   opacity: 0;
   visibility: hidden;
@@ -1591,7 +1591,7 @@ html.lenis body {
   gap: 16px;
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid rgba(84, 138, 131, 0.16);
+  border: 1px solid var(--fz-hairline);
   border-radius: var(--fz-radius);
   background: var(--fz-primary);
   cursor: pointer;
@@ -1612,7 +1612,7 @@ html.lenis body {
 
 .fz-feat-cols__item.is-active {
   background: var(--fz-secondary-offwhite);
-  border-color: rgba(84, 138, 131, 0.22);
+  border-color: var(--fz-hairline-2);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
 }
 
@@ -1646,7 +1646,7 @@ html.lenis body {
   font-weight: 200;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--fz-secondary-teal);
+  color: var(--fz-muted-grey-2);
 }
 
 .fz-feat-cols__item-title {
@@ -1666,8 +1666,8 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(84, 138, 131, 0.16);
-  color: var(--fz-secondary-teal);
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--fz-muted-grey-2);
   transition:
     background 0.3s var(--fz-btn-ease),
     color 0.3s var(--fz-btn-ease),
@@ -1675,7 +1675,7 @@ html.lenis body {
 }
 
 .fz-feat-cols__item.is-active .fz-feat-cols__item-go {
-  background: var(--fz-secondary-teal);
+  background: var(--fz-secondary-black);
   color: var(--fz-secondary-offwhite);
 }
 
@@ -1705,8 +1705,8 @@ html.lenis body {
 }
 
 .fz-feat-cols .fz-btn--outline:hover {
-  background: var(--fz-secondary-teal);
-  border-color: var(--fz-secondary-teal);
+  background: var(--fz-secondary-black);
+  border-color: var(--fz-secondary-black);
   color: var(--fz-secondary-offwhite);
 }
 
@@ -1717,9 +1717,9 @@ html.lenis body {
 }
 
 .fz-feat-cols .fz-btn--primary:hover {
-  background: var(--fz-secondary-teal);
-  border-color: var(--fz-secondary-teal);
-  color: var(--fz-secondary-offwhite);
+  background: var(--fz-primary);
+  border-color: var(--fz-primary);
+  color: var(--fz-secondary-black);
 }
 
 @media (max-width: 900px) {

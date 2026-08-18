@@ -4,9 +4,8 @@
    ============================================================ */
 
 :root {
-  /* Brand palette — Fauz Brand Guidelines */
+  /* Brand palette — Fauz Brand Guidelines 2024 */
   --fz-primary: #C1DBD8;
-  --fz-secondary-teal: #548A83;
   --fz-secondary-offwhite: #E8EAE9;
   --fz-secondary-black: #000000;
 
@@ -16,13 +15,13 @@
   --fz-mint: #C1DBD8;
   --fz-offwhite: #E8EAE9;
   --fz-bg: #E8EAE9;
-  --fz-muted-dark: #548A83;
+  --fz-muted-dark: rgba(0, 0, 0, 0.72);
   --fz-muted-grey: rgba(0, 0, 0, 0.48);
-  --fz-muted-grey-2: rgba(84, 138, 131, 0.72);
-  --fz-on-mint: #548A83;
-  --fz-accent: #548A83;
+  --fz-muted-grey-2: rgba(0, 0, 0, 0.56);
+  --fz-on-mint: #000000;
+  --fz-accent: #000000;
   --fz-hairline: rgba(0, 0, 0, 0.08);
-  --fz-hairline-2: rgba(84, 138, 131, 0.22);
+  --fz-hairline-2: rgba(0, 0, 0, 0.12);
   --fz-font-logo: 'Italiana', serif;
   --fz-font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fz-font-script: 'Allura', cursive;
@@ -34,7 +33,7 @@
   /* Overridden from Theme settings → Brand */
   --fz-heading-color: #000000;
   --fz-body-text-color: #000000;
-  --fz-eyebrow-color: #548A83;
+  --fz-eyebrow-color: rgba(0, 0, 0, 0.56);
 
   /* Layout spacing — unified across all sections */
   --fz-content-max: 1400px;
@@ -51,13 +50,7 @@
   --fz-btn-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
   --fz-btn-shadow-hover: 0 16px 38px rgba(0, 0, 0, 0.14);
 
-  --fz-footer-gradient: linear-gradient(
-    135deg,
-    #2f5a55 0%,
-    var(--fz-secondary-teal) 38%,
-    #7ab5ae 72%,
-    var(--fz-primary) 100%
-  );
+  --fz-footer-gradient: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
   --fz-footer-ink: rgba(255, 255, 255, 0.96);
   --fz-footer-muted: rgba(255, 255, 255, 0.72);
   --fz-footer-faint: rgba(255, 255, 255, 0.42);
@@ -536,7 +529,7 @@ img { max-width: 100%; }
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
   backdrop-filter: blur(24px) saturate(1.4);
   border-radius: 24px;
-  border: 1px solid rgba(84, 138, 131, 0.12);
+  border: 1px solid var(--fz-hairline);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 .fz-mobile-nav.is-open { display: flex; }

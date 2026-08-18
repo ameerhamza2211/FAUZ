@@ -1401,9 +1401,14 @@ html.lenis body {
 /* ---------- Featured collections ---------- */
 
 .fz-feat-cols {
+  max-width: 1400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: var(--fz-section-y-lg);
   padding-bottom: var(--fz-section-y-lg);
   background: var(--fz-bg);
+  box-sizing: border-box;
 }
 
 .fz-feat-cols__head {

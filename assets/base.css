@@ -26,6 +26,7 @@
   --fz-font-display: 'Italiana', serif;
   --fz-font-script: 'Allura', cursive;
   --fz-font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --fz-font-desc: 'Montserrat', sans-serif;
 
   /* Overridden from Theme settings → Brand */
   --fz-heading-color: #000000;
@@ -80,6 +81,23 @@ body {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+}
+
+.fz-hero__text,
+.fz-hero-premium__text,
+.fz-showcase__desc,
+.fz-editorial__text,
+.fz-ritual__text,
+.fz-ritual-row__desc,
+.fz-ingredients__panel-text,
+.fz-cat-card__desc,
+.fz-product__blurb,
+.fz-page__body,
+.fz-newsletter__text,
+.fz-footer-video__text,
+.fz-acc__body,
+.fz-acc__line {
+  font-family: var(--fz-font-desc);
 }
 
 a { color: var(--fz-ink); text-decoration: none; }

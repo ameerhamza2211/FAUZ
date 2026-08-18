@@ -268,7 +268,7 @@ img { max-width: 100%; }
   max-width: var(--fz-content-max);
   margin: 0 auto;
   min-height: 64px;
-  padding: 8px 10px 8px 40px;
+  padding: 10px 10px 10px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -326,24 +326,26 @@ img { max-width: 100%; }
 .fz-header__logo {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   gap: 0;
   z-index: 3;
-  padding: 2px 12px;
+  padding: 0 12px;
   text-align: center;
+  line-height: 0;
 }
 .fz-header__logo:hover { color: var(--fz-ink); }
 
 .fz-header__logo-mark {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0;
-  line-height: 1;
+  justify-content: center;
+  line-height: 0;
 }
 
 .fz-logo {
@@ -384,12 +386,22 @@ img { max-width: 100%; }
 }
 
 .fz-header__logo-mark .fz-logo__img {
-  max-height: 52px;
+  display: block;
+  height: 46px;
   width: auto;
+  max-height: 46px;
+  max-width: min(42vw, 220px);
+  object-fit: contain;
+  object-position: center center;
 }
 
 .fz-logo--on-light .fz-logo__img {
   max-height: 72px;
+}
+
+.fz-header__logo-mark.fz-logo--on-light .fz-logo__img {
+  height: 46px;
+  max-height: 46px;
 }
 
 .fz-logo--giant .fz-logo__img {
@@ -2052,7 +2064,7 @@ body:not(.fz-home) #MainContent {
 
   .fz-header {
     min-height: 56px;
-    padding: 6px 10px 6px 14px;
+    padding: 10px 10px 10px 14px;
     gap: 14px;
   }
 
@@ -2105,7 +2117,18 @@ body:not(.fz-home) #MainContent {
     position: static;
     transform: none;
     flex: 1;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
+    min-height: 0;
+  }
+
+  .fz-header__logo-mark.fz-logo--on-light .fz-logo__img {
+    height: 38px;
+    max-height: 38px;
+    max-width: min(52vw, 180px);
   }
 
   .fz-header__logo-mark .fz-logo__word {

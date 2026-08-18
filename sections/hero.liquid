@@ -102,7 +102,7 @@
     width: 100%;
     max-width: 1320px;
     margin: 0 auto;
-    padding: 0 40px 88px;
+    padding: 0 var(--fz-gutter) var(--fz-section-y-lg);
   }
 
   #shopify-section-{{ section.id }} .fz-hero-premium__copy {
@@ -110,7 +110,7 @@
   }
 
   @media (max-width: 900px) {
-    #shopify-section-{{ section.id }} .fz-hero-premium__inner { padding: 0 20px 64px; }
+    #shopify-section-{{ section.id }} .fz-hero-premium__inner { padding: 0 var(--fz-gutter) var(--fz-section-y); }
   }
 {% endstyle %}
 

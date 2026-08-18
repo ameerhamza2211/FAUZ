@@ -31,6 +31,13 @@
   --fz-heading-color: #000000;
   --fz-body-text-color: #000000;
   --fz-eyebrow-color: #548A83;
+
+  /* Layout spacing — unified across all sections */
+  --fz-gutter: 40px;
+  --fz-gutter-sm: 20px;
+  --fz-section-y: 64px;
+  --fz-section-y-lg: 80px;
+  --fz-header-height: 120px;
 }
 
 * { box-sizing: border-box; }
@@ -77,8 +84,8 @@ img { max-width: 100%; }
 .fz-container {
   max-width: 1320px;
   margin: 0 auto;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: var(--fz-gutter);
+  padding-right: var(--fz-gutter);
 }
 
 .fz-eyebrow {
@@ -154,7 +161,7 @@ img { max-width: 100%; }
   left: 0;
   right: 0;
   z-index: 50;
-  padding: 0 40px;
+  padding: 0 var(--fz-gutter);
   pointer-events: none;
   background: transparent;
   border: none;
@@ -474,7 +481,7 @@ img { max-width: 100%; }
 
 /* ---------- Section headers ---------- */
 
-.fz-section { padding: 64px 0; }
+.fz-section { padding: var(--fz-section-y) 0; }
 .fz-section--first { padding-top: 88px; padding-bottom: 40px; }
 
 .fz-section__head {
@@ -655,7 +662,7 @@ img { max-width: 100%; }
 .fz-ritual__inner {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 96px 40px;
+  padding: var(--fz-section-y-lg) var(--fz-gutter);
 }
 
 .fz-ritual__grid {
@@ -751,7 +758,7 @@ img { max-width: 100%; }
 .fz-promise {
   max-width: 900px;
   margin: 0 auto;
-  padding: 110px 40px;
+  padding: var(--fz-section-y-lg) var(--fz-gutter);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1290,7 +1297,7 @@ img { max-width: 100%; }
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: clamp(56px, 8vw, 88px) clamp(32px, 6vw, 80px) clamp(32px, 5vw, 48px);
+  padding: var(--fz-section-y-lg) var(--fz-gutter) var(--fz-section-y);
   display: flex;
   flex-direction: column;
   gap: clamp(40px, 6vw, 64px);
@@ -1693,9 +1700,16 @@ body:not(.fz-home) #MainContent {
 }
 
 @media (max-width: 900px) {
+  :root {
+    --fz-gutter: 20px;
+    --fz-section-y: 48px;
+    --fz-section-y-lg: 64px;
+    --fz-header-height: 76px;
+  }
+
   .fz-header-wrap {
     top: 12px;
-    padding: 0 16px;
+    padding: 0 var(--fz-gutter);
   }
 
   .fz-header {
@@ -1756,7 +1770,7 @@ body:not(.fz-home) #MainContent {
 
   .fz-ritual__grid { grid-template-columns: 1fr; gap: 48px; }
   .fz-ritual__intro { position: static; }
-  .fz-ritual__inner { padding: 64px 20px; }
+  .fz-ritual__inner { padding: var(--fz-section-y-lg) var(--fz-gutter); }
 
   .fz-product__grid { grid-template-columns: 1fr; gap: 40px; }
   .fz-product { padding: 32px 20px 72px; }
@@ -1768,7 +1782,7 @@ body:not(.fz-home) #MainContent {
   }
 
   .fz-footer__inner {
-    padding: 56px 20px 32px;
+    padding: var(--fz-section-y-lg) var(--fz-gutter) var(--fz-section-y);
   }
 
   .fz-footer__brand {
@@ -1783,7 +1797,7 @@ body:not(.fz-home) #MainContent {
     padding: 48px 20px;
   }
 
-  .fz-promise { padding: 80px 20px; }
+  .fz-promise { padding: var(--fz-section-y-lg) var(--fz-gutter); }
   .fz-promise__quote { font-size: 34px; }
 
   .fz-drawer { width: 90vw; }

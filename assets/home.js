@@ -13,6 +13,7 @@
 
   ready(function () {
     if (reducedMotion || typeof gsap === 'undefined') {
+      initHeaderHeight();
       initIngredientTabs();
       initHeaderScrollBasic();
       document.body.classList.add('is-motion-reduced');
@@ -38,6 +39,7 @@
       gsap.ticker.lagSmoothing(0);
     }
 
+    initHeaderHeight();
     initHeaderScroll(lenis);
     initHero();
     initMarquee();
@@ -68,6 +70,40 @@
   }
 
   /* ---------- Header ---------- */
+
+  function initHeaderHeight() {
+    function syncHeaderHeight() {
+      var headerWrap = document.querySelector('.fz-header-wrap');
+      if (!headerWrap) return;
+
+      var announcement = document.querySelector('.fz-announcement');
+      var bottom = headerWrap.getBoundingClientRect().bottom;
+
+      if (announcement && !announcement.classList.contains('is-hidden')) {
+        bottom = Math.max(bottom, announcement.getBoundingClientRect().bottom);
+      }
+
+      var height = Math.ceil(bottom);
+      if (height > 0) {
+        document.documentElement.style.setProperty('--fz-header-height', height + 'px');
+      }
+    }
+
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+    window.addEventListener('load', function () {
+      syncHeaderHeight();
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh(true);
+      }
+    });
+
+    var announcement = document.querySelector('.fz-announcement');
+    if (announcement && 'MutationObserver' in window) {
+      var observer = new MutationObserver(syncHeaderHeight);
+      observer.observe(announcement, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
 
   function initHeaderScroll(lenis) {
     var header = document.querySelector('[data-header]');
@@ -313,7 +349,7 @@
 
     var mm = gsap.matchMedia();
 
-    mm.add('(min-width: 1101px)', function () {
+    mm.add('(min-width: 1100px)', function () {
       function getHeaderOffset() {
         var root = getComputedStyle(document.documentElement);
         var h = parseFloat(root.getPropertyValue('--fz-header-height')) || 100;

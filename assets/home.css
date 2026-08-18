@@ -6,7 +6,6 @@
 :root {
   --fz-radius: 20px;
   --fz-radius-sm: 14px;
-  --fz-header-height: 100px;
   --fz-header-height-scrolled: 84px;
 }
 
@@ -122,7 +121,7 @@ html.lenis body {
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-  padding: calc(var(--fz-header-height) + 56px) 40px 80px;
+  padding: calc(var(--fz-header-height) + var(--fz-section-y)) var(--fz-gutter) var(--fz-section-y-lg);
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 64px;
@@ -193,7 +192,7 @@ html.lenis body {
 .fz-hero-premium__scroll {
   position: absolute;
   bottom: 32px;
-  left: 40px;
+  left: var(--fz-gutter);
   display: flex;
   align-items: center;
   gap: 14px;
@@ -217,7 +216,7 @@ html.lenis body {
   border-top: 1px solid var(--fz-hairline);
   border-bottom: 1px solid var(--fz-hairline);
   overflow: hidden;
-  padding: 18px 0;
+  padding: var(--fz-section-y) 0;
   background: var(--fz-bg);
 }
 
@@ -262,10 +261,10 @@ html.lenis body {
   position: relative;
   min-height: var(--fz-showcase-vh);
   max-height: var(--fz-showcase-vh);
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: var(--fz-showcase-pt, clamp(40px, 5vh, 64px));
-  padding-bottom: var(--fz-showcase-pb, clamp(40px, 5vh, 64px));
+  padding-left: var(--fz-gutter);
+  padding-right: var(--fz-gutter);
+  padding-top: var(--fz-showcase-pt, var(--fz-section-y));
+  padding-bottom: var(--fz-showcase-pb, var(--fz-section-y));
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -310,7 +309,7 @@ html.lenis body {
 
 .fz-showcase__note {
   position: absolute;
-  right: 40px;
+  right: var(--fz-gutter);
   top: 50%;
   transform: translateY(-50%) rotate(180deg);
   writing-mode: vertical-rl;
@@ -362,9 +361,9 @@ html.lenis body {
 }
 
 .fz-showcase__slide {
-  width: 100vw;
+  width: 100%;
   flex-shrink: 0;
-  padding: 0 40px;
+  padding: 0;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -546,8 +545,8 @@ html.lenis body {
 /* Short viewports: scale content to fit */
 @media (max-height: 860px) {
   .fz-showcase__pin {
-    padding-top: var(--fz-showcase-pt, clamp(28px, 4vh, 48px));
-    padding-bottom: var(--fz-showcase-pb, clamp(28px, 4vh, 48px));
+    padding-top: var(--fz-showcase-pt, var(--fz-section-y));
+    padding-bottom: var(--fz-showcase-pb, var(--fz-section-y));
     gap: 16px;
   }
 
@@ -590,10 +589,10 @@ html.lenis body {
 
 .fz-ingredients {
   background: var(--fz-offwhite);
-  padding: clamp(80px, 10vh, 120px) 0;
+  padding: var(--fz-section-y-lg) 0;
 }
 
-@media (min-width: 1101px) {
+@media (min-width: 1100px) {
   .fz-ingredients {
     padding: 0;
   }
@@ -629,7 +628,7 @@ html.lenis body {
 .fz-ingredients__layout {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 clamp(24px, 4vw, 40px);
+  padding: 0 var(--fz-gutter);
   display: grid;
   grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(56px, 7vw, 96px);
@@ -793,7 +792,7 @@ html.lenis body {
   align-items: center;
   max-width: 1320px;
   margin: 0 auto;
-  padding: 100px 40px;
+  padding: var(--fz-section-y-lg) var(--fz-gutter);
 }
 
 .fz-editorial__block--reverse {
@@ -1022,7 +1021,7 @@ html.lenis body {
   .fz-editorial__block--reverse {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 72px 20px;
+    padding: var(--fz-section-y-lg) var(--fz-gutter);
   }
 
   .fz-editorial__block--reverse .fz-editorial__media-wrap,
@@ -1053,13 +1052,13 @@ html.lenis body {
   }
 
   .fz-showcase__pin {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: var(--fz-gutter);
+    padding-right: var(--fz-gutter);
     min-height: auto;
     max-height: none;
     justify-content: flex-start;
-    padding-top: var(--fz-showcase-pt, 48px);
-    padding-bottom: var(--fz-showcase-pb, 48px);
+    padding-top: var(--fz-showcase-pt, var(--fz-section-y));
+    padding-bottom: var(--fz-showcase-pb, var(--fz-section-y));
     gap: 24px;
   }
 
@@ -1098,9 +1097,9 @@ html.lenis body {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    margin: 0 -20px;
-    padding: 0 20px 8px;
-    width: calc(100% + 40px);
+    margin: 0 calc(-1 * var(--fz-gutter));
+    padding: 0 var(--fz-gutter) 8px;
+    width: calc(100% + 2 * var(--fz-gutter));
   }
 
   .fz-showcase__stage::-webkit-scrollbar {
@@ -1113,7 +1112,7 @@ html.lenis body {
   }
 
   .fz-showcase__slide {
-    width: calc(100vw - 40px);
+    width: calc(100vw - 2 * var(--fz-gutter));
     padding: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -1155,7 +1154,7 @@ html.lenis body {
   }
 
   .fz-footer-video__content {
-    padding: 64px 20px;
+    padding: var(--fz-section-y-lg) var(--fz-gutter);
   }
 }
 

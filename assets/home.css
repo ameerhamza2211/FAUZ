@@ -311,21 +311,33 @@ html.lenis body {
   color: var(--fz-heading-color);
 }
 
-.fz-showcase__note {
+.fz-showcase__scroll {
   position: absolute;
-  right: var(--fz-gutter);
-  top: 50%;
-  transform: translateY(-50%) rotate(180deg);
-  writing-mode: vertical-rl;
-  font-size: 11px;
-  color: var(--fz-muted-grey);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin: 0;
-  font-weight: 400;
-  opacity: 0.72;
+  left: var(--fz-gutter);
+  bottom: calc(var(--fz-showcase-pb, var(--fz-section-y)) - 4px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
   pointer-events: none;
   z-index: 2;
+}
+
+.fz-showcase__scroll-text {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fz-muted-grey);
+  opacity: 0.72;
+  margin: 0;
+  font-weight: 400;
+}
+
+.fz-showcase__scroll-line {
+  width: 48px;
+  height: 1px;
+  background: var(--fz-muted-grey);
+  opacity: 0.45;
+  flex-shrink: 0;
 }
 
 .fz-showcase__counter {
@@ -1107,7 +1119,7 @@ html.lenis body {
     font-size: clamp(28px, 8vw, 40px);
   }
 
-  .fz-showcase__note {
+  .fz-showcase__scroll {
     display: none;
   }
 

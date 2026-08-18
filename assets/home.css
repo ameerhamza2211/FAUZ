@@ -309,34 +309,6 @@ html.lenis body {
   color: var(--fz-heading-color);
 }
 
-.fz-showcase__scroll {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  pointer-events: none;
-  margin-top: auto;
-  padding-top: 4px;
-}
-
-.fz-showcase__scroll-text {
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--fz-muted-grey);
-  opacity: 0.72;
-  margin: 0;
-  font-weight: 400;
-}
-
-.fz-showcase__scroll-line {
-  width: 48px;
-  height: 1px;
-  background: var(--fz-muted-grey);
-  opacity: 0.45;
-  flex-shrink: 0;
-}
-
 .fz-showcase__counter {
   grid-column: 2;
   grid-row: 1 / span 2;
@@ -625,10 +597,6 @@ html.lenis body {
 
   .fz-showcase__heading {
     font-size: clamp(24px, 3.5vw, 36px);
-  }
-
-  .fz-showcase__scroll {
-    display: none;
   }
 
   .fz-showcase__desc {
@@ -1155,10 +1123,6 @@ html.lenis body {
     justify-self: start;
     margin-top: 12px;
     font-size: clamp(28px, 8vw, 40px);
-  }
-
-  .fz-showcase__scroll {
-    display: none;
   }
 
   .fz-showcase__stage {

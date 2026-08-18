@@ -38,13 +38,6 @@
         {%- endif -%}
       </div>
     </div>
-
-    {%- if section.settings.note != blank -%}
-      <div class="fz-showcase__scroll" aria-hidden="true">
-        <span class="fz-showcase__scroll-text">{{ section.settings.note }}</span>
-        <span class="fz-showcase__scroll-line"></span>
-      </div>
-    {%- endif -%}
   </div>
 </section>
 
@@ -63,12 +56,6 @@
       "id": "heading",
       "label": "Heading",
       "default": "Formulas worth the ritual"
-    },
-    {
-      "type": "text",
-      "id": "note",
-      "label": "Supporting note",
-      "default": "Scroll to explore"
     },
     {
       "type": "collection",

@@ -245,16 +245,13 @@
 
       var pin = section.querySelector('.fz-showcase__pin');
       var intro = section.querySelector('.fz-showcase__intro');
-      var scroll = section.querySelector('.fz-showcase__scroll');
       if (!pin || !intro) return;
 
       var pinStyle = getComputedStyle(pin);
       var pt = parseFloat(pinStyle.paddingTop) || 0;
       var pb = parseFloat(pinStyle.paddingBottom) || 0;
       var gap = parseFloat(pinStyle.rowGap || pinStyle.gap) || 0;
-      var scrollH = scroll && getComputedStyle(scroll).display !== 'none' ? scroll.offsetHeight : 0;
-      var gapCount = scrollH ? 2 : 1;
-      var available = pin.clientHeight - intro.offsetHeight - scrollH - pt - pb - gap * gapCount;
+      var available = pin.clientHeight - intro.offsetHeight - pt - pb - gap;
 
       if (available < 180) available = 180;
 

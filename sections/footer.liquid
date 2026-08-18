@@ -61,41 +61,84 @@
   <div class="fz-footer__main">
     <div class="fz-footer__inner">
       <div class="fz-footer__grid">
-        <div class="fz-footer__brand">
-          {% render 'logo-lockup', footer: true %}
-          <p class="fz-footer__blurb">{{ section.settings.blurb }}</p>
-        </div>
-
         <div class="fz-footer__col">
-          <div class="fz-footer__heading">{{ section.settings.shop_heading }}</div>
-          {%- if section.settings.shop_menu != blank -%}
-            {%- for link in section.settings.shop_menu.links -%}
+          <div class="fz-footer__heading">{{ section.settings.nav_heading }}</div>
+          {%- if section.settings.nav_menu != blank -%}
+            {%- for link in section.settings.nav_menu.links -%}
               <a href="{{ link.url }}">{{ link.title }}</a>
             {%- endfor -%}
           {%- else -%}
-            <a href="{{ routes.collections_url }}/skincare">Skincare</a>
-            <a href="{{ routes.collections_url }}/haircare">Haircare</a>
-            <a href="{{ routes.collections_url }}/sun-care">Sun care</a>
-            <a href="{{ routes.all_products_collection_url }}">All products</a>
+            <a href="{{ routes.root_url }}">About us</a>
+            <a href="{{ routes.blog_url }}">Journal</a>
+            <a href="{{ routes.all_products_collection_url }}">Shop all</a>
           {%- endif -%}
         </div>
 
         <div class="fz-footer__col">
-          <div class="fz-footer__heading">{{ section.settings.help_heading }}</div>
-          {%- if section.settings.help_menu != blank -%}
-            {%- for link in section.settings.help_menu.links -%}
+          <div class="fz-footer__heading">{{ section.settings.social_heading }}</div>
+          {%- if section.settings.social_menu != blank -%}
+            {%- for link in section.settings.social_menu.links -%}
+              <a href="{{ link.url }}"{% if link.url contains 'http' %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            {%- if section.settings.social_instagram != blank -%}
+              <a href="{{ section.settings.social_instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>
+            {%- endif -%}
+            {%- if section.settings.social_facebook != blank -%}
+              <a href="{{ section.settings.social_facebook }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+            {%- endif -%}
+            {%- if section.settings.social_tiktok != blank -%}
+              <a href="{{ section.settings.social_tiktok }}" target="_blank" rel="noopener noreferrer">TikTok</a>
+            {%- endif -%}
+            {%- if section.settings.social_instagram == blank and section.settings.social_facebook == blank and section.settings.social_tiktok == blank -%}
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+
+        <div class="fz-footer__col">
+          <div class="fz-footer__heading">{{ section.settings.policy_heading }}</div>
+          {%- if section.settings.policy_menu != blank -%}
+            {%- for link in section.settings.policy_menu.links -%}
               <a href="{{ link.url }}">{{ link.title }}</a>
             {%- endfor -%}
           {%- else -%}
-            <a href="/pages/contact">Contact us</a>
+            <a href="/pages/faq">FAQs</a>
             <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>
+            <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Return policy</a>
+          {%- endif -%}
+        </div>
+
+        <div class="fz-footer__col fz-footer__col--contact">
+          {%- if section.settings.contact_address != blank -%}
+            <p class="fz-footer__contact-line">{{ section.settings.contact_address }}</p>
+          {%- endif -%}
+          {%- if section.settings.contact_phone != blank -%}
+            <p class="fz-footer__contact-line">
+              {%- if section.settings.contact_phone_url != blank -%}
+                <a href="{{ section.settings.contact_phone_url }}">{{ section.settings.contact_phone }}</a>
+              {%- else -%}
+                {{ section.settings.contact_phone }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+          {%- if section.settings.contact_hours != blank -%}
+            <p class="fz-footer__contact-line">{{ section.settings.contact_hours }}</p>
           {%- endif -%}
         </div>
       </div>
 
+      {%- if section.settings.show_giant_logo -%}
+        <div class="fz-footer__wordmark" aria-hidden="true">{{ section.settings.giant_logo_text }}</div>
+      {%- endif -%}
+
       <div class="fz-footer__bottom">
         <span class="fz-footer__legal">© {{ 'now' | date: '%Y' }} {{ section.settings.legal_name }}. All rights reserved.</span>
-        <span class="fz-footer__hashtag">{{ section.settings.hashtag }}</span>
+        {%- if section.settings.hashtag != blank -%}
+          <span class="fz-footer__hashtag">{{ section.settings.hashtag }}</span>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -163,37 +206,96 @@
     },
     {
       "type": "header",
-      "content": "Footer content"
+      "content": "Footer columns"
+    },
+    {
+      "type": "text",
+      "id": "nav_heading",
+      "label": "Navigation heading",
+      "default": "Quick navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "nav_menu",
+      "label": "Navigation menu"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social heading",
+      "default": "Follow us"
+    },
+    {
+      "type": "link_list",
+      "id": "social_menu",
+      "label": "Social menu",
+      "info": "Optional. Overrides individual social links below."
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "text",
+      "id": "policy_heading",
+      "label": "Policy heading",
+      "default": "Terms & policy"
+    },
+    {
+      "type": "link_list",
+      "id": "policy_menu",
+      "label": "Policy menu"
     },
     {
       "type": "textarea",
-      "id": "blurb",
-      "label": "Brand blurb",
-      "default": "Modern, simple, premium care for skin and hair. Formulated with intention — never compared."
+      "id": "contact_address",
+      "label": "Contact address",
+      "default": "Race Course Road, Lahore, Pakistan"
     },
     {
       "type": "text",
-      "id": "shop_heading",
-      "label": "Shop column heading",
-      "default": "Shop"
+      "id": "contact_phone",
+      "label": "Contact phone",
+      "default": "(+92) 329 0889049"
     },
     {
-      "type": "link_list",
-      "id": "shop_menu",
-      "label": "Shop menu",
-      "info": "Leave empty for the default collection links."
+      "type": "url",
+      "id": "contact_phone_url",
+      "label": "Contact phone link",
+      "info": "Optional tel: link"
     },
     {
       "type": "text",
-      "id": "help_heading",
-      "label": "Help column heading",
-      "default": "Help"
+      "id": "contact_hours",
+      "label": "Contact hours",
+      "default": "Monday – Friday, 10am – 6pm"
     },
     {
-      "type": "link_list",
-      "id": "help_menu",
-      "label": "Help menu",
-      "info": "Leave empty for Contact us + Privacy policy."
+      "type": "header",
+      "content": "Giant wordmark"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_giant_logo",
+      "label": "Show giant wordmark",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "giant_logo_text",
+      "label": "Wordmark text",
+      "default": "FAUZ"
     },
     {
       "type": "text",

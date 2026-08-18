@@ -1791,22 +1791,29 @@ html.lenis body {
   .fz-feat-cols__panel,
   .fz-feat-cols__panel.is-active {
     grid-template-columns: 1fr;
+    align-items: start;
+    justify-items: start;
     min-height: 0;
     padding: 24px 20px;
   }
 
   .fz-feat-cols__panel-copy {
     order: 2;
+    width: 100%;
+    text-align: left;
   }
 
   .fz-feat-cols__panel-media {
     order: 1;
     margin-bottom: 8px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .fz-feat-cols__panel-frame {
     width: min(72%, 220px);
-    margin: 0 auto;
+    margin: 0;
     aspect-ratio: 1 / 1;
   }
 

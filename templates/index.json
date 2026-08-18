@@ -17,7 +17,7 @@
         "heading_emphasis": "like you.",
         "text": "Clinically considered formulas for modern skin — clean, effective, and designed for daily ritual.",
         "button_label": "Shop the collection",
-        "button_link": "",
+        "button_link": "shopify://collections",
         "background_type": "image",
         "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_05_38_32_PM.png",
         "gradient_overlay_enable": true,
@@ -232,7 +232,9 @@
         "eyebrow": "The Fauz ritual",
         "heading_line_1": "Three steps.",
         "heading_line_2": "Every day.",
-        "text": "Skincare doesn't need to be complicated — it needs to be consistent. Cleanse, treat, protect. That's the whole ritual."
+        "text": "Skincare doesn't need to be complicated — it needs to be consistent. Cleanse, treat, protect. That's the whole ritual.",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff"
       }
     },
     "editorial": {

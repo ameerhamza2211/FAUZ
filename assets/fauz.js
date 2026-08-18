@@ -233,20 +233,75 @@
     if (e.key === 'Escape') closeCart();
   });
 
-  /* ---------- Header scroll state (non-home pages) ---------- */
+  /* ---------- Header layout & scroll ---------- */
 
-  if (!window.FAUZ || !window.FAUZ.isHome) {
+  function syncHeaderLayout() {
     var headerWrap = document.querySelector('[data-header]');
-    var announcementBar = document.querySelector('.fz-announcement');
-    if (headerWrap) {
-      var updateHeader = function () {
-        var scrolled = window.scrollY > 48;
-        headerWrap.classList.toggle('is-scrolled', scrolled);
-        if (announcementBar) announcementBar.classList.toggle('is-hidden', scrolled);
-      };
-      window.addEventListener('scroll', updateHeader, { passive: true });
-      updateHeader();
+    if (!headerWrap) return;
+
+    var announcement = document.querySelector('.fz-announcement');
+    var isMobile = window.matchMedia('(max-width: 900px)').matches;
+    var scrolled = headerWrap.classList.contains('is-scrolled');
+
+    var annHeight = 0;
+    if (announcement && !announcement.classList.contains('is-hidden')) {
+      annHeight = announcement.offsetHeight;
     }
+
+    document.documentElement.style.setProperty('--fz-announcement-height', annHeight + 'px');
+
+    var gap = scrolled
+      ? (isMobile ? 10 : 12)
+      : (isMobile ? 8 : 20);
+    document.documentElement.style.setProperty('--fz-header-gap', gap + 'px');
+
+    var bottom = headerWrap.getBoundingClientRect().bottom;
+    var height = Math.ceil(bottom);
+    if (height > 0) {
+      document.documentElement.style.setProperty('--fz-header-height', height + 'px');
+      window.dispatchEvent(new CustomEvent('fz:header-resize'));
+    }
+  }
+
+  function initSiteHeader() {
+    var headerWrap = document.querySelector('[data-header]');
+    var announcement = document.querySelector('.fz-announcement');
+    if (!headerWrap) return;
+
+    function updateScrollState(scrollY) {
+      var scrolled = scrollY > 48;
+      headerWrap.classList.toggle('is-scrolled', scrolled);
+      if (announcement) announcement.classList.toggle('is-hidden', scrolled);
+      syncHeaderLayout();
+    }
+
+    if (!window.FAUZ || !window.FAUZ.isHome) {
+      window.addEventListener('scroll', function () {
+        updateScrollState(window.scrollY);
+      }, { passive: true });
+      updateScrollState(window.scrollY);
+    } else {
+      syncHeaderLayout();
+    }
+
+    window.addEventListener('resize', syncHeaderLayout);
+    window.addEventListener('load', syncHeaderLayout);
+
+    if (announcement && 'MutationObserver' in window) {
+      new MutationObserver(syncHeaderLayout).observe(announcement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
+  }
+
+  window.FAUZ = window.FAUZ || {};
+  window.FAUZ.syncHeaderLayout = syncHeaderLayout;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSiteHeader);
+  } else {
+    initSiteHeader();
   }
 
   // PDP add-to-cart form: intercept, add via AJAX, open drawer

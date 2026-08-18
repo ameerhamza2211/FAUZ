@@ -39,6 +39,8 @@
   --fz-section-y: 64px;
   --fz-section-y-lg: 80px;
   --fz-header-height: 120px;
+  --fz-announcement-height: 0px;
+  --fz-header-gap: 20px;
 
   /* Buttons */
   --fz-btn-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -204,6 +206,11 @@ img { max-width: 100%; }
 /* ---------- Announcement bar ---------- */
 
 .fz-announcement {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
   background: var(--fz-ink);
   color: var(--fz-offwhite);
   text-align: center;
@@ -224,7 +231,7 @@ img { max-width: 100%; }
 
 .fz-header-wrap {
   position: fixed;
-  top: 20px;
+  top: calc(var(--fz-announcement-height) + var(--fz-header-gap));
   left: 0;
   right: 0;
   z-index: 50;
@@ -236,7 +243,7 @@ img { max-width: 100%; }
 }
 
 .fz-header-wrap.is-scrolled {
-  top: 12px;
+  top: var(--fz-header-gap);
 }
 
 .fz-header {
@@ -1935,7 +1942,7 @@ textarea.fz-input { border-radius: 16px; min-height: 140px; resize: vertical; }
 }
 
 body:not(.fz-home) #MainContent {
-  padding-top: 108px;
+  padding-top: calc(var(--fz-header-height) + 12px);
 }
 
 @media (max-width: 900px) {
@@ -1947,7 +1954,6 @@ body:not(.fz-home) #MainContent {
   }
 
   .fz-header-wrap {
-    top: 12px;
     padding: 0 var(--fz-gutter);
   }
 
@@ -1955,6 +1961,17 @@ body:not(.fz-home) #MainContent {
     min-height: 56px;
     padding: 6px 10px 6px 14px;
     gap: 14px;
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
+    backdrop-filter: blur(20px) saturate(1.15);
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .fz-header-wrap.is-scrolled .fz-header {
+    background: rgba(255, 255, 255, 0.97);
+    border-color: rgba(17, 17, 17, 0.1);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   }
 
   .fz-header__nav { display: none; }
@@ -1989,10 +2006,14 @@ body:not(.fz-home) #MainContent {
     padding: 9px 16px;
     min-height: 36px;
     font-size: 10px;
+    background: var(--fz-offwhite);
+    border: 1px solid rgba(17, 17, 17, 0.14);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   body:not(.fz-home) #MainContent {
-    padding-top: 92px;
+    padding-top: calc(var(--fz-header-height) + 8px);
   }
 
   .fz-container { padding-left: 20px; padding-right: 20px; }

@@ -133,7 +133,15 @@
       </div>
 
       {%- if section.settings.show_giant_logo -%}
-        <div class="fz-footer__wordmark" aria-hidden="true">{{ section.settings.giant_logo_text }}</div>
+        <div class="fz-footer__brandmark">
+          <div class="fz-footer__wordmark" aria-hidden="true">{{ section.settings.giant_logo_text }}</div>
+          {%- if section.settings.show_tagline -%}
+            <p class="fz-footer__tagline">
+              <span class="fz-footer__tagline-you">{{ section.settings.tagline_you }}</span>
+              <span class="fz-footer__tagline-script">{{ section.settings.tagline_emphasis }}</span>
+            </p>
+          {%- endif -%}
+        </div>
       {%- endif -%}
 
       <div class="fz-footer__bottom">
@@ -298,6 +306,24 @@
       "id": "giant_logo_text",
       "label": "Wordmark text",
       "default": "FAUZ"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tagline",
+      "label": "Show tagline under wordmark",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tagline_you",
+      "label": "Tagline — line 1",
+      "default": "You are"
+    },
+    {
+      "type": "text",
+      "id": "tagline_emphasis",
+      "label": "Tagline — emphasis",
+      "default": "Unique"
     },
     {
       "type": "text",

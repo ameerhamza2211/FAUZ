@@ -23,10 +23,11 @@
   --fz-accent: #548A83;
   --fz-hairline: rgba(0, 0, 0, 0.08);
   --fz-hairline-2: rgba(84, 138, 131, 0.22);
-  --fz-font-display: 'Italiana', serif;
+  --fz-font-logo: 'Italiana', serif;
+  --fz-font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fz-font-script: 'Allura', cursive;
   --fz-font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --fz-font-desc: 'Montserrat', sans-serif;
+  --fz-font-desc: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fz-font-headline: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fz-font-label: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
@@ -141,6 +142,7 @@ img { max-width: 100%; }
   font-family: var(--fz-font-display);
   font-size: 44px;
   font-weight: 400;
+  letter-spacing: 0.01em;
   margin: 0;
   color: var(--fz-heading-color);
 }
@@ -360,16 +362,42 @@ img { max-width: 100%; }
 .fz-logo:hover { color: var(--fz-ink); }
 
 .fz-logo__word,
-.fz-header__logo-mark .fz-logo__word {
-  font-family: var(--fz-font-display);
+.fz-header__logo-mark .fz-logo__word,
+.fz-logo--giant .fz-logo__word {
+  font-family: var(--fz-font-logo);
   font-size: 34px;
-  letter-spacing: 0.12em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--fz-ink);
-  line-height: 1;
+  line-height: 0.92;
+}
+
+.fz-logo__mark {
+  display: block;
+  line-height: 0;
+}
+
+.fz-logo__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+.fz-header__logo-mark .fz-logo__img {
+  max-height: 42px;
+  width: auto;
+}
+
+.fz-logo--giant .fz-logo__img {
+  width: min(78vw, 900px);
+  margin: 0 auto;
 }
 
 .fz-logo__tag,
-.fz-header__logo-mark .fz-logo__tag {
+.fz-header__logo-mark .fz-logo__tag,
+.fz-logo--giant .fz-logo__tag {
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -378,8 +406,11 @@ img { max-width: 100%; }
 }
 
 .fz-logo__youare,
-.fz-header__logo-mark .fz-logo__youare {
+.fz-header__logo-mark .fz-logo__youare,
+.fz-logo--giant .fz-logo__youare {
+  font-family: var(--fz-font-body);
   font-size: 8px;
+  font-weight: 400;
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--fz-ink);
@@ -387,12 +418,41 @@ img { max-width: 100%; }
 }
 
 .fz-logo__script,
-.fz-header__logo-mark .fz-logo__script {
+.fz-header__logo-mark .fz-logo__script,
+.fz-logo--giant .fz-logo__script {
   font-family: var(--fz-font-script);
   font-size: 15px;
+  font-weight: 400;
   color: var(--fz-ink);
   line-height: 1;
   transform: translateY(1px);
+}
+
+.fz-logo--giant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.6vw, 18px);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.fz-logo--giant .fz-logo__word {
+  font-size: clamp(72px, 17.5vw, 260px);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+}
+
+.fz-logo--giant .fz-logo__youare {
+  font-size: clamp(10px, 1.1vw, 13px);
+  letter-spacing: 0.34em;
+  color: var(--fz-footer-muted);
+}
+
+.fz-logo--giant .fz-logo__script {
+  font-size: clamp(18px, 2.2vw, 28px);
+  color: var(--fz-footer-muted);
 }
 
 .fz-header__right {
@@ -1591,15 +1651,24 @@ img { max-width: 100%; }
   text-align: center;
 }
 
+.fz-footer__brandmark .fz-logo__word {
+  color: var(--fz-footer-ink);
+}
+
+.fz-footer__brandmark .fz-logo__youare,
+.fz-footer__brandmark .fz-logo__script {
+  color: var(--fz-footer-muted);
+}
+
 .fz-footer__wordmark {
-  font-family: var(--fz-font-display);
+  font-family: var(--fz-font-logo);
   font-size: clamp(72px, 17.5vw, 260px);
   font-weight: 400;
   line-height: 0.88;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.04em;
   text-align: center;
+  text-transform: uppercase;
   color: var(--fz-footer-ink);
-  text-transform: lowercase;
   margin: 0;
   pointer-events: none;
   user-select: none;

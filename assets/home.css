@@ -1428,11 +1428,11 @@ html.lenis body {
 }
 
 .fz-feat-cols__heading {
-  font-family: var(--fz-font-headline);
+  font-family: var(--fz-font-display);
   font-size: clamp(32px, 4.5vw, 44px);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--fz-secondary-black);
   max-width: none;
 }
@@ -1503,12 +1503,12 @@ html.lenis body {
 }
 
 .fz-feat-cols__panel-title {
-  font-family: var(--fz-font-headline);
+  font-family: var(--fz-font-display);
   font-size: clamp(28px, 3.6vw, 40px);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  line-height: 1.12;
   margin: 0 0 16px;
   color: var(--fz-secondary-offwhite);
 }
@@ -1537,8 +1537,8 @@ html.lenis body {
 
 .fz-feat-cols__panel-btn {
   border-radius: 999px;
-  font-family: var(--fz-font-headline);
-  font-weight: 700;
+  font-family: var(--fz-font-body);
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 11px;
@@ -1650,12 +1650,12 @@ html.lenis body {
 }
 
 .fz-feat-cols__item-title {
-  font-family: var(--fz-font-headline);
+  font-family: var(--fz-font-display);
   font-size: clamp(16px, 1.8vw, 20px);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  line-height: 1.25;
   color: var(--fz-secondary-black);
 }
 
@@ -1691,8 +1691,8 @@ html.lenis body {
   border-radius: 999px;
   min-width: min(100%, 240px);
   justify-content: center;
-  font-family: var(--fz-font-headline);
-  font-weight: 700;
+  font-family: var(--fz-font-body);
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 11px;

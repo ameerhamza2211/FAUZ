@@ -1,13 +1,63 @@
-{% comment %}
-  FAUZ logo lockup: wordmark + "YOU ARE Unique" script line.
+{%- comment -%}
+  FAUZ logo lockup — Aquila wordmark + YOU ARE Unique (Autography script).
+
   Accepts:
-    footer (boolean) — larger footer variant
-    header (boolean) — compact header variant without duplicate wrapper class
-{% endcomment %}
-<span class="{% if footer %}fz-footer__logo{% elsif header %}fz-header__logo-mark{% else %}fz-logo{% endif %}">
-  <span class="fz-logo__word">FAUZ</span>
-  <span class="fz-logo__tag">
-    <span class="fz-logo__youare">You are</span>
-    <span class="fz-logo__script">Unique</span>
-  </span>
+    footer {boolean} — footer variant
+    header {boolean} — compact header variant
+    giant {boolean} — large footer wordmark
+    show_tagline {boolean} — show YOU ARE Unique line (default true)
+{%- endcomment -%}
+
+{%- liquid
+  assign show_tag = show_tagline
+  if show_tag == nil
+    assign show_tag = true
+  endif
+
+  if giant
+    assign root_class = 'fz-logo fz-logo--giant'
+  elsif footer
+    assign root_class = 'fz-footer__logo'
+  elsif header
+    assign root_class = 'fz-header__logo-mark'
+  else
+    assign root_class = 'fz-logo'
+  endif
+
+  assign tag_you = settings.tagline_you | default: 'YOU ARE'
+  assign tag_script = settings.tagline_script | default: 'Unique'
+  assign logo_alt = settings.logo.alt | default: shop.name
+-%}
+
+<span class="{{ root_class }}">
+  {%- if settings.logo != blank -%}
+    <span class="fz-logo__mark">
+      {%- if giant -%}
+        {{ settings.logo
+          | image_url: width: 1200
+          | image_tag:
+            class: 'fz-logo__img',
+            widths: '400, 800, 1200',
+            loading: 'lazy',
+            alt: logo_alt }}
+      {%- else -%}
+        {{ settings.logo
+          | image_url: width: 400
+          | image_tag:
+            class: 'fz-logo__img',
+            widths: '160, 240, 400',
+            loading: 'eager',
+            alt: logo_alt }}
+      {%- endif -%}
+    </span>
+  {%- else -%}
+    <span class="fz-logo__word"{% if giant %} aria-hidden="true"{% endif %}>FAUZ</span>
+  {%- endif -%}
+
+  {%- if show_tag -%}
+    <span class="fz-logo__tag">
+      <span class="fz-logo__youare">{{ tag_you }}</span>
+      <span class="fz-logo__script">{{ tag_script }}</span>
+    </span>
+  {%- endif -%}
 </span>

@@ -16,7 +16,25 @@
       },
       {
         "type": "paragraph",
-        "content": "Display headings use Italiana and the script lockup uses Allura (Google Fonts stand-ins for Aquila / Autography). Body text uses Helvetica Neue. To use licensed Aquila webfonts, add the font files to assets and swap the @font-face in base.css."
+        "content": "Logo wordmark uses Italiana (Aquila stand-in). Tagline script uses Allura (Autography stand-in). Product titles, headings, and body copy use Helvetica Neue."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Optional PNG/SVG of the FAUZ wordmark. Replaces the text wordmark in the header and footer when set."
+      },
+      {
+        "type": "text",
+        "id": "tagline_you",
+        "label": "Tagline — small caps",
+        "default": "YOU ARE"
+      },
+      {
+        "type": "text",
+        "id": "tagline_script",
+        "label": "Tagline — script",
+        "default": "Unique"
       },
       {
         "type": "header",

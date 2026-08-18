@@ -134,13 +134,7 @@
 
       {%- if section.settings.show_giant_logo -%}
         <div class="fz-footer__brandmark">
-          <div class="fz-footer__wordmark" aria-hidden="true">{{ section.settings.giant_logo_text }}</div>
-          {%- if section.settings.show_tagline -%}
-            <p class="fz-footer__tagline">
-              <span class="fz-footer__tagline-you">{{ section.settings.tagline_you }}</span>
-              <span class="fz-footer__tagline-script">{{ section.settings.tagline_emphasis }}</span>
-            </p>
-          {%- endif -%}
+          {% render 'logo-lockup', giant: true, show_tagline: section.settings.show_tagline %}
         </div>
       {%- endif -%}
 
@@ -317,7 +311,7 @@
       "type": "text",
       "id": "tagline_you",
       "label": "Tagline — line 1",
-      "default": "You are"
+      "default": "YOU ARE"
     },
     {
       "type": "text",

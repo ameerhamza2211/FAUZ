@@ -15,6 +15,7 @@
     if (reducedMotion || typeof gsap === 'undefined') {
       initHeaderHeight();
       initIngredientTabs();
+      initFeaturedCollections();
       initHeaderScrollBasic();
       document.body.classList.add('is-motion-reduced');
       return;
@@ -48,6 +49,7 @@
     initEditorial();
     initFooterVideo();
     initIngredientTabs();
+    initFeaturedCollections();
     initScrollRefresh();
 
     ScrollTrigger.refresh();
@@ -477,6 +479,37 @@
       btn.addEventListener('click', function () {
         var index = parseInt(btn.getAttribute('data-ingredient-trigger'), 10);
         activateIngredient(index, triggers, panels);
+      });
+    });
+  }
+
+  /* ---------- Featured collections ---------- */
+
+  function initFeaturedCollections() {
+    var section = document.querySelector('[data-feat-cols]');
+    if (!section) return;
+
+    var triggers = section.querySelectorAll('[data-feat-trigger]');
+    var panels = section.querySelectorAll('[data-feat-panel]');
+    if (!triggers.length || !panels.length) return;
+
+    function activate(index) {
+      triggers.forEach(function (btn, i) {
+        var active = i === index;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      panels.forEach(function (panel, i) {
+        panel.classList.toggle('is-active', i === index);
+      });
+    }
+
+    triggers.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var index = parseInt(btn.getAttribute('data-feat-trigger'), 10);
+        if (Number.isNaN(index)) return;
+        activate(index);
       });
     });
   }

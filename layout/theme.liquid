@@ -22,16 +22,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Allura&display=swap" rel="stylesheet">
 
-    {% style %}
-      :root {
-        --fz-heading-color: {{ settings.heading_color }};
-        --fz-body-text-color: {{ settings.body_text_color }};
-        --fz-eyebrow-color: {{ settings.eyebrow_color }};
-        --fz-header-logo-height: {{ settings.header_logo_height | default: 60 }}px;
-        --fz-header-logo-height-mobile: {{ settings.header_logo_height_mobile | default: 48 }}px;
-      }
-    {% endstyle %}
-
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {%- if template.name == 'index' -%}
@@ -41,6 +31,16 @@
       <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
       <script src="{{ 'home.js' | asset_url }}" defer></script>
     {%- endif -%}
+
+    {% style %}
+      :root {
+        --fz-heading-color: {{ settings.heading_color }};
+        --fz-body-text-color: {{ settings.body_text_color }};
+        --fz-eyebrow-color: {{ settings.eyebrow_color }};
+        --fz-header-logo-height: {{ settings.header_logo_height | default: 60 }}px;
+        --fz-header-logo-height-mobile: {{ settings.header_logo_height_mobile | default: 48 }}px;
+      }
+    {% endstyle %}
 
     <script src="{{ 'fauz.js' | asset_url }}" defer></script>
 

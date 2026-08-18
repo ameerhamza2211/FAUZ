@@ -238,14 +238,25 @@
     var syncTimer;
 
     function syncShowcaseLayout() {
+      var pin = section.querySelector('.fz-showcase__pin');
+      if (!pin) return;
+
       if (window.matchMedia('(max-width: 900px)').matches) {
-        section.style.removeProperty('--fz-showcase-img-size');
+        var root = getComputedStyle(document.documentElement);
+        var gutter = parseFloat(root.getPropertyValue('--fz-gutter')) || 20;
+        var mobileSize = Math.min(
+          Math.round(window.innerWidth - gutter * 2),
+          480
+        );
+        mobileSize = Math.max(280, mobileSize);
+        pin.style.setProperty('--fz-showcase-img-size', mobileSize + 'px');
         return;
       }
 
-      var pin = section.querySelector('.fz-showcase__pin');
+      section.style.removeProperty('--fz-showcase-img-size');
+
       var intro = section.querySelector('.fz-showcase__intro');
-      if (!pin || !intro) return;
+      if (!intro) return;
 
       var pinStyle = getComputedStyle(pin);
       var pt = parseFloat(pinStyle.paddingTop) || 0;
@@ -304,6 +315,8 @@
     var mm = gsap.matchMedia();
 
     mm.add('(max-width: 900px)', function () {
+      syncShowcaseLayout();
+
       var mobileStage = section.querySelector('.fz-showcase__stage');
       if (!mobileStage) return;
 

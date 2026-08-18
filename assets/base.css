@@ -33,6 +33,7 @@
   --fz-eyebrow-color: #548A83;
 
   /* Layout spacing — unified across all sections */
+  --fz-content-max: 1400px;
   --fz-gutter: 40px;
   --fz-gutter-sm: 20px;
   --fz-section-y: 64px;
@@ -82,7 +83,7 @@ img { max-width: 100%; }
 /* ---------- Shared primitives ---------- */
 
 .fz-container {
-  max-width: 1320px;
+  max-width: var(--fz-content-max);
   margin: 0 auto;
   padding-left: var(--fz-gutter);
   padding-right: var(--fz-gutter);
@@ -175,7 +176,7 @@ img { max-width: 100%; }
 .fz-header {
   position: relative;
   pointer-events: auto;
-  max-width: 1280px;
+  max-width: var(--fz-content-max);
   margin: 0 auto;
   min-height: 64px;
   padding: 8px 10px 8px 40px;
@@ -389,7 +390,7 @@ img { max-width: 100%; }
 .fz-hero { background: var(--fz-mint); }
 
 .fz-hero__inner {
-  max-width: 1320px;
+  max-width: var(--fz-content-max);
   margin: 0 auto;
   padding: 80px 40px 88px;
   display: grid;
@@ -660,7 +661,7 @@ img { max-width: 100%; }
 }
 
 .fz-ritual__inner {
-  max-width: 1320px;
+  max-width: var(--fz-content-max);
   margin: 0 auto;
   padding: var(--fz-section-y-lg) var(--fz-gutter);
 }
@@ -795,7 +796,7 @@ img { max-width: 100%; }
 /* ---------- Collection page ---------- */
 
 .fz-collection {
-  max-width: 1320px;
+  max-width: var(--fz-content-max);
   margin: 0 auto;
   padding: 64px 40px 96px;
 }
@@ -885,7 +886,7 @@ img { max-width: 100%; }
 /* ---------- Product page ---------- */
 
 .fz-product {
-  max-width: 1320px;
+  max-width: var(--fz-content-max);
   margin: 0 auto;
   padding: 40px 40px 96px;
 }
@@ -1295,8 +1296,8 @@ img { max-width: 100%; }
 
 .fz-footer__inner {
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: var(--fz-content-max);
+  margin: 0 auto;
   padding: var(--fz-section-y-lg) var(--fz-gutter) var(--fz-section-y);
   display: flex;
   flex-direction: column;
@@ -1610,7 +1611,7 @@ body.fz-cart-open .fz-drawer { transform: translateX(0); }
   padding: 64px 40px 96px;
 }
 
-.fz-page--wide { max-width: 1320px; }
+.fz-page--wide { max-width: var(--fz-content-max); }
 
 .fz-page__title {
   font-family: var(--fz-font-display);

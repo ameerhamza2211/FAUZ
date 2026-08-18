@@ -98,6 +98,7 @@ body {
 .fz-acc__body,
 .fz-acc__line {
   font-family: var(--fz-font-desc);
+  color: var(--fz-body-text-color);
 }
 
 a { color: var(--fz-ink); text-decoration: none; }
@@ -647,7 +648,7 @@ img { max-width: 100%; }
 
 .fz-cat-card__desc {
   font-size: 14px;
-  color: var(--fz-muted-dark);
+  color: var(--fz-body-text-color);
   letter-spacing: 0.04em;
   font-weight: 300;
 }
@@ -1100,7 +1101,7 @@ img { max-width: 100%; }
 .fz-product__blurb {
   font-size: 16px;
   line-height: 1.7;
-  color: var(--fz-muted-dark);
+  color: var(--fz-body-text-color);
   margin: 0;
   text-wrap: pretty;
   font-weight: 300;
@@ -1237,7 +1238,7 @@ img { max-width: 100%; }
   gap: 12px;
   font-size: 15px;
   line-height: 1.6;
-  color: var(--fz-muted-dark);
+  color: var(--fz-body-text-color);
   font-weight: 300;
 }
 .fz-acc__line .fz-acc__n { color: var(--fz-accent); }
@@ -1275,7 +1276,7 @@ img { max-width: 100%; }
 
 .fz-newsletter__text {
   font-size: 15px;
-  color: var(--fz-on-mint);
+  color: var(--fz-body-text-color);
   margin: 0;
   font-weight: 300;
 }
@@ -1887,7 +1888,7 @@ body.fz-cart-open .fz-drawer { transform: translateX(0); }
   font-size: 16px;
   line-height: 1.7;
   font-weight: 300;
-  color: var(--fz-muted-dark);
+  color: var(--fz-body-text-color);
 }
 
 .fz-page__body a { text-decoration: underline; }

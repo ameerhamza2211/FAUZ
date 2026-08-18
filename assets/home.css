@@ -189,27 +189,6 @@ html.lenis body {
   display: block;
 }
 
-.fz-hero-premium__scroll {
-  position: absolute;
-  bottom: 32px;
-  left: var(--fz-gutter);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--fz-muted-grey);
-  z-index: 3;
-}
-
-.fz-hero-premium__scroll-line {
-  width: 48px;
-  height: 1px;
-  background: var(--fz-muted-grey);
-  transform-origin: left;
-}
-
 /* ---------- Marquee premium ---------- */
 
 .fz-marquee-premium {
@@ -533,13 +512,18 @@ html.lenis body {
   border-bottom: 1px solid rgba(17, 17, 17, 0.28);
   align-self: flex-start;
   padding-bottom: 4px;
-  transition: color 0.25s ease, border-color 0.25s ease, letter-spacing 0.25s ease;
+  transition:
+    color 0.35s var(--fz-btn-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    border-color 0.35s var(--fz-btn-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform 0.35s var(--fz-btn-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    letter-spacing 0.35s var(--fz-btn-ease, cubic-bezier(0.22, 1, 0.36, 1));
 }
 
 .fz-showcase__view:hover {
   color: var(--fz-accent);
   border-color: var(--fz-accent);
   letter-spacing: 0.22em;
+  transform: translateX(4px);
 }
 
 /* Short viewports: tighten typography and spacing */

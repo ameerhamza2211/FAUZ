@@ -18,7 +18,6 @@
     initStickyAtc();
     initProductGallery();
     initReadMore();
-    initWishlist();
   });
 
   function initPageReveal() {
@@ -229,44 +228,6 @@
     toggle.addEventListener('click', function () {
       var isCollapsed = content.classList.toggle('is-clamped');
       toggle.textContent = isCollapsed ? 'Read more' : 'Read less';
-    });
-  }
-
-  function initWishlist() {
-    var btn = document.querySelector('[data-wishlist]');
-    if (!btn) return;
-
-    var handle = window.location.pathname.replace(/\/products\//, '').replace(/\/$/, '');
-    var key = 'fz-wishlist';
-
-    function readList() {
-      try {
-        return JSON.parse(localStorage.getItem(key) || '[]');
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function writeList(list) {
-      try {
-        localStorage.setItem(key, JSON.stringify(list));
-      } catch (e) {}
-    }
-
-    function sync() {
-      var active = readList().indexOf(handle) !== -1;
-      btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-    }
-
-    sync();
-    btn.addEventListener('click', function () {
-      var list = readList();
-      var idx = list.indexOf(handle);
-      if (idx === -1) list.push(handle);
-      else list.splice(idx, 1);
-      writeList(list);
-      sync();
     });
   }
 })();

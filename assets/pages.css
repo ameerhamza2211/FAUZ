@@ -938,34 +938,6 @@
   cursor: not-allowed;
 }
 
-.fz-product--editorial .fz-wishlist-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  min-width: 52px;
-  height: 52px;
-  padding: 0;
-  border: 1px solid var(--fz-ink);
-  background: transparent;
-  color: var(--fz-ink);
-  cursor: pointer;
-  border-radius: var(--fz-radius);
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
-}
-
-.fz-product--editorial .fz-wishlist-btn:hover,
-.fz-product--editorial .fz-wishlist-btn.is-active {
-  background: var(--fz-mint);
-  color: var(--fz-ink);
-}
-
-.fz-product--editorial .fz-wishlist-btn.is-active svg path {
-  fill: currentColor;
-}
-
 .fz-product--editorial .fz-benefits--editorial {
   background: rgba(193, 219, 216, 0.35);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -1046,10 +1018,6 @@
   .fz-product--editorial .fz-buy--editorial {
     flex-direction: row;
   }
-
-  .fz-product--editorial .fz-wishlist-btn {
-    width: 52px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1061,12 +1029,6 @@
   .fz-product--editorial .fz-atc--ghost {
     min-height: 48px;
     padding: 14px 20px;
-  }
-
-  .fz-product--editorial .fz-wishlist-btn {
-    width: 48px;
-    min-width: 48px;
-    height: 48px;
   }
 }
 

@@ -1159,6 +1159,7 @@ html.lenis body {
     height: auto;
     min-height: 0;
     align-items: stretch;
+    justify-content: flex-start;
     padding: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -1193,19 +1194,21 @@ html.lenis body {
 
   .fz-showcase__slide-inner {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
     max-width: none;
+    width: 100%;
     height: auto;
     max-height: none;
     overflow: visible;
+    justify-items: stretch;
   }
 
   .fz-showcase__media {
-    width: min(100%, var(--fz-showcase-img-size, 320px));
+    width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-    max-width: 100%;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
   }
 
   .fz-showcase__media-link {
@@ -1221,20 +1224,46 @@ html.lenis body {
 
   .fz-showcase__copy {
     max-width: none;
+    width: 100%;
     overflow: visible;
-    padding-left: 0;
+    padding: 0;
+    justify-self: stretch;
+    align-self: stretch;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .fz-showcase__index {
+    margin-bottom: 14px;
   }
 
   .fz-showcase__meta {
-    margin-bottom: clamp(24px, 5vw, 32px);
+    margin-bottom: 24px;
+    gap: 12px;
   }
 
   .fz-showcase__detail {
     margin-bottom: 0;
+    max-width: none;
   }
 
   .fz-showcase__title {
     font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .fz-showcase__foot {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding-top: 20px;
+    margin-bottom: 16px;
+  }
+
+  .fz-showcase__view {
+    align-self: flex-start;
   }
 
   .fz-showcase__heading {
@@ -1320,7 +1349,7 @@ html.lenis body {
   }
 
   .fz-showcase__media {
-    width: min(100%, var(--fz-showcase-img-size, 280px));
+    width: 100%;
   }
 
   .fz-showcase__slide-inner {
@@ -1330,7 +1359,7 @@ html.lenis body {
   .fz-showcase__foot {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
   }
 
   .fz-ingredients__names {

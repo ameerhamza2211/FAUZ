@@ -168,17 +168,24 @@
 
     if (!window.matchMedia('(max-width: 900px)').matches) return;
 
-    var dismissed = false;
+    // Clear legacy flag from an earlier build that persisted dismiss across pages.
     try {
-      dismissed = sessionStorage.getItem('fz-sticky-atc-dismissed') === '1';
+      sessionStorage.removeItem('fz-sticky-atc-dismissed');
     } catch (e) {}
 
-    if (dismissed) bar.classList.add('is-dismissed');
+    var dismissed = false;
 
     function setVisible(show) {
       if (dismissed) return;
       bar.classList.toggle('is-visible', show);
       bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+
+    function syncVisibility() {
+      if (dismissed) return;
+      var rect = buy.getBoundingClientRect();
+      var buyVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+      setVisible(!buyVisible);
     }
 
     var observer = new IntersectionObserver(function (entries) {
@@ -191,9 +198,7 @@
     if (dismissBtn) {
       dismissBtn.addEventListener('click', function () {
         dismissed = true;
-        try {
-          sessionStorage.setItem('fz-sticky-atc-dismissed', '1');
-        } catch (e) {}
+        observer.disconnect();
         bar.classList.remove('is-visible');
         bar.classList.add('is-dismissed');
         bar.setAttribute('aria-hidden', 'true');
@@ -208,6 +213,14 @@
         if (form) form.requestSubmit();
       });
     }
+
+    window.addEventListener('pageshow', function (event) {
+      if (!event.persisted) return;
+      dismissed = false;
+      bar.classList.remove('is-dismissed');
+      observer.observe(buy);
+      syncVisibility();
+    });
   }
 
   function initProductGallery() {

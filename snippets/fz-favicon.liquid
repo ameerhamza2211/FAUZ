@@ -1,0 +1,20 @@
+{%- comment -%}
+  FAUZ favicon — optional upload via Theme settings → Brand, else fauz-favicon.png asset.
+{%- endcomment -%}
+
+{%- if settings.favicon != blank -%}
+  <link
+    rel="icon"
+    href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+    type="image/png"
+    sizes="32x32"
+  >
+  <link
+    rel="apple-touch-icon"
+    href="{{ settings.favicon | image_url: width: 180, height: 180 }}"
+    sizes="180x180"
+  >
+{%- else -%}
+  <link rel="icon" href="{{ 'fauz-favicon.png' | asset_url }}" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{ 'fauz-favicon.png' | asset_url }}" sizes="180x180">
+{%- endif -%}

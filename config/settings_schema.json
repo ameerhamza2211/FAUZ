@@ -31,6 +31,12 @@
         "info": "Shown in the footer wordmark. Upload a light or alternate-color version for dark backgrounds. Default: fauz-logo-white.png."
       },
       {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Browser tab and bookmark icon. Use a square PNG (512×512 recommended). Default: fauz-favicon.png."
+      },
+      {
         "type": "header",
         "content": "Header logo size — desktop"
       },

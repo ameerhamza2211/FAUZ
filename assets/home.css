@@ -1732,16 +1732,23 @@ html.lenis body {
 
   .fz-feat-cols__panel-media {
     order: 1;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     width: 100%;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: stretch;
+    align-items: stretch;
+    height: auto;
   }
 
   .fz-feat-cols__panel-frame {
-    width: min(72%, 220px);
+    width: 100%;
+    max-width: none;
     margin: 0;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 5 / 3;
+    padding: 12px 16px;
+  }
+
+  .fz-feat-cols__panel-img {
+    object-fit: contain;
   }
 
   .fz-feat-cols__panel-desc {

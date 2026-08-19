@@ -1825,19 +1825,17 @@ html.lenis body {
 
 .fz-best-products__head {
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: clamp(24px, 3.5vw, 36px);
-  padding-bottom: clamp(16px, 2vw, 20px);
-  border-bottom: 1px solid var(--fz-hairline);
+  gap: 24px;
+  margin-bottom: clamp(28px, 4vw, 40px);
 }
 
 .fz-best-products__heading {
   font-family: var(--fz-font-logo);
-  font-size: clamp(26px, 3.5vw, 38px);
+  font-size: clamp(28px, 3.8vw, 40px);
   font-weight: 400;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: 0.01em;
   color: var(--fz-heading-color);
   margin: 0;
@@ -1846,21 +1844,18 @@ html.lenis body {
 .fz-best-products__see-all {
   flex-shrink: 0;
   font-family: var(--fz-font-label);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-decoration: none;
-  color: var(--fz-muted-dark);
-  padding-bottom: 4px;
-  border-bottom: 1px solid currentColor;
-  transition:
-    color 0.25s ease,
-    border-color 0.25s ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--fz-ink);
+  transition: opacity 0.25s ease;
 }
 
 .fz-best-products__see-all:hover {
-  color: var(--fz-ink);
+  opacity: 0.62;
 }
 
 .fz-best-products__stage {
@@ -1945,15 +1940,14 @@ html.lenis body {
 .fz-best-products__track {
   display: flex;
   align-items: stretch;
-  gap: clamp(12px, 1.6vw, 18px);
+  gap: clamp(14px, 1.8vw, 20px);
   width: max-content;
-  min-width: 100%;
 }
 
 .fz-best-products__track > .fz-best-products__card {
-  flex: 0 0 clamp(240px, 22vw, 272px);
-  width: clamp(240px, 22vw, 272px);
-  max-width: clamp(240px, 22vw, 272px);
+  flex: 0 0 clamp(240px, calc((100vw - var(--fz-gutter) * 2 - 60px) / 3.2), 320px);
+  width: clamp(240px, calc((100vw - var(--fz-gutter) * 2 - 60px) / 3.2), 320px);
+  max-width: clamp(240px, calc((100vw - var(--fz-gutter) * 2 - 60px) / 3.2), 320px);
 }
 
 .fz-best-products__card {
@@ -2014,10 +2008,11 @@ html.lenis body {
   align-items: center;
   justify-content: center;
   padding: clamp(14px, 2.5vw, 22px);
+  overflow: hidden;
 }
 
 .fz-best-products__img {
-  width: 100%;
+  width: auto;
   height: auto;
   max-width: 100%;
   max-height: 100%;
@@ -2129,7 +2124,6 @@ html.lenis body {
     align-items: flex-end;
     gap: 14px;
     margin-bottom: 20px;
-    padding-bottom: 14px;
   }
 
   .fz-best-products__heading {

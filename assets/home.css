@@ -1844,19 +1844,27 @@ html.lenis body {
 
 .fz-best-products__track {
   display: flex;
+  align-items: flex-start;
   gap: clamp(16px, 2vw, 24px);
   width: max-content;
+  min-width: 100%;
   padding-bottom: 4px;
+}
+
+.fz-best-products__track > .fz-best-products__card {
+  flex: 0 0 clamp(220px, 24vw, 280px);
+  width: clamp(220px, 24vw, 280px);
+  max-width: clamp(220px, 24vw, 280px);
 }
 
 .fz-best-products__card {
   position: relative;
-  flex: 0 0 clamp(220px, 24vw, 280px);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
 }
 
 .fz-best-products__card-link {
@@ -1867,23 +1875,36 @@ html.lenis body {
 
 .fz-best-products__media {
   position: relative;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: var(--fz-radius-sm);
   background: var(--fz-offwhite);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .fz-best-products__media--mint {
   background: var(--fz-mint);
 }
 
+.fz-best-products__media-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 28px);
+}
+
 .fz-best-products__img {
   width: 100%;
-  height: 100%;
+  /* height:auto avoids Shopify width/height attrs breaking the square frame */
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   display: block;
   mix-blend-mode: multiply;
-  padding: clamp(16px, 3vw, 28px);
 }
 
 .fz-best-products__meta {
@@ -1979,8 +2000,10 @@ html.lenis body {
     padding-inline: var(--fz-gutter-sm);
   }
 
-  .fz-best-products__card {
+  .fz-best-products__track > .fz-best-products__card {
     flex-basis: clamp(200px, 68vw, 240px);
+    width: clamp(200px, 68vw, 240px);
+    max-width: clamp(200px, 68vw, 240px);
   }
 
   .fz-best-products__head {

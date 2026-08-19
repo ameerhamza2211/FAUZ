@@ -34,9 +34,7 @@
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks limit: limit -%}
           {%- if block.settings.product != blank -%}
-            <div {{ block.shopify_attributes }}>
-              {% render 'best-product-card', card_product: block.settings.product %}
-            </div>
+            {% render 'best-product-card', card_product: block.settings.product, block: block %}
           {%- endif -%}
         {%- endfor -%}
       {%- elsif section.settings.collection != blank -%}

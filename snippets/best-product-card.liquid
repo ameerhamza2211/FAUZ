@@ -14,28 +14,38 @@
   if card_product.metafields.custom.card_tint != blank
     assign tint = card_product.metafields.custom.card_tint
   endif
+
+  assign display_name = card_product.title
+  if card_product.title contains ' – '
+    assign display_name = card_product.title | split: ' – ' | first
+  elsif card_product.title contains ' - '
+    assign display_name = card_product.title | split: ' - ' | first
+  endif
 -%}
 
-<article class="fz-best-products__card" data-best-products-card>
+<article class="fz-best-products__card" data-best-products-card{% if block %}{{ block.shopify_attributes }}{% endif %}>
   <a class="fz-best-products__card-link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}"></a>
 
   <div class="fz-best-products__media{% if tint == 'mint' %} fz-best-products__media--mint{% endif %}">
-    {%- if card_product.featured_image -%}
-      {{ card_product.featured_image
-        | image_url: width: 800
-        | image_tag:
-          class: 'fz-best-products__img',
-          widths: '280, 400, 560, 800',
-          loading: 'lazy',
-          alt: card_product.title }}
-    {%- else -%}
-      {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
-    {%- endif -%}
+    <div class="fz-best-products__media-inner">
+      {%- if card_product.featured_image -%}
+        {{ card_product.featured_image
+          | image_url: width: 560
+          | image_tag:
+            class: 'fz-best-products__img',
+            widths: '280, 400, 560',
+            sizes: '280px',
+            loading: 'lazy',
+            alt: card_product.title }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
+      {%- endif -%}
+    </div>
   </div>
 
   <div class="fz-best-products__meta">
     <div class="fz-best-products__copy">
-      <h3 class="fz-best-products__name">{{ card_product.title }}</h3>
+      <h3 class="fz-best-products__name">{{ display_name }}</h3>
       <p class="fz-best-products__price">{{ card_product.price | money }}</p>
     </div>
 

@@ -602,17 +602,24 @@ html.lenis body {
 
 .fz-ingredients {
   background: var(--fz-offwhite);
-  padding: var(--fz-section-y-lg) 0;
+  --fz-ingredients-pt: var(--fz-section-y-lg);
+  --fz-ingredients-pb: var(--fz-section-y-lg);
+  padding-top: var(--fz-ingredients-pt);
+  padding-bottom: var(--fz-ingredients-pb);
+  box-sizing: border-box;
 }
 
 @media (min-width: 1100px) {
   .fz-ingredients {
-    padding: 0;
+    --fz-ingredients-pt: 0px;
+    --fz-ingredients-pb: 0px;
   }
 
   .fz-ingredients__layout {
-    --fz-ingredient-viewport: calc(100svh - var(--fz-header-height) - 32px);
-    --fz-ingredient-copy-space: 8.75rem;
+    --fz-ingredient-viewport: calc(
+      100svh - var(--fz-header-height) - 32px - var(--fz-ingredients-pt) - var(--fz-ingredients-pb)
+    );
+    --fz-ingredient-copy-space: 9.5rem;
     height: var(--fz-ingredient-viewport);
     min-height: var(--fz-ingredient-viewport);
     max-height: var(--fz-ingredient-viewport);
@@ -625,16 +632,35 @@ html.lenis body {
       clamp(340px, 38vw, 480px),
       calc(var(--fz-ingredient-viewport) - var(--fz-ingredient-copy-space))
     );
-    min-height: calc(var(--fz-ingredient-img) + var(--fz-ingredient-copy-space));
+    height: 100%;
     max-height: 100%;
+    min-height: 0;
+  }
+
+  .fz-ingredients__panel {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    justify-content: center;
   }
 
   .fz-ingredients__panel-media {
-    width: var(--fz-ingredient-img);
-    height: var(--fz-ingredient-img);
-    max-height: var(--fz-ingredient-img);
+    width: min(100%, var(--fz-ingredient-img));
+    height: auto;
+    max-height: min(var(--fz-ingredient-img), calc(100% - var(--fz-ingredient-copy-space)));
     aspect-ratio: 1 / 1;
-    margin-bottom: 20px;
+    flex-shrink: 1;
+    min-height: 0;
+    margin-bottom: 16px;
+  }
+
+  .fz-ingredients__panel-copy {
+    flex-shrink: 0;
+    margin-top: auto;
   }
 }
 
@@ -646,7 +672,9 @@ html.lenis body {
   grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(56px, 7vw, 96px);
   align-items: center;
-  min-height: calc(100svh - var(--fz-header-height) - 40px);
+  min-height: calc(
+    100svh - var(--fz-header-height) - 40px - var(--fz-ingredients-pt) - var(--fz-ingredients-pb)
+  );
   box-sizing: border-box;
 }
 
@@ -728,6 +756,7 @@ html.lenis body {
   gap: 0;
   pointer-events: none;
   z-index: 0;
+  box-sizing: border-box;
 }
 
 .fz-ingredients__panel.is-active {

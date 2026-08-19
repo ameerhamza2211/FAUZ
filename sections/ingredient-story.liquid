@@ -1,5 +1,5 @@
-{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<section class="fz-ingredients" data-ingredients{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+{%- capture fz_ingredients_spacing -%}{%- render 'fz-section-padding', section: section, output: 'variables', scope: 'ingredients' -%}{%- endcapture -%}
+<section class="fz-ingredients" data-ingredients{% if fz_ingredients_spacing != blank %} style="{{ fz_ingredients_spacing | strip }}"{% endif %}>
   <div class="fz-ingredients__layout">
     <div class="fz-ingredients__sticky">
       <p class="fz-eyebrow">{{ section.settings.eyebrow }}</p>

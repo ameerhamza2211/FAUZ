@@ -487,6 +487,11 @@
 
       var layout = section.querySelector('.fz-ingredients__layout');
 
+      function getSectionPadding() {
+        var style = getComputedStyle(section);
+        return (parseFloat(style.paddingTop) || 0) + (parseFloat(style.paddingBottom) || 0);
+      }
+
       function getScrollDistance() {
         return Math.max(window.innerHeight * 0.55, 440) * (panels.length - 1);
       }
@@ -496,7 +501,7 @@
         start: function () {
           var headerOffset = getHeaderOffset();
           if (!layout) return 'top top+=' + headerOffset;
-          var available = window.innerHeight - headerOffset;
+          var available = window.innerHeight - headerOffset - getSectionPadding();
           var layoutHeight = layout.offsetHeight;
           var centerOffset = Math.max(0, (available - layoutHeight) / 2);
           return 'top top+=' + (headerOffset + centerOffset);

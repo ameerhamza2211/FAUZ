@@ -256,7 +256,8 @@
     document.documentElement.style.setProperty('--fz-header-gap', gap + 'px');
 
     var bottom = headerWrap.getBoundingClientRect().bottom;
-    var height = Math.ceil(bottom);
+    var buffer = isMobile ? 14 : 10;
+    var height = Math.ceil(bottom) + buffer;
     if (height > 0) {
       document.documentElement.style.setProperty('--fz-header-height', height + 'px');
       window.dispatchEvent(new CustomEvent('fz:header-resize'));

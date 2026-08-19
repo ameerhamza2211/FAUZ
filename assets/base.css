@@ -1980,7 +1980,7 @@ body:not(.fz-home) #MainContent {
     --fz-gutter: 20px;
     --fz-section-y: 48px;
     --fz-section-y-lg: 64px;
-    --fz-header-height: 76px;
+    --fz-header-height: 128px;
   }
 
   .fz-header-wrap {
@@ -2090,7 +2090,10 @@ body:not(.fz-home) #MainContent {
   }
 
   body:not(.fz-home) #MainContent {
-    padding-top: calc(var(--fz-header-height) + 8px);
+    padding-top: max(
+      calc(var(--fz-header-height) + 16px),
+      calc(var(--fz-announcement-height, 36px) + var(--fz-header-gap, 8px) + var(--fz-header-logo-height-mobile, 48px) + 40px)
+    );
   }
 
   .fz-container { padding-left: 20px; padding-right: 20px; }

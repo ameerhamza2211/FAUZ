@@ -2120,14 +2120,26 @@ html.lenis body {
 }
 
 @media (max-width: 749px) {
+  .fz-best-products.fz-container {
+    padding-top: clamp(36px, 9vw, 52px);
+    padding-bottom: clamp(52px, 12vw, 72px) !important;
+  }
+
   .fz-best-products__head {
     align-items: flex-end;
-    gap: 14px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 22px;
   }
 
   .fz-best-products__heading {
     font-size: clamp(24px, 7vw, 30px);
+    line-height: 1.05;
+  }
+
+  .fz-best-products__see-all {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding-bottom: 2px;
   }
 
   .fz-best-products__stage {
@@ -2135,27 +2147,43 @@ html.lenis body {
   }
 
   .fz-best-products__fade {
-    width: clamp(24px, 8vw, 40px);
+    width: clamp(20px, 6vw, 32px);
   }
 
   .fz-best-products__viewport {
     scroll-padding-inline: var(--fz-gutter-sm);
     padding-inline: var(--fz-gutter-sm);
+    padding-block: 2px 4px;
+  }
+
+  .fz-best-products__track {
+    gap: 12px;
+    padding-right: var(--fz-gutter-sm);
   }
 
   .fz-best-products__track > .fz-best-products__card {
-    flex-basis: min(78vw, 260px);
-    width: min(78vw, 260px);
-    max-width: min(78vw, 260px);
+    flex: 0 0 calc(100vw - var(--fz-gutter-sm) * 2 - 48px);
+    width: calc(100vw - var(--fz-gutter-sm) * 2 - 48px);
+    max-width: 272px;
+    min-width: 220px;
   }
 
   .fz-best-products__card-inner {
     padding: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.025);
+  }
+
+  .fz-best-products__media {
+    border-radius: 8px;
+  }
+
+  .fz-best-products__media-inner {
+    padding: 12px;
   }
 
   .fz-best-products__footer {
     margin-top: 10px;
-    min-height: 62px;
+    min-height: 58px;
     gap: 8px;
   }
 
@@ -2170,8 +2198,19 @@ html.lenis body {
   }
 
   .fz-best-products__add {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .fz-best-products__progress {
+    margin-top: 18px;
+    padding-inline: 0;
+  }
+
+  .fz-best-products__card:hover .fz-best-products__card-inner,
+  .fz-best-products__card:focus-within .fz-best-products__card-inner {
+    transform: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.025);
   }
 }
 

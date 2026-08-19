@@ -22,83 +22,127 @@
   assign how_to = product.metafields.custom.how_to_use.value
   assign badges = product.metafields.custom.badges.value
   assign blurb = product.metafields.custom.blurb.value
+
+  assign desc_html = blurb
+  if desc_html == blank and product.description != blank
+    assign desc_html = product.description
+  endif
 -%}
 
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-product"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
-  <a class="fz-back" href="{{ product_collection.url | default: routes.all_products_collection_url }}">← Back to the collection</a>
 
-  <div class="fz-product__grid">
-    <div class="fz-product__media">
-      <div class="fz-product__main{% if tint == 'mint' %} fz-product__main--mint{% endif %}">
-        {%- if product.featured_image -%}
-          {%- assign main_alt = product.featured_image.alt | default: product.title -%}
-          <img
-            src="{{ product.featured_image | image_url: width: 1200 }}"
-            srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 900 }} 900w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
-            sizes="(max-width: 900px) 100vw, 660px"
-            class="fz-product__main-img"
-            data-main-image
-            width="{{ product.featured_image.width }}"
-            height="{{ product.featured_image.height }}"
-            alt="{{ main_alt | escape }}"
-          >
-        {%- else -%}
-          {{ 'product-4' | placeholder_svg_tag: 'fz-product__main-img' }}
+<div class="fz-product fz-product--editorial"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
+  <nav class="fz-product__crumbs" aria-label="Breadcrumb">
+    <a href="{{ routes.all_products_collection_url }}">shop</a>
+    <span class="fz-product__crumbs-sep">/</span>
+    {%- if product_collection != blank -%}
+      <a href="{{ product_collection.url }}">{{ product_collection.title | downcase }}</a>
+      <span class="fz-product__crumbs-sep">/</span>
+    {%- endif -%}
+    <span class="fz-product__crumbs-current" aria-current="page">{{ product.title | downcase }}</span>
+  </nav>
+
+  <div class="fz-product__layout">
+    <div class="fz-product__gallery">
+      <div class="fz-product__gallery-inner">
+        {%- if product.images.size > 1 -%}
+          <div class="fz-product__thumbs-col" data-gallery-thumbs>
+            {%- for image in product.images -%}
+              <button
+                type="button"
+                class="fz-product__thumb{% if forloop.first %} is-active{% endif %}"
+                data-thumb="{{ image | image_url: width: 1200 }}"
+                data-thumb-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 900 }} 900w, {{ image | image_url: width: 1200 }} 1200w"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img src="{{ image | image_url: width: 160 }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" width="72" height="72" alt="">
+              </button>
+            {%- endfor -%}
+          </div>
         {%- endif -%}
-      </div>
-      {%- if product.images.size > 1 -%}
-        <div class="fz-thumbs">
-          {%- for image in product.images -%}
-            <button
-              type="button"
-              class="fz-thumb{% if forloop.first %} is-active{% endif %}"
-              data-thumb="{{ image | image_url: width: 1200 }}"
-              data-thumb-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 900 }} 900w, {{ image | image_url: width: 1200 }} 1200w"
-              aria-label="View image {{ forloop.index }}"
-            >
-              <img src="{{ image | image_url: width: 160 }}" loading="lazy" width="76" height="76" alt="View {{ forloop.index }}">
-            </button>
-          {%- endfor -%}
+
+        <div class="fz-product__stage">
+          <div class="fz-product__main{% if tint == 'mint' %} fz-product__main--mint{% endif %}">
+            {%- if product.featured_image -%}
+              {%- assign main_alt = product.featured_image.alt | default: product.title -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 1200 }}"
+                srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 900 }} 900w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+                sizes="(max-width: 900px) 100vw, 50vw"
+                class="fz-product__main-img"
+                data-main-image
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height }}"
+                alt="{{ main_alt | escape }}"
+              >
+            {%- else -%}
+              {{ 'product-4' | placeholder_svg_tag: 'fz-product__main-img' }}
+            {%- endif -%}
+          </div>
+
+          {%- if product.images.size > 1 -%}
+            <div class="fz-product__gallery-nav">
+              <button type="button" class="fz-product__gallery-btn" data-gallery-prev aria-label="Previous image">←</button>
+              <button type="button" class="fz-product__gallery-btn" data-gallery-next aria-label="Next image">→</button>
+            </div>
+          {%- endif -%}
         </div>
-      {%- endif -%}
+      </div>
     </div>
 
-    <div class="fz-product__info">
-      <div class="fz-product__head">
-        {%- if product_collection != blank -%}
-          <div class="fz-eyebrow fz-product__cat">{{ product_collection.title }}</div>
-        {%- endif -%}
+    <div class="fz-product__divider" aria-hidden="true"></div>
+
+    <div class="fz-product__panel">
+      <div class="fz-product__header">
         <h1 class="fz-product__title">{{ product.title }}</h1>
-        <div class="fz-product__price">
-          {{ variant.price | money }}
-          {%- if size != blank %} <span class="fz-product__size">· {{ size }}</span>{%- endif -%}
-        </div>
+        <p class="fz-product__price" data-product-price>{{ variant.price | money }}</p>
       </div>
 
-      {%- if blurb != blank -%}
-        <div class="fz-product__blurb"><p>{{ blurb }}</p></div>
-      {%- elsif product.description != blank -%}
-        <div class="fz-product__blurb">{{ product.description }}</div>
-      {%- endif -%}
-
-      {%- if benefits != blank -%}
-        <div class="fz-benefits">
-          {%- for b in benefits -%}
-            <div class="fz-benefits__row"><span class="fz-diamond">◆</span><span>{{ b }}</span></div>
-          {%- endfor -%}
+      {%- if section.settings.show_reviews -%}
+        <div class="fz-product__rating">
+          <div class="fz-product__stars" aria-label="{{ section.settings.rating }} out of 5 stars">
+            {%- assign rating_floor = section.settings.rating | floor -%}
+            {%- for i in (1..5) -%}
+              <span class="fz-product__star{% if i <= rating_floor %} is-filled{% endif %}">★</span>
+            {%- endfor -%}
+          </div>
+          {%- if section.settings.review_count != blank -%}
+            <a class="fz-product__reviews-link" href="{{ section.settings.reviews_link | default: '#reviews' }}">
+              {{ section.settings.review_count }} reviews
+            </a>
+          {%- endif -%}
         </div>
       {%- endif -%}
 
       {%- form 'product', product, data-fz-atc-form: '', data-product-form: '' -%}
         <input type="hidden" name="id" value="{{ variant.id }}">
 
+        <div class="fz-product__field" data-buy-area>
+          <span class="fz-product__field-label">Quantity:</span>
+          <div class="fz-qty fz-qty--editorial">
+            <button type="button" class="fz-qty__btn" data-qty-change="-1" aria-label="Decrease quantity">−</button>
+            <span class="fz-qty__num" data-qty-num>1</span>
+            <button type="button" class="fz-qty__btn" data-qty-change="1" aria-label="Increase quantity">+</button>
+            <input type="hidden" name="quantity" value="1" data-qty-input>
+          </div>
+        </div>
+
+        {%- if desc_html != blank -%}
+          <div class="fz-product__field fz-product__field--desc">
+            <span class="fz-product__field-label">Description:</span>
+            <div class="fz-product__desc-wrap" data-readmore>
+              <div class="fz-product__desc" data-readmore-content>{{ desc_html }}</div>
+              <button type="button" class="fz-product__read-more" data-readmore-toggle hidden>Read more</button>
+            </div>
+          </div>
+        {%- endif -%}
+
         {%- unless product.has_only_default_variant -%}
           <div class="fz-product__options">
             {%- for option in product.options_with_values -%}
-              <div class="fz-product__option">
-                <span class="fz-product__option-label">{{ option.name }}</span>
-                <div class="fz-option-pills">
+              <div class="fz-product__field fz-product__field--option">
+                <span class="fz-product__field-label">{{ option.name }}:</span>
+                <div class="fz-option-pills fz-option-pills--editorial">
                   {%- for value in option.values -%}
                     <button
                       type="button"
@@ -114,22 +158,30 @@
           </div>
         {%- endunless -%}
 
-        <div class="fz-buy" data-buy-area>
-          <div class="fz-qty">
-            <button type="button" class="fz-qty__btn" data-qty-change="-1" aria-label="Decrease quantity">−</button>
-            <span class="fz-qty__num" data-qty-num>1</span>
-            <button type="button" class="fz-qty__btn" data-qty-change="1" aria-label="Increase quantity">+</button>
-            <input type="hidden" name="quantity" value="1" data-qty-input>
-          </div>
+        <div class="fz-buy fz-buy--editorial">
           {%- if variant.available -%}
-            <button type="submit" class="fz-atc">
-              Add to cart — <span data-atc-price data-unit-price="{{ variant.price }}">{{ variant.price | money }}</span>
+            <button type="submit" class="fz-atc fz-atc--ghost">
+              Add to cart
+              <span class="visually-hidden" data-atc-price data-unit-price="{{ variant.price }}">{{ variant.price | money }}</span>
             </button>
           {%- else -%}
-            <button type="button" class="fz-atc" disabled>Sold out</button>
+            <button type="button" class="fz-atc fz-atc--ghost" disabled>Sold out</button>
           {%- endif -%}
+          <button type="button" class="fz-wishlist-btn" data-wishlist aria-label="Add to wishlist" aria-pressed="false">
+            <svg width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true">
+              <path d="M9 15.25S1 10.5 1 5.5C1 3.015 3.015 1 5.5 1c1.74 0 3.41 1.01 4.17 2.47C10.43 2.01 12.1 1 13.85 1 16.335 1 18.35 3.015 18.35 5.5c0 5-7.35 9.75-9.35 9.75H9z" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </button>
         </div>
       {%- endform -%}
+
+      {%- if benefits != blank -%}
+        <div class="fz-benefits fz-benefits--editorial">
+          {%- for b in benefits -%}
+            <div class="fz-benefits__row"><span class="fz-diamond">◆</span><span>{{ b }}</span></div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
 
       <div class="fz-product__trust">
         {%- if section.settings.trust_1 != blank -%}<span class="fz-product__trust-item">{{ section.settings.trust_1 }}</span>{%- endif -%}
@@ -145,7 +197,7 @@
         </div>
       {%- endif -%}
 
-      <div class="fz-accordions">
+      <div class="fz-accordions fz-accordions--editorial">
         {%- if how_to != blank -%}
           <div class="fz-acc">
             <button type="button" class="fz-acc__toggle" data-acc-toggle aria-expanded="false">
@@ -255,6 +307,36 @@
 {
   "name": "Product",
   "settings": [
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Star rating",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count label",
+      "default": "27 reviews"
+    },
+    {
+      "type": "url",
+      "id": "reviews_link",
+      "label": "Reviews link"
+    },
     {
       "type": "text",
       "id": "related_heading",

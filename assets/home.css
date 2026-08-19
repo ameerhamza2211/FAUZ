@@ -1591,6 +1591,10 @@ html.lenis body {
   border-radius: var(--fz-radius-sm);
 }
 
+.fz-feat-cols__panel-frame video.fz-feat-cols__panel-img {
+  object-fit: cover;
+}
+
 .fz-feat-cols__list {
   display: flex;
   flex-direction: column;
@@ -1639,7 +1643,9 @@ html.lenis body {
 }
 
 .fz-feat-cols__item-thumb img,
-.fz-feat-cols__item-thumb svg {
+.fz-feat-cols__item-thumb svg,
+.fz-feat-cols__item-thumb video,
+.fz-feat-cols__item-thumb-media {
   width: 100%;
   height: 100%;
   object-fit: cover;

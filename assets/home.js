@@ -700,7 +700,15 @@
       });
 
       panels.forEach(function (panel, i) {
-        panel.classList.toggle('is-active', i === index);
+        var active = i === index;
+        panel.classList.toggle('is-active', active);
+        panel.querySelectorAll('video').forEach(function (video) {
+          if (active) {
+            video.play().catch(function () {});
+          } else {
+            video.pause();
+          }
+        });
       });
     }
 

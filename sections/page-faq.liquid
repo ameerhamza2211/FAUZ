@@ -8,7 +8,7 @@
   compact: true
 %}
 
-<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+<div class="fz-page-shell fz-page-shell--faq"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
   <div class="fz-faq">
     {%- assign current_category = '' -%}
     {%- for block in section.blocks -%}

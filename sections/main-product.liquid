@@ -27,6 +27,18 @@
   if desc_html == blank and product.description != blank
     assign desc_html = product.description
   endif
+
+  assign title_parts = product.title | split: ' – '
+  if title_parts.size == 1
+    assign title_parts = product.title | split: ' - '
+  endif
+  if title_parts.size > 1
+    assign product_title_short = title_parts[0]
+    assign product_title_detail = title_parts[1]
+  else
+    assign product_title_short = product.title
+    assign product_title_detail = ''
+  endif
 -%}
 
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
@@ -94,7 +106,12 @@
 
     <div class="fz-product__panel">
       <div class="fz-product__header">
-        <h1 class="fz-product__title">{{ product.title }}</h1>
+        <div class="fz-product__headline">
+          <h1 class="fz-product__title">{{ product_title_short }}</h1>
+          {%- if product_title_detail != blank -%}
+            <p class="fz-product__subtitle">{{ product_title_detail }}</p>
+          {%- endif -%}
+        </div>
         <p class="fz-product__price" data-product-price>{{ variant.price | money }}</p>
       </div>
 

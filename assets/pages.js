@@ -166,8 +166,6 @@
     var buy = document.querySelector('[data-buy-area]');
     if (!bar || !buy || !('IntersectionObserver' in window)) return;
 
-    if (!window.matchMedia('(max-width: 900px)').matches) return;
-
     // Clear legacy flag from an earlier build that persisted dismiss across pages.
     try {
       sessionStorage.removeItem('fz-sticky-atc-dismissed');

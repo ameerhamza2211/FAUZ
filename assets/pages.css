@@ -1417,6 +1417,36 @@
   cursor: not-allowed;
 }
 
+@media (min-width: 901px) {
+  .fz-sticky-atc {
+    padding: 0 var(--fz-gutter) calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .fz-sticky-atc__sheet {
+    max-width: min(720px, var(--fz-content-max));
+    padding: 14px 18px;
+  }
+
+  .fz-sticky-atc__inner {
+    gap: 20px;
+    padding-right: 32px;
+  }
+
+  .fz-sticky-atc__title {
+    font-size: 14px;
+  }
+
+  .fz-sticky-atc__price {
+    font-size: 14px;
+  }
+
+  .fz-sticky-atc__btn {
+    padding: 14px 28px;
+    font-size: 12px;
+    min-height: 48px;
+  }
+}
+
 /* ---------- Cart / search / 404 polish ---------- */
 
 .fz-page-hero--center {
@@ -1546,10 +1576,6 @@
   .fz-collection__grid {
     grid-template-columns: 1fr;
   }
-
-  .fz-sticky-atc {
-    display: block;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1568,11 +1594,5 @@
 
   .fz-faq__cta-title {
     font-size: clamp(22px, 7vw, 28px);
-  }
-}
-
-@media (min-width: 901px) {
-  .fz-sticky-atc {
-    display: none;
   }
 }

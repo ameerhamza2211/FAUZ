@@ -696,8 +696,14 @@
 .fz-product--editorial .fz-product__panel {
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 3vw, 28px);
+  gap: clamp(24px, 3.5vw, 32px);
   padding-top: 8px;
+}
+
+.fz-product--editorial [data-product-form] {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 36px);
 }
 
 .fz-product--editorial .fz-product__header {
@@ -732,6 +738,7 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  margin-top: -4px;
 }
 
 .fz-product--editorial .fz-product__stars {
@@ -759,7 +766,7 @@
 .fz-product--editorial .fz-product__field {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .fz-product--editorial .fz-product__field-label {
@@ -768,6 +775,7 @@
   text-transform: uppercase;
   color: var(--fz-ink);
   font-weight: 500;
+  line-height: 1.3;
 }
 
 .fz-product--editorial .fz-qty--editorial {
@@ -862,7 +870,7 @@
 .fz-product--editorial .fz-product__options {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(24px, 3.5vw, 28px);
   padding: 0;
 }
 
@@ -902,7 +910,7 @@
   display: flex;
   gap: 12px;
   align-items: stretch;
-  padding-top: 8px;
+  padding-top: 4px;
 }
 
 .fz-product--editorial .fz-atc--ghost {

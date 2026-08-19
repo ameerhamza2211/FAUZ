@@ -206,43 +206,45 @@
         "padding_bottom": 80
       }
     },
-    "ingredients": {
-      "type": "ingredient-story",
+    "showcase": {
+      "type": "product-showcase",
       "blocks": {
-        "i1": {
-          "type": "ingredient",
+        "p_serum": {
+          "type": "product",
           "settings": {
-            "name": "Niacinamide",
-            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
           }
         },
-        "i2": {
-          "type": "ingredient",
+        "p_cleanser": {
+          "type": "product",
           "settings": {
-            "name": "Hyaluronic acid",
-            "description": "Draws moisture into the skin for plump, comfortable hydration throughout the day.",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
+            "product": "fauz-cleanser-gentle-daily-face-wash"
           }
         },
-        "i3": {
-          "type": "ingredient",
+        "p_sunscreen": {
+          "type": "product",
           "settings": {
-            "name": "Ceramides",
-            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_4.png"
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
+          }
+        },
+        "p_shampoo": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
           }
         }
       },
       "block_order": [
-        "i1",
-        "i2",
-        "i3"
+        "p_serum",
+        "p_cleanser",
+        "p_sunscreen",
+        "p_shampoo"
       ],
       "settings": {
-        "eyebrow": "Inside the formula",
-        "heading": "Actives with intention",
-        "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced.",
+        "eyebrow": "The edit",
+        "heading": "Formulas worth the ritual",
+        "collection": "",
+        "products_to_show": 4,
         "padding_top": 0,
         "padding_bottom": 80
       }
@@ -337,46 +339,44 @@
         "padding_bottom": 0
       }
     },
-    "showcase": {
-      "type": "product-showcase",
+    "ingredients": {
+      "type": "ingredient-story",
       "blocks": {
-        "p_serum": {
-          "type": "product",
+        "i1": {
+          "type": "ingredient",
           "settings": {
-            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
+            "name": "Niacinamide",
+            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
           }
         },
-        "p_cleanser": {
-          "type": "product",
+        "i2": {
+          "type": "ingredient",
           "settings": {
-            "product": "fauz-cleanser-gentle-daily-face-wash"
+            "name": "Hyaluronic acid",
+            "description": "Draws moisture into the skin for plump, comfortable hydration throughout the day.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
           }
         },
-        "p_sunscreen": {
-          "type": "product",
+        "i3": {
+          "type": "ingredient",
           "settings": {
-            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
-          }
-        },
-        "p_shampoo": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
+            "name": "Ceramides",
+            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_4.png"
           }
         }
       },
       "block_order": [
-        "p_serum",
-        "p_cleanser",
-        "p_sunscreen",
-        "p_shampoo"
+        "i1",
+        "i2",
+        "i3"
       ],
       "settings": {
-        "eyebrow": "The edit",
-        "heading": "Formulas worth the ritual",
-        "collection": "",
-        "products_to_show": 4,
-        "padding_top": 0,
+        "eyebrow": "Inside the formula",
+        "heading": "Actives with intention",
+        "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced.",
+        "padding_top": 80,
         "padding_bottom": 80
       }
     },

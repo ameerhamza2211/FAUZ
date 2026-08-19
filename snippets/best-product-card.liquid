@@ -2,6 +2,7 @@
   Best products carousel card.
   Accepts:
     card_product — product object (required)
+    block        — optional section block for shopify_attributes
 {% endcomment %}
 
 {%- liquid
@@ -21,51 +22,54 @@
   elsif card_product.title contains ' - '
     assign display_name = card_product.title | split: ' - ' | first
   endif
+  assign display_name = display_name | remove: 'FAUZ ' | remove: 'Fauz ' | strip
 -%}
 
 <article class="fz-best-products__card" data-best-products-card{% if block %}{{ block.shopify_attributes }}{% endif %}>
-  <a class="fz-best-products__card-link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}"></a>
+  <div class="fz-best-products__card-inner">
+    <a class="fz-best-products__card-link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}"></a>
 
-  <div class="fz-best-products__media{% if tint == 'mint' %} fz-best-products__media--mint{% endif %}">
-    <div class="fz-best-products__media-inner">
-      {%- if card_product.featured_image -%}
-        {{ card_product.featured_image
-          | image_url: width: 560
-          | image_tag:
-            class: 'fz-best-products__img',
-            widths: '280, 400, 560',
-            sizes: '280px',
-            loading: 'lazy',
-            alt: card_product.title }}
+    <div class="fz-best-products__media{% if tint == 'mint' %} fz-best-products__media--mint{% endif %}">
+      <div class="fz-best-products__media-inner">
+        {%- if card_product.featured_image -%}
+          {{ card_product.featured_image
+            | image_url: width: 560
+            | image_tag:
+              class: 'fz-best-products__img',
+              widths: '280, 400, 560',
+              sizes: '(max-width: 749px) 72vw, 260px',
+              loading: 'lazy',
+              alt: card_product.title }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="fz-best-products__footer">
+      <div class="fz-best-products__copy">
+        <h3 class="fz-best-products__name">{{ display_name }}</h3>
+        <p class="fz-best-products__price">{{ card_product.price | money }}</p>
+      </div>
+
+      {%- if card_product.available -%}
+        <button
+          type="button"
+          class="fz-best-products__add"
+          data-quick-add="{{ card_product.selected_or_first_available_variant.id }}"
+          aria-label="Add {{ card_product.title | escape }} to cart"
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          </svg>
+        </button>
       {%- else -%}
-        {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
+        <button type="button" class="fz-best-products__add fz-best-products__add--disabled" disabled aria-label="Sold out">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          </svg>
+        </button>
       {%- endif -%}
     </div>
-  </div>
-
-  <div class="fz-best-products__meta">
-    <div class="fz-best-products__copy">
-      <h3 class="fz-best-products__name">{{ display_name }}</h3>
-      <p class="fz-best-products__price">{{ card_product.price | money }}</p>
-    </div>
-
-    {%- if card_product.available -%}
-      <button
-        type="button"
-        class="fz-best-products__add"
-        data-quick-add="{{ card_product.selected_or_first_available_variant.id }}"
-        aria-label="Add {{ card_product.title | escape }} to cart"
-      >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M7 1.5V12.5M1.5 7H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-    {%- else -%}
-      <button type="button" class="fz-best-products__add fz-best-products__add--disabled" disabled aria-label="Sold out">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M7 1.5V12.5M1.5 7H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-    {%- endif -%}
   </div>
 </article>

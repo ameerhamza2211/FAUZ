@@ -627,6 +627,7 @@
   cursor: pointer;
   overflow: hidden;
   flex-shrink: 0;
+  border-radius: calc(var(--fz-radius) - 8px);
   transition: border-color 0.2s ease;
 }
 
@@ -654,6 +655,7 @@
   width: 100%;
   background: var(--fz-offwhite);
   overflow: hidden;
+  border-radius: var(--fz-radius);
 }
 
 .fz-product--editorial .fz-product__main--mint {
@@ -849,7 +851,7 @@
 .fz-product--editorial .fz-option-pill {
   border: 1px solid var(--fz-hairline-2);
   background: transparent;
-  border-radius: 0;
+  border-radius: 999px;
   padding: 11px 18px;
   font-size: 13px;
   letter-spacing: 0.04em;
@@ -884,7 +886,7 @@
   background: transparent;
   color: var(--fz-ink);
   border: 1px solid var(--fz-ink);
-  border-radius: 0;
+  border-radius: 999px;
   padding: 16px 28px;
   font-size: 12px;
   letter-spacing: 0.16em;
@@ -924,6 +926,7 @@
   background: transparent;
   color: var(--fz-ink);
   cursor: pointer;
+  border-radius: var(--fz-radius);
   transition:
     background 0.25s ease,
     color 0.25s ease;
@@ -942,7 +945,7 @@
 .fz-product--editorial .fz-benefits--editorial {
   background: rgba(193, 219, 216, 0.35);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 0;
+  border-radius: var(--fz-radius);
   padding: 20px 22px;
 }
 

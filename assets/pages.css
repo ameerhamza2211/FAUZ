@@ -206,7 +206,290 @@
   color: var(--fz-muted-grey);
 }
 
-/* ---------- Contact ---------- */
+/* ---------- Contact page ---------- */
+
+.fz-contact-page {
+  max-width: var(--fz-content-max);
+  width: 100%;
+  margin: 0 auto;
+  padding-top: clamp(32px, 5vw, 48px);
+  padding-bottom: var(--fz-section-y-lg);
+}
+
+.fz-contact-page__head {
+  margin-bottom: clamp(32px, 5vw, 48px);
+}
+
+.fz-contact-page__eyebrow {
+  margin: 0 0 12px;
+  font-family: var(--fz-font-label);
+  font-size: 11px;
+  font-weight: 200;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fz-eyebrow-color);
+}
+
+.fz-contact-page__title {
+  margin: 0;
+  font-family: var(--fz-font-display);
+  font-size: clamp(36px, 5.5vw, 56px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--fz-heading-color);
+}
+
+.fz-contact-page__intro {
+  margin: 14px 0 0;
+  max-width: 52ch;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--fz-body-text-color);
+}
+
+.fz-contact-page__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 28px);
+  align-items: start;
+}
+
+.fz-contact-page__info,
+.fz-contact-page__form-wrap {
+  min-width: 0;
+}
+
+.fz-contact-page__card {
+  background: #fff;
+  border: 1px solid var(--fz-hairline);
+  border-radius: var(--fz-radius);
+  padding: clamp(24px, 4vw, 36px);
+}
+
+.fz-contact-page__card--info {
+  background: rgba(193, 219, 216, 0.22);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.fz-contact-page__card--form {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.04);
+}
+
+.fz-contact-page__card--faq {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fz-contact-page__card-title {
+  margin: 0 0 14px;
+  font-family: var(--fz-font-display);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--fz-heading-color);
+}
+
+.fz-contact-page__card-text {
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--fz-body-text-color);
+}
+
+.fz-contact-page__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.fz-contact-page__item {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.fz-contact-page__item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--fz-mint);
+  color: var(--fz-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fz-contact-page__item-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+.fz-contact-page__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.fz-contact-page__item-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fz-muted-grey);
+}
+
+.fz-contact-page__item-value {
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--fz-body-text-color);
+  text-decoration: none;
+}
+
+a.fz-contact-page__item-value:hover {
+  color: var(--fz-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fz-contact-page__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fz-hairline);
+}
+
+.fz-contact-page__social-link {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--fz-hairline-2);
+  background: var(--fz-offwhite);
+  color: var(--fz-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.fz-contact-page__social-link:hover {
+  background: var(--fz-mint);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+.fz-contact-page__social-link img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.fz-contact-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fz-contact-page__field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.fz-contact-page__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.fz-contact-page__input {
+  width: 100%;
+  border: 1px solid var(--fz-hairline-2);
+  border-radius: 14px;
+  background: var(--fz-offwhite);
+  padding: 16px 18px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--fz-ink);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.fz-contact-page__input::placeholder {
+  color: var(--fz-muted-grey);
+}
+
+.fz-contact-page__input:focus {
+  outline: none;
+  border-color: var(--fz-ink);
+  background: #fff;
+}
+
+.fz-contact-page__input--area {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.fz-contact-page__submit {
+  width: 100%;
+  margin-top: 8px;
+  border: none;
+  border-radius: 999px;
+  background: var(--fz-ink);
+  color: var(--fz-offwhite);
+  padding: 16px 24px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 52px;
+  transition:
+    background 0.3s var(--fz-btn-ease),
+    transform 0.3s var(--fz-btn-ease);
+}
+
+.fz-contact-page__submit:hover {
+  background: var(--fz-mint);
+  color: var(--fz-ink);
+  transform: translateY(-1px);
+}
+
+.fz-contact-page__success,
+.fz-contact-page__errors {
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fz-contact-page__success {
+  background: rgba(193, 219, 216, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.fz-contact-page__errors {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Legacy contact styles (kept for backwards compatibility) */
 
 .fz-contact {
   display: grid;
@@ -1558,6 +1841,8 @@
 
   .fz-page-hero__inner,
   .fz-contact,
+  .fz-contact-page__grid,
+  .fz-contact-page__field-row,
   .fz-about-story,
   .fz-about-story--reverse .fz-about-story__media,
   .fz-about-story--reverse .fz-about-story__copy {

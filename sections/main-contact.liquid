@@ -1,123 +1,302 @@
+{%- liquid
+  assign contact_title = section.settings.title
+  if contact_title == blank
+    assign contact_title = page.title | default: 'Contact us'
+  endif
+-%}
+
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
 
-{% render 'fz-page-hero',
-  eyebrow: section.settings.eyebrow,
-  title: page.title | default: 'Contact us',
-  text: section.settings.intro,
-  tone: section.settings.hero_tone,
-  compact: true
-%}
+<section
+  class="fz-contact-page fz-container"
+  {% if fz_section_padding != blank %}style="{{ fz_section_padding | strip }}"{% endif %}
+  data-page-reveal
+>
+  <header class="fz-contact-page__head">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="fz-contact-page__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    <h1 class="fz-contact-page__title">{{ contact_title }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <p class="fz-contact-page__intro">{{ section.settings.intro }}</p>
+    {%- endif -%}
+  </header>
 
-<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <div class="fz-contact" data-page-reveal>
-    <div class="fz-contact__main">
-      {%- if page.content != blank -%}
-        <div class="fz-prose" style="margin-bottom: 28px;">{{ page.content }}</div>
-      {%- endif -%}
-
-      {%- form 'contact', class: 'fz-form fz-form--contact' -%}
-        {%- if form.posted_successfully? -%}
-          <div class="fz-form__success" role="status">Thanks for reaching out — we'll get back to you soon.</div>
+  <div class="fz-contact-page__grid">
+    <aside class="fz-contact-page__info">
+      <div class="fz-contact-page__card fz-contact-page__card--info">
+        {%- if section.settings.info_heading != blank -%}
+          <h2 class="fz-contact-page__card-title">{{ section.settings.info_heading }}</h2>
         {%- endif -%}
-        {%- if form.errors -%}
-          <div class="fz-form__errors" role="alert">
-            {%- for field in form.errors -%}
-              <div>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</div>
+
+        {%- if section.settings.info_text != blank -%}
+          <p class="fz-contact-page__card-text">{{ section.settings.info_text }}</p>
+        {%- elsif page.content != blank -%}
+          <div class="fz-contact-page__card-text fz-prose">{{ page.content }}</div>
+        {%- endif -%}
+
+        {%- assign contact_blocks = section.blocks | where: 'type', 'contact_item' -%}
+        {%- if contact_blocks.size > 0 -%}
+          <ul class="fz-contact-page__list">
+            {%- for block in contact_blocks -%}
+              <li class="fz-contact-page__item" {{ block.shopify_attributes }}>
+                <span class="fz-contact-page__item-icon">
+                  {%- if block.settings.custom_icon != blank -%}
+                    {{ block.settings.custom_icon | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40, 80', alt: '' }}
+                  {%- else -%}
+                    {% render 'fz-contact-icon', icon: block.settings.icon %}
+                  {%- endif -%}
+                </span>
+                <div class="fz-contact-page__item-body">
+                  {%- if block.settings.label != blank -%}
+                    <span class="fz-contact-page__item-label">{{ block.settings.label }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    {%- liquid
+                      assign item_link = block.settings.link
+                      if item_link == blank and block.settings.icon == 'email'
+                        assign item_link = block.settings.text | strip | prepend: 'mailto:'
+                      elsif item_link == blank and block.settings.icon == 'phone'
+                        assign item_link = block.settings.text | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | prepend: 'tel:'
+                      endif
+                    -%}
+                    {%- if item_link != blank -%}
+                      <a class="fz-contact-page__item-value" href="{{ item_link }}">{{ block.settings.text | newline_to_br }}</a>
+                    {%- else -%}
+                      <span class="fz-contact-page__item-value">{{ block.settings.text | newline_to_br }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- assign social_blocks = section.blocks | where: 'type', 'social_link' -%}
+        {%- if social_blocks.size > 0 -%}
+          <div class="fz-contact-page__social">
+            {%- for block in social_blocks -%}
+              {%- if block.settings.url != blank -%}
+                <a
+                  class="fz-contact-page__social-link"
+                  href="{{ block.settings.url }}"
+                  {{ block.shopify_attributes }}
+                  {% if block.settings.open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                  aria-label="{{ block.settings.label | default: 'Social link' | escape }}"
+                >
+                  {%- if block.settings.custom_icon != blank -%}
+                    {{ block.settings.custom_icon | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40, 80', alt: '' }}
+                  {%- else -%}
+                    {% render 'fz-contact-icon', icon: block.settings.icon %}
+                  {%- endif -%}
+                </a>
+              {%- endif -%}
             {%- endfor -%}
           </div>
         {%- endif -%}
-
-        <div class="fz-form__row">
-          <div class="fz-form__field">
-            <label class="fz-form__label" for="ContactName">Name</label>
-            <input class="fz-input" id="ContactName" type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}" placeholder="Your name">
-          </div>
-          <div class="fz-form__field">
-            <label class="fz-form__label" for="ContactEmail">Email</label>
-            <input class="fz-input" id="ContactEmail" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}" placeholder="you@email.com">
-          </div>
-        </div>
-
-        {%- if section.settings.show_phone -%}
-          <div class="fz-form__field">
-            <label class="fz-form__label" for="ContactPhone">Phone</label>
-            <input class="fz-input" id="ContactPhone" type="tel" name="contact[phone]" autocomplete="tel" placeholder="+92 ...">
-          </div>
-        {%- endif -%}
-
-        <div class="fz-form__field">
-          <label class="fz-form__label" for="ContactMessage">Message</label>
-          <textarea class="fz-input" id="ContactMessage" name="contact[body]" required placeholder="How can we help?">{{ form.body }}</textarea>
-        </div>
-
-        <div>
-          <button type="submit" class="fz-btn fz-btn--primary fz-btn--primary-accent">{{ section.settings.button_label }}</button>
-        </div>
-      {%- endform -%}
-    </div>
-
-    <aside class="fz-contact__aside">
-      <div class="fz-contact__card">
-        <h2 class="fz-contact__card-title">{{ section.settings.info_heading }}</h2>
-        {%- if section.settings.address != blank -%}
-          <p class="fz-contact__line">{{ section.settings.address }}</p>
-        {%- endif -%}
-        {%- if section.settings.phone != blank -%}
-          <p class="fz-contact__line">
-            {%- if section.settings.phone_url != blank -%}
-              <a href="{{ section.settings.phone_url }}">{{ section.settings.phone }}</a>
-            {%- else -%}
-              {{ section.settings.phone }}
-            {%- endif -%}
-          </p>
-        {%- endif -%}
-        {%- if section.settings.email != blank -%}
-          <p class="fz-contact__line"><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>
-        {%- endif -%}
-        {%- if section.settings.hours != blank -%}
-          <p class="fz-contact__line">{{ section.settings.hours }}</p>
-        {%- endif -%}
       </div>
 
-      <div class="fz-contact__help">
-        <p class="fz-contact__help-text">{{ section.settings.help_text }}</p>
-        <a class="fz-btn fz-btn--outline" href="{{ section.settings.faq_link | default: '/pages/faq' }}">{{ section.settings.faq_label }}</a>
-      </div>
+      {%- if section.settings.show_faq_cta -%}
+        <div class="fz-contact-page__card fz-contact-page__card--faq">
+          {%- if section.settings.help_text != blank -%}
+            <p class="fz-contact-page__card-text">{{ section.settings.help_text }}</p>
+          {%- endif -%}
+          <a class="fz-btn fz-btn--outline" href="{{ section.settings.faq_link | default: '/pages/faq' }}">
+            {{ section.settings.faq_label | default: 'View FAQs' }}
+          </a>
+        </div>
+      {%- endif -%}
     </aside>
+
+    <div class="fz-contact-page__form-wrap">
+      <div class="fz-contact-page__card fz-contact-page__card--form">
+        {%- if section.settings.form_heading != blank -%}
+          <h2 class="fz-contact-page__card-title">{{ section.settings.form_heading }}</h2>
+        {%- endif -%}
+
+        {%- form 'contact', class: 'fz-contact-page__form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="fz-contact-page__success" role="status">
+              {{ section.settings.success_message | default: "Thanks for reaching out — we'll get back to you soon." }}
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="fz-contact-page__errors" role="alert">
+              {%- for field in form.errors -%}
+                <div>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <div class="fz-contact-page__field">
+            <label class="visually-hidden" for="ContactName">{{ section.settings.name_label }}</label>
+            <input
+              class="fz-contact-page__input"
+              id="ContactName"
+              type="text"
+              name="contact[name]"
+              autocomplete="name"
+              value="{{ form.name }}"
+              placeholder="{{ section.settings.name_placeholder }}"
+            >
+          </div>
+
+          <div class="fz-contact-page__field-row">
+            <div class="fz-contact-page__field">
+              <label class="visually-hidden" for="ContactEmail">{{ section.settings.email_label }}</label>
+              <input
+                class="fz-contact-page__input"
+                id="ContactEmail"
+                type="email"
+                name="contact[email]"
+                autocomplete="email"
+                required
+                value="{{ form.email }}"
+                placeholder="{{ section.settings.email_placeholder }}"
+              >
+            </div>
+
+            {%- if section.settings.show_phone -%}
+              <div class="fz-contact-page__field">
+                <label class="visually-hidden" for="ContactPhone">{{ section.settings.phone_label }}</label>
+                <input
+                  class="fz-contact-page__input"
+                  id="ContactPhone"
+                  type="tel"
+                  name="contact[phone]"
+                  autocomplete="tel"
+                  placeholder="{{ section.settings.phone_placeholder }}"
+                >
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="fz-contact-page__field">
+            <label class="visually-hidden" for="ContactMessage">{{ section.settings.message_label }}</label>
+            <textarea
+              class="fz-contact-page__input fz-contact-page__input--area"
+              id="ContactMessage"
+              name="contact[body]"
+              required
+              placeholder="{{ section.settings.message_placeholder }}"
+            >{{ form.body }}</textarea>
+          </div>
+
+          <button type="submit" class="fz-contact-page__submit">
+            {{ section.settings.button_label | default: 'Send message' }}
+          </button>
+        {%- endform -%}
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
   "name": "Contact",
   "settings": [
     {
+      "type": "header",
+      "content": "Page header"
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Get in touch"
+      "default": "Connect with us"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "info": "Leave blank to use the page title."
     },
     {
       "type": "textarea",
       "id": "intro",
-      "label": "Intro",
+      "label": "Intro (optional)",
       "default": "Questions about products, orders, or your ritual? We're here to help."
     },
     {
-      "type": "select",
-      "id": "hero_tone",
-      "label": "Hero tone",
-      "options": [
-        { "value": "default", "label": "Off-white" },
-        { "value": "mint", "label": "Mint" }
-      ],
-      "default": "mint"
+      "type": "header",
+      "content": "Info card"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Info heading",
+      "default": "Our space"
+    },
+    {
+      "type": "textarea",
+      "id": "info_text",
+      "label": "Info description",
+      "default": "Visit our studio or reach out — we'd love to hear from you."
+    },
+    {
+      "type": "header",
+      "content": "Contact form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Send a message"
     },
     {
       "type": "checkbox",
       "id": "show_phone",
       "label": "Show phone field",
-      "default": false
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name label",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name placeholder",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email label",
+      "default": "Your email"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Your email"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone label",
+      "default": "Phone (optional)"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone placeholder",
+      "default": "Phone (optional)"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message label",
+      "default": "Your message"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message placeholder",
+      "default": "Your message"
     },
     {
       "type": "text",
@@ -126,51 +305,25 @@
       "default": "Send message"
     },
     {
-      "type": "header",
-      "content": "Contact details"
-    },
-    {
-      "type": "text",
-      "id": "info_heading",
-      "label": "Info heading",
-      "default": "Visit & reach us"
-    },
-    {
       "type": "textarea",
-      "id": "address",
-      "label": "Address",
-      "default": "Race Course Road, Lahore, Pakistan"
-    },
-    {
-      "type": "text",
-      "id": "phone",
-      "label": "Phone",
-      "default": "(+92) 329 0889049"
-    },
-    {
-      "type": "url",
-      "id": "phone_url",
-      "label": "Phone link"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "Email"
-    },
-    {
-      "type": "text",
-      "id": "hours",
-      "label": "Hours",
-      "default": "Monday – Friday, 10am – 6pm"
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for reaching out — we'll get back to you soon."
     },
     {
       "type": "header",
       "content": "FAQ CTA"
     },
     {
+      "type": "checkbox",
+      "id": "show_faq_cta",
+      "label": "Show FAQ card",
+      "default": true
+    },
+    {
       "type": "textarea",
       "id": "help_text",
-      "label": "Help text",
+      "label": "FAQ text",
       "default": "Looking for quick answers? Browse our frequently asked questions."
     },
     {
@@ -206,7 +359,144 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_item",
+      "name": "Contact detail",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "location",
+          "options": [
+            { "value": "location", "label": "Location" },
+            { "value": "email", "label": "Email" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "clock", "label": "Hours" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon (optional)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Address"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Race Course Road, Lahore, Pakistan"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    },
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "instagram",
+          "options": [
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "telegram", "label": "Telegram" },
+            { "value": "youtube", "label": "YouTube" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon (optional)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Accessibility label",
+          "default": "Instagram"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "Open in new tab",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact",
+      "blocks": [
+        {
+          "type": "contact_item",
+          "settings": {
+            "icon": "location",
+            "label": "Address",
+            "text": "Race Course Road, Lahore, Pakistan"
+          }
+        },
+        {
+          "type": "contact_item",
+          "settings": {
+            "icon": "email",
+            "label": "Email",
+            "text": "hello@fauz.com"
+          }
+        },
+        {
+          "type": "contact_item",
+          "settings": {
+            "icon": "phone",
+            "label": "Phone",
+            "text": "(+92) 329 0889049"
+          }
+        },
+        {
+          "type": "contact_item",
+          "settings": {
+            "icon": "clock",
+            "label": "Working hours",
+            "text": "Monday – Friday, 10am – 6pm\nSaturday, 11am – 4pm"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "icon": "instagram",
+            "label": "Instagram"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "icon": "facebook",
+            "label": "Facebook"
+          }
+        }
+      ]
     }
   ]
 }

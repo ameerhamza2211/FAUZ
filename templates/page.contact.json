@@ -11,16 +11,75 @@
   "sections": {
     "main": {
       "type": "main-contact",
+      "blocks": {
+        "contact_address": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "location",
+            "label": "Address",
+            "text": "Race Course Road, Lahore, Pakistan"
+          }
+        },
+        "contact_email": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "email",
+            "label": "Email",
+            "text": "hello@fauz.com"
+          }
+        },
+        "contact_phone": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "phone",
+            "label": "Phone",
+            "text": "(+92) 329 0889049"
+          }
+        },
+        "contact_hours": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "clock",
+            "label": "Working hours",
+            "text": "Monday – Friday, 10am – 6pm\nSaturday, 11am – 4pm"
+          }
+        },
+        "social_instagram": {
+          "type": "social_link",
+          "settings": {
+            "icon": "instagram",
+            "label": "Instagram"
+          }
+        },
+        "social_facebook": {
+          "type": "social_link",
+          "settings": {
+            "icon": "facebook",
+            "label": "Facebook"
+          }
+        }
+      },
+      "block_order": [
+        "contact_address",
+        "contact_email",
+        "contact_phone",
+        "contact_hours",
+        "social_instagram",
+        "social_facebook"
+      ],
       "settings": {
-        "eyebrow": "Get in touch",
+        "eyebrow": "Connect with us",
+        "title": "Contact us",
         "intro": "Questions about products, orders, or your ritual? We're here to help.",
-        "hero_tone": "mint",
-        "info_heading": "Visit & reach us",
-        "address": "Race Course Road, Lahore, Pakistan",
-        "phone": "(+92) 329 0889049",
-        "hours": "Monday – Friday, 10am – 6pm",
+        "info_heading": "Our space",
+        "info_text": "Visit our studio or reach out — we'd love to hear from you.",
+        "form_heading": "Send a message",
+        "show_phone": true,
+        "button_label": "Send message",
+        "show_faq_cta": true,
         "help_text": "Looking for quick answers? Browse our frequently asked questions.",
-        "faq_label": "View FAQs"
+        "faq_label": "View FAQs",
+        "padding_bottom": 80
       }
     }
   },

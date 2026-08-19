@@ -951,7 +951,8 @@ img { max-width: 100%; }
 }
 
 .fz-promise__inner {
-  max-width: 920px;
+  max-width: var(--fz-content-max);
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -972,7 +973,8 @@ img { max-width: 100%; }
   line-height: 1.18;
   letter-spacing: -0.015em;
   text-wrap: balance;
-  max-width: 18ch;
+  width: 100%;
+  max-width: 100%;
 }
 
 .fz-promise__quote-mark {
@@ -1003,7 +1005,8 @@ img { max-width: 100%; }
   justify-content: center;
   gap: 10px 12px;
   margin-top: clamp(4px, 1vw, 12px);
-  max-width: 720px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .fz-promise__claim {
@@ -1039,14 +1042,16 @@ img { max-width: 100%; }
 
 @media (min-width: 900px) {
   .fz-promise__quote {
-    font-size: clamp(44px, 4.2vw, 58px);
-    line-height: 1.14;
-    max-width: 16ch;
+    font-size: clamp(44px, 3.6vw, 58px);
+    line-height: 1.12;
+    max-width: 100%;
+    padding-inline: clamp(24px, 4vw, 48px);
   }
 
   .fz-promise__claims {
     gap: 12px 14px;
-    margin-top: clamp(8px, 1.2vw, 16px);
+    margin-top: clamp(8px, 1.2vw, 20px);
+    padding-inline: clamp(24px, 4vw, 48px);
   }
 
   .fz-promise__claim {
@@ -2265,9 +2270,10 @@ body:not(.fz-home) #MainContent {
   }
 
   .fz-promise__quote {
-    max-width: none;
+    max-width: 100%;
     font-size: clamp(28px, 7.5vw, 38px);
     line-height: 1.2;
+    padding-inline: 0;
   }
 
   .fz-promise__claims {

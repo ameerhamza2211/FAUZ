@@ -20,8 +20,6 @@
         "button_link": "shopify://collections",
         "background_type": "image",
         "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_05_38_32_PM.png",
-        "mobile_background_type": "image",
-        "mobile_image": "shopify://shop_images/ChatGPT_Image_Aug_18_2026_03_18_52_PM.png",
         "gradient_overlay_enable": true,
         "gradient_style": "bottom_fade",
         "gradient_color_1": "#c1dbd8",
@@ -73,49 +71,6 @@
         "m5"
       ],
       "settings": {
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "showcase": {
-      "type": "product-showcase",
-      "blocks": {
-        "p_serum": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
-          }
-        },
-        "p_cleanser": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-cleanser-gentle-daily-face-wash"
-          }
-        },
-        "p_sunscreen": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
-          }
-        },
-        "p_shampoo": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
-          }
-        }
-      },
-      "block_order": [
-        "p_serum",
-        "p_cleanser",
-        "p_sunscreen",
-        "p_shampoo"
-      ],
-      "settings": {
-        "eyebrow": "The edit",
-        "heading": "Formulas worth the ritual",
-        "collection": "",
-        "products_to_show": 4,
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -185,6 +140,49 @@
         "secondary_link": "shopify://collections",
         "primary_label": "Shop all products",
         "primary_link": "shopify://collections/all",
+        "padding_top": 0,
+        "padding_bottom": 80
+      }
+    },
+    "showcase": {
+      "type": "product-showcase",
+      "blocks": {
+        "p_serum": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
+          }
+        },
+        "p_cleanser": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-cleanser-gentle-daily-face-wash"
+          }
+        },
+        "p_sunscreen": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
+          }
+        },
+        "p_shampoo": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
+          }
+        }
+      },
+      "block_order": [
+        "p_serum",
+        "p_cleanser",
+        "p_sunscreen",
+        "p_shampoo"
+      ],
+      "settings": {
+        "eyebrow": "The edit",
+        "heading": "Formulas worth the ritual",
+        "collection": "",
+        "products_to_show": 4,
         "padding_top": 0,
         "padding_bottom": 80
       }
@@ -354,15 +352,15 @@
       ],
       "settings": {
         "padding_top": 0,
-        "padding_bottom": 52
+        "padding_bottom": 0
       }
     }
   },
   "order": [
     "hero",
     "marquee",
-    "showcase",
     "featured_collections",
+    "showcase",
     "ingredients",
     "promise_quote_zPmqVa",
     "ritual_EdXnF9",

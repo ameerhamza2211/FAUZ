@@ -90,7 +90,6 @@ body {
 .fz-product__blurb,
 .fz-page__body,
 .fz-newsletter__text,
-.fz-footer-video__text,
 .fz-acc__body,
 .fz-acc__line {
   font-family: var(--fz-font-desc);
@@ -741,12 +740,6 @@ img { max-width: 100%; }
 }
 
 /* ---------- Product card ---------- */
-
-.fz-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
 
 .fz-grid-3 {
   display: grid;
@@ -1976,7 +1969,6 @@ textarea.fz-input { border-radius: 16px; min-height: 140px; resize: vertical; }
 @media (max-width: 1100px) {
   .fz-hero__h1 { font-size: 64px; }
   .fz-hero__script { font-size: 78px; }
-  .fz-grid-4 { grid-template-columns: repeat(2, 1fr); }
   .fz-product__grid { gap: 48px; }
 }
 
@@ -2210,7 +2202,7 @@ body:not(.fz-home) #MainContent {
   .fz-hero__h1 { font-size: 48px; }
   .fz-hero__script { font-size: 58px; }
   .fz-h2 { font-size: 32px; }
-  .fz-grid-4, .fz-grid-3 { grid-template-columns: 1fr; }
+  .fz-grid-3 { grid-template-columns: 1fr; }
 
   .fz-ritual-row {
     grid-template-columns: 40px 72px minmax(0, 1fr);

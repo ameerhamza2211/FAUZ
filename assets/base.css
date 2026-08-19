@@ -946,40 +946,123 @@ img { max-width: 100%; }
 /* ---------- Promise / quote ---------- */
 
 .fz-promise {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: var(--fz-section-y-lg) var(--fz-gutter);
+  padding: clamp(72px, 10vw, 120px) var(--fz-gutter);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
 }
 
-.fz-promise__eyebrow { color: var(--fz-accent); }
+.fz-promise__inner {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 4vw, 40px);
+}
+
+.fz-promise__eyebrow {
+  color: var(--fz-eyebrow-color);
+  margin: 0;
+}
 
 .fz-promise__quote {
   font-family: var(--fz-font-display);
-  font-size: clamp(28px, 5vw, 44px);
+  font-size: clamp(30px, 4.8vw, 44px);
   font-weight: 400;
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
   text-wrap: balance;
+  max-width: 18ch;
+}
+
+.fz-promise__quote-mark {
+  display: inline;
+  background: none;
+  -webkit-text-fill-color: var(--fz-muted-grey-2);
+  color: var(--fz-muted-grey-2);
+  font-weight: 300;
+}
+
+.fz-promise__quote-text {
+  background: linear-gradient(
+    165deg,
+    var(--fz-ink) 0%,
+    rgba(0, 0, 0, 0.82) 52%,
+    rgba(0, 0, 0, 0.68) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .fz-promise__claims {
   display: flex;
-  gap: 40px;
-  margin-top: 14px;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  gap: 10px 12px;
+  margin-top: clamp(4px, 1vw, 12px);
+  max-width: 720px;
 }
 
 .fz-promise__claim {
-  font-size: 13px;
-  letter-spacing: 0.14em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 1px solid var(--fz-hairline-2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  font-family: var(--fz-font-label);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--fz-muted-dark);
+  white-space: nowrap;
+  transition:
+    border-color 0.28s ease,
+    background 0.28s ease,
+    color 0.28s ease,
+    transform 0.28s var(--fz-btn-ease),
+    box-shadow 0.28s ease;
+}
+
+.fz-promise__claim:hover {
+  border-color: rgba(193, 219, 216, 0.95);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--fz-ink);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+@media (min-width: 900px) {
+  .fz-promise__quote {
+    font-size: clamp(44px, 4.2vw, 58px);
+    line-height: 1.14;
+    max-width: 16ch;
+  }
+
+  .fz-promise__claims {
+    gap: 12px 14px;
+    margin-top: clamp(8px, 1.2vw, 16px);
+  }
+
+  .fz-promise__claim {
+    padding: 12px 22px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fz-promise__claim {
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .fz-promise__claim:hover {
+    transform: none;
+  }
 }
 
 /* ---------- Collection page ---------- */
@@ -2173,10 +2256,31 @@ body:not(.fz-home) #MainContent {
     padding: 48px 20px;
   }
 
-  .fz-promise { padding: var(--fz-section-y-lg) var(--fz-gutter); }
+  .fz-promise {
+    padding: clamp(56px, 12vw, 88px) var(--fz-gutter-sm);
+  }
+
+  .fz-promise__inner {
+    gap: 24px;
+  }
+
+  .fz-promise__quote {
+    max-width: none;
+    font-size: clamp(28px, 7.5vw, 38px);
+    line-height: 1.2;
+  }
 
   .fz-promise__claims {
-    gap: 20px 28px;
+    gap: 8px 10px;
+    margin-top: 4px;
+  }
+
+  .fz-promise__claim {
+    padding: 10px 16px;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    white-space: normal;
+    text-align: center;
   }
 
   .fz-newsletter__form {
@@ -2214,11 +2318,6 @@ body:not(.fz-home) #MainContent {
   .fz-ritual-row__n { font-size: 24px; }
   .fz-ritual-row__img { width: 72px; height: 72px; }
   .fz-ritual-row__desc { font-size: 13px; }
-
-  .fz-promise__claims {
-    flex-direction: column;
-    gap: 12px;
-  }
 
   .fz-chips { gap: 8px; }
   .fz-chip { padding: 8px 16px; font-size: 11px; }

@@ -1,11 +1,25 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
 <section class="fz-promise"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <div class="fz-eyebrow fz-promise__eyebrow">{{ section.settings.eyebrow }}</div>
-  <h2 class="fz-promise__quote">&ldquo;{{ section.settings.quote }}&rdquo;</h2>
-  <div class="fz-promise__claims">
-    {%- for block in section.blocks -%}
-      <span class="fz-promise__claim" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
-    {%- endfor -%}
+  <div class="fz-promise__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="fz-eyebrow fz-promise__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.quote != blank -%}
+      <h2 class="fz-promise__quote">
+        <span class="fz-promise__quote-mark" aria-hidden="true">&ldquo;</span>
+        <span class="fz-promise__quote-text">{{ section.settings.quote }}</span>
+        <span class="fz-promise__quote-mark" aria-hidden="true">&rdquo;</span>
+      </h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="fz-promise__claims">
+        {%- for block in section.blocks -%}
+          <span class="fz-promise__claim" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </section>
 

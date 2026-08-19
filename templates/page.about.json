@@ -11,16 +11,6 @@
   "sections": {
     "main": {
       "type": "page-about",
-      "settings": {
-        "eyebrow": "Our story",
-        "intro": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours.",
-        "hero_tone": "mint",
-        "story_eyebrow": "The philosophy",
-        "story_heading": "Your skin is as unique as you are.",
-        "story_text": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p>",
-        "quote": "Nothing more. Nothing less.",
-        "quote_script": "Just you."
-      },
       "blocks": {
         "value_1": {
           "type": "value",
@@ -47,8 +37,29 @@
           }
         }
       },
-      "block_order": ["value_1", "value_2", "value_3"]
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3"
+      ],
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "About Fauz",
+        "intro": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours.",
+        "hero_image": "shopify://shop_images/person-looks-forward-with-the-shadow-of-a-leaf-on-their-face.jpg",
+        "hero_tone": "mint",
+        "story_eyebrow": "The philosophy",
+        "story_heading": "Your skin is as unique as you are.",
+        "story_text": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p>",
+        "story_image": "shopify://shop_images/eyes-closed-while-a-plant-casts-a-shadow-on-their-face.jpg",
+        "quote": "Nothing more. Nothing less.",
+        "quote_script": "Just you.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

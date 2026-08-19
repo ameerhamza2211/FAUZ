@@ -1,0 +1,61 @@
+{% comment %}
+  Best products carousel card.
+  Accepts:
+    card_product — product object (required)
+{% endcomment %}
+
+{%- liquid
+  assign tint = 'offwhite'
+  for c in card_product.collections
+    if c.handle == 'sun-care'
+      assign tint = 'mint'
+    endif
+  endfor
+  if card_product.metafields.custom.card_tint != blank
+    assign tint = card_product.metafields.custom.card_tint
+  endif
+-%}
+
+<article class="fz-best-products__card" data-best-products-card>
+  <a class="fz-best-products__card-link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}"></a>
+
+  <div class="fz-best-products__media{% if tint == 'mint' %} fz-best-products__media--mint{% endif %}">
+    {%- if card_product.featured_image -%}
+      {{ card_product.featured_image
+        | image_url: width: 800
+        | image_tag:
+          class: 'fz-best-products__img',
+          widths: '280, 400, 560, 800',
+          loading: 'lazy',
+          alt: card_product.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
+    {%- endif -%}
+  </div>
+
+  <div class="fz-best-products__meta">
+    <div class="fz-best-products__copy">
+      <h3 class="fz-best-products__name">{{ card_product.title }}</h3>
+      <p class="fz-best-products__price">{{ card_product.price | money }}</p>
+    </div>
+
+    {%- if card_product.available -%}
+      <button
+        type="button"
+        class="fz-best-products__add"
+        data-quick-add="{{ card_product.selected_or_first_available_variant.id }}"
+        aria-label="Add {{ card_product.title | escape }} to cart"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 1.5V12.5M1.5 7H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    {%- else -%}
+      <button type="button" class="fz-best-products__add fz-best-products__add--disabled" disabled aria-label="Sold out">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 1.5V12.5M1.5 7H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    {%- endif -%}
+  </div>
+</article>

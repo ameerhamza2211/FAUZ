@@ -16,6 +16,7 @@
       initHeaderHeight();
       initIngredientTabs();
       initFeaturedCollections();
+      initBestProducts();
       initHeaderScrollBasic();
       document.body.classList.add('is-motion-reduced');
       return;
@@ -50,6 +51,7 @@
     initFooterVideo();
     initIngredientTabs();
     initFeaturedCollections();
+    initBestProducts();
     initScrollRefresh();
 
     ScrollTrigger.refresh();
@@ -538,6 +540,37 @@
         activateIngredient(index, triggers, panels);
       });
     });
+  }
+
+  /* ---------- Best products carousel ---------- */
+
+  function initBestProducts() {
+    var section = document.querySelector('[data-best-products]');
+    if (!section) return;
+
+    var viewport = section.querySelector('[data-best-products-viewport]');
+    var progress = section.querySelector('[data-best-products-progress]');
+    if (!viewport || !progress) return;
+
+    function updateProgress() {
+      var maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      if (maxScroll <= 0) {
+        progress.style.width = '100%';
+        return;
+      }
+      var ratio = viewport.scrollLeft / maxScroll;
+      progress.style.width = Math.max(8, ratio * 100) + '%';
+    }
+
+    viewport.addEventListener('scroll', updateProgress, { passive: true });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateProgress, 120);
+    });
+
+    updateProgress();
   }
 
   /* ---------- Featured collections ---------- */

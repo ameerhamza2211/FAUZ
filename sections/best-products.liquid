@@ -1,0 +1,171 @@
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+
+{%- liquid
+  assign limit = section.settings.products_to_show
+  assign see_all_url = section.settings.see_all_link
+  if see_all_url == blank and section.settings.collection != blank
+    assign see_all_url = section.settings.collection.url
+  endif
+  if see_all_url == blank
+    assign see_all_url = routes.all_products_collection_url
+  endif
+-%}
+
+<section
+  class="fz-best-products fz-container"
+  data-best-products
+  id="best-products"
+  {% if fz_section_padding != blank %}style="{{ fz_section_padding | strip }}"{% endif %}
+>
+  <header class="fz-best-products__head">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="fz-best-products__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.see_all_label != blank -%}
+      <a class="fz-best-products__see-all" href="{{ see_all_url }}">
+        {{ section.settings.see_all_label }}
+      </a>
+    {%- endif -%}
+  </header>
+
+  <div class="fz-best-products__viewport" data-best-products-viewport tabindex="0" aria-label="{{ section.settings.heading | escape }}">
+    <div class="fz-best-products__track" data-best-products-track>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks limit: limit -%}
+          {%- if block.settings.product != blank -%}
+            <div {{ block.shopify_attributes }}>
+              {% render 'best-product-card', card_product: block.settings.product %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: limit -%}
+          {% render 'best-product-card', card_product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for product in collections.all.products limit: limit -%}
+          {% render 'best-product-card', card_product: product %}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="fz-best-products__progress" aria-hidden="true">
+    <div class="fz-best-products__progress-track">
+      <div class="fz-best-products__progress-fill" data-best-products-progress style="width: 0%;"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Best products",
+  "tag": "section",
+  "class": "section-best-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Best products"
+    },
+    {
+      "type": "text",
+      "id": "see_all_label",
+      "label": "See all label",
+      "default": "See all"
+    },
+    {
+      "type": "url",
+      "id": "see_all_link",
+      "label": "See all link",
+      "info": "Defaults to the selected collection or all products."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Used when no product blocks are added."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Best products",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product": "fauz-cleanser-gentle-daily-face-wash"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

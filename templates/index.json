@@ -20,6 +20,8 @@
         "button_link": "shopify://collections",
         "background_type": "image",
         "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_05_38_32_PM.png",
+        "mobile_background_type": "image",
+        "mobile_image": "shopify://shop_images/ChatGPT_Image_Aug_18_2026_03_18_52_PM.png",
         "gradient_overlay_enable": true,
         "gradient_style": "bottom_fade",
         "gradient_color_1": "#c1dbd8",
@@ -115,7 +117,7 @@
         "see_all_link": "shopify://collections/all",
         "collection": "",
         "products_to_show": 8,
-        "padding_top": 0,
+        "padding_top": 80,
         "padding_bottom": 64
       }
     },
@@ -231,47 +233,6 @@
         "padding_bottom": 80
       }
     },
-    "ingredients": {
-      "type": "ingredient-story",
-      "blocks": {
-        "i1": {
-          "type": "ingredient",
-          "settings": {
-            "name": "Niacinamide",
-            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
-          }
-        },
-        "i2": {
-          "type": "ingredient",
-          "settings": {
-            "name": "Hyaluronic acid",
-            "description": "Draws moisture into the skin for plump, comfortable hydration throughout the day.",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
-          }
-        },
-        "i3": {
-          "type": "ingredient",
-          "settings": {
-            "name": "Ceramides",
-            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
-            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_4.png"
-          }
-        }
-      },
-      "block_order": [
-        "i1",
-        "i2",
-        "i3"
-      ],
-      "settings": {
-        "eyebrow": "Inside the formula",
-        "heading": "Actives with intention",
-        "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced.",
-        "padding_top": 0,
-        "padding_bottom": 80
-      }
-    },
     "promise_quote_zPmqVa": {
       "type": "promise-quote",
       "blocks": {
@@ -362,6 +323,47 @@
         "padding_bottom": 0
       }
     },
+    "ingredients": {
+      "type": "ingredient-story",
+      "blocks": {
+        "i1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Niacinamide",
+            "description": "Helps refine texture, support the barrier, and even tone without irritation.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_12_PM_2.png"
+          }
+        },
+        "i2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Hyaluronic acid",
+            "description": "Draws moisture into the skin for plump, comfortable hydration throughout the day.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_5.png"
+          }
+        },
+        "i3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ceramides",
+            "description": "Reinforce the skin barrier so your routine protects as much as it perfects.",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_06_00_13_PM_4.png"
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3"
+      ],
+      "settings": {
+        "eyebrow": "Inside the formula",
+        "heading": "Actives with intention",
+        "text": "Every ingredient is chosen for performance, tolerance, and the quiet confidence of skin that feels balanced.",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "editorial": {
       "type": "editorial",
       "blocks": {
@@ -448,7 +450,7 @@
         "text_color": "#757575",
         "divider_color": "#e8eae9",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 40
       }
     }
   },
@@ -458,9 +460,9 @@
     "best_products",
     "featured_collections",
     "showcase",
-    "ingredients",
     "promise_quote_zPmqVa",
     "ritual_EdXnF9",
+    "ingredients",
     "editorial",
     "service_highlights"
   ]

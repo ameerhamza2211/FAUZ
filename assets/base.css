@@ -2411,14 +2411,33 @@ body:not(.fz-home) #MainContent {
   .fz-service-highlights__inner {
     padding-top: 28px;
     padding-bottom: 28px;
+    padding-inline: var(--fz-gutter-sm);
   }
 
   .fz-service-highlights__grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+  }
+
+  .fz-service-highlights__icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 12px;
+  }
+
+  .fz-service-highlights__icon-svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .fz-service-highlights__title {
+    font-size: 10px;
+    letter-spacing: 0.12em;
   }
 
   .fz-service-highlights__text {
-    max-width: 30ch;
+    max-width: none;
+    font-size: 11px;
+    line-height: 1.45;
   }
 }

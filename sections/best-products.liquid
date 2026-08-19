@@ -29,8 +29,12 @@
     {%- endif -%}
   </header>
 
-  <div class="fz-best-products__viewport" data-best-products-viewport tabindex="0" aria-label="{{ section.settings.heading | escape }}">
-    <div class="fz-best-products__track" data-best-products-track>
+  <div class="fz-best-products__stage" data-best-products-stage>
+    <div class="fz-best-products__fade fz-best-products__fade--left" data-best-products-fade-left aria-hidden="true"></div>
+    <div class="fz-best-products__fade fz-best-products__fade--right" data-best-products-fade-right aria-hidden="true"></div>
+
+    <div class="fz-best-products__viewport" data-best-products-viewport tabindex="0" aria-label="{{ section.settings.heading | escape }}">
+      <div class="fz-best-products__track" data-best-products-track>
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks limit: limit -%}
           {%- if block.settings.product != blank -%}
@@ -46,6 +50,7 @@
           {% render 'best-product-card', card_product: product %}
         {%- endfor -%}
       {%- endif -%}
+      </div>
     </div>
   </div>
 

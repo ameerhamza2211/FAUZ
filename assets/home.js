@@ -550,27 +550,40 @@
 
     var viewport = section.querySelector('[data-best-products-viewport]');
     var progress = section.querySelector('[data-best-products-progress]');
+    var fadeLeft = section.querySelector('[data-best-products-fade-left]');
+    var fadeRight = section.querySelector('[data-best-products-fade-right]');
     if (!viewport || !progress) return;
 
-    function updateProgress() {
+    function updateCarousel() {
       var maxScroll = viewport.scrollWidth - viewport.clientWidth;
+
       if (maxScroll <= 0) {
         progress.style.width = '100%';
+        if (fadeLeft) fadeLeft.classList.add('is-hidden');
+        if (fadeRight) fadeRight.classList.add('is-hidden');
         return;
       }
+
       var ratio = viewport.scrollLeft / maxScroll;
       progress.style.width = Math.max(8, ratio * 100) + '%';
+
+      if (fadeLeft) {
+        fadeLeft.classList.toggle('is-hidden', viewport.scrollLeft <= 4);
+      }
+      if (fadeRight) {
+        fadeRight.classList.toggle('is-hidden', viewport.scrollLeft >= maxScroll - 4);
+      }
     }
 
-    viewport.addEventListener('scroll', updateProgress, { passive: true });
+    viewport.addEventListener('scroll', updateCarousel, { passive: true });
 
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updateProgress, 120);
+      resizeTimer = setTimeout(updateCarousel, 120);
     });
 
-    updateProgress();
+    updateCarousel();
   }
 
   /* ---------- Featured collections ---------- */

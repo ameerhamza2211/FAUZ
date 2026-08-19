@@ -1877,6 +1877,24 @@ html.lenis body {
   scrollbar-width: none;
   padding-inline: var(--fz-gutter);
   padding-block: 4px 2px;
+  cursor: grab;
+  touch-action: pan-x;
+}
+
+.fz-best-products__viewport.is-grabbing {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.fz-best-products__viewport.is-grabbing .fz-best-products__card-link {
+  pointer-events: none;
+}
+
+.fz-best-products__viewport.is-grabbing .fz-best-products__img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-drag: none;
 }
 
 .fz-best-products__viewport::-webkit-scrollbar {

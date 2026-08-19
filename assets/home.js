@@ -583,7 +583,98 @@
       resizeTimer = setTimeout(updateCarousel, 120);
     });
 
+    initBestProductsDrag(viewport);
+
     updateCarousel();
+  }
+
+  function initBestProductsDrag(viewport) {
+    var drag = {
+      active: false,
+      dragged: false,
+      pointerId: null,
+      startX: 0,
+      scrollLeft: 0,
+      lastX: 0,
+      lastTime: 0,
+      velocity: 0,
+      momentumId: 0
+    };
+
+    function stopMomentum() {
+      if (!drag.momentumId) return;
+      cancelAnimationFrame(drag.momentumId);
+      drag.momentumId = 0;
+    }
+
+    function endDrag(e) {
+      if (!drag.active || e.pointerId !== drag.pointerId) return;
+
+      drag.active = false;
+      viewport.classList.remove('is-grabbing');
+      try { viewport.releasePointerCapture(e.pointerId); } catch (_) {}
+
+      if (drag.dragged && Math.abs(drag.velocity) > 0.15) {
+        var vel = drag.velocity;
+        function momentum() {
+          if (Math.abs(vel) < 0.02) {
+            drag.momentumId = 0;
+            return;
+          }
+          viewport.scrollLeft -= vel * 14;
+          vel *= 0.92;
+          drag.momentumId = requestAnimationFrame(momentum);
+        }
+        momentum();
+      }
+
+      if (drag.dragged) {
+        var blockClick = function (ev) {
+          ev.preventDefault();
+          ev.stopImmediatePropagation();
+        };
+        viewport.addEventListener('click', blockClick, true);
+        setTimeout(function () {
+          viewport.removeEventListener('click', blockClick, true);
+        }, 0);
+      }
+    }
+
+    viewport.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return;
+      if (e.button !== 0) return;
+      if (e.target.closest('button, [data-quick-add]')) return;
+
+      stopMomentum();
+      drag.active = true;
+      drag.dragged = false;
+      drag.pointerId = e.pointerId;
+      drag.startX = e.clientX;
+      drag.scrollLeft = viewport.scrollLeft;
+      drag.lastX = e.clientX;
+      drag.lastTime = performance.now();
+      drag.velocity = 0;
+      viewport.classList.add('is-grabbing');
+      viewport.setPointerCapture(e.pointerId);
+    });
+
+    viewport.addEventListener('pointermove', function (e) {
+      if (!drag.active || e.pointerId !== drag.pointerId) return;
+
+      var dx = e.clientX - drag.startX;
+      if (Math.abs(dx) > 4) drag.dragged = true;
+
+      var now = performance.now();
+      var dt = now - drag.lastTime;
+      if (dt > 0) drag.velocity = (e.clientX - drag.lastX) / dt;
+      drag.lastX = e.clientX;
+      drag.lastTime = now;
+
+      viewport.scrollLeft = drag.scrollLeft - dx;
+    });
+
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
   }
 
   /* ---------- Featured collections ---------- */

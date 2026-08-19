@@ -1528,10 +1528,11 @@ img { max-width: 100%; }
   position: absolute;
   pointer-events: none;
   z-index: 0;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.62;
-  filter: none;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  opacity: 0.62 !important;
+  -webkit-filter: brightness(0) invert(1) !important;
+  filter: brightness(0) invert(1) !important;
   will-change: transform;
 }
 
@@ -1540,12 +1541,12 @@ img { max-width: 100%; }
   top: clamp(80px, 12vh, 160px);
   width: clamp(200px, 28vw, 360px);
   height: clamp(380px, 58vh, 640px);
-  background-image: url('footer-leaf-shadow.svg');
-  background-position: left center;
+  background-image: url('footer-leaf-shadow.svg?v=white') !important;
+  background-position: left center !important;
   transform: rotate(-8deg);
   transform-origin: center left;
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(to right, #000 0%, #000 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 72%, transparent 100%) !important;
+  mask-image: linear-gradient(to right, #000 0%, #000 72%, transparent 100%) !important;
   animation: fz-footer-leaf-left 11s ease-in-out infinite;
 }
 
@@ -1554,13 +1555,15 @@ img { max-width: 100%; }
   top: clamp(120px, 16vh, 220px);
   width: clamp(200px, 28vw, 360px);
   height: clamp(360px, 54vh, 620px);
-  background-image: url('footer-leaf-shadow-right.svg');
-  background-position: right center;
+  background-image: url('footer-leaf-shadow-right.svg?v=white') !important;
+  background-position: right center !important;
   transform: rotate(8deg);
   transform-origin: center right;
-  opacity: 0.58;
-  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(to left, #000 0%, #000 72%, transparent 100%);
+  opacity: 0.58 !important;
+  -webkit-filter: brightness(0) invert(1) !important;
+  filter: brightness(0) invert(1) !important;
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 72%, transparent 100%) !important;
+  mask-image: linear-gradient(to left, #000 0%, #000 72%, transparent 100%) !important;
   animation: fz-footer-leaf-right 13s ease-in-out infinite;
 }
 
@@ -2279,14 +2282,14 @@ body:not(.fz-home) #MainContent {
   .fz-footer__leaf--left {
     width: clamp(140px, 38vw, 220px);
     height: clamp(260px, 44vh, 400px);
-    opacity: 0.54;
+    opacity: 0.54 !important;
     top: clamp(64px, 10vh, 120px);
   }
 
   .fz-footer__leaf--right {
     width: clamp(140px, 38vw, 220px);
     height: clamp(260px, 44vh, 400px);
-    opacity: 0.5;
+    opacity: 0.5 !important;
     top: clamp(96px, 14vh, 160px);
   }
 

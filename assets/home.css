@@ -345,8 +345,8 @@ html.lenis body {
 }
 
 .fz-showcase__slide .fz-showcase__media {
-  transform: scale(0.96);
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0.88;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .fz-showcase__slide.is-active .fz-showcase__copy {
@@ -355,7 +355,7 @@ html.lenis body {
 }
 
 .fz-showcase__slide.is-active .fz-showcase__media {
-  transform: scale(1);
+  opacity: 1;
 }
 
 .fz-showcase__slide-inner {
@@ -407,11 +407,20 @@ html.lenis body {
   object-position: center center;
   display: block;
   border-radius: inherit;
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  backface-visibility: hidden;
 }
 
-.fz-showcase__media:hover .fz-showcase__img {
-  transform: scale(1.04);
+.fz-showcase__slide.is-active .fz-showcase__media:hover .fz-showcase__img {
+  transform: scale(1.03);
+}
+
+@media (hover: none), (max-width: 900px) {
+  .fz-showcase__slide.is-active .fz-showcase__media:hover .fz-showcase__img {
+    transform: none;
+  }
 }
 
 .fz-showcase__copy {
@@ -890,6 +899,7 @@ html.lenis body {
   .fz-showcase__track,
   .fz-showcase__slide .fz-showcase__copy,
   .fz-showcase__slide .fz-showcase__media,
+  .fz-showcase__img,
   .fz-editorial__img {
     animation: none !important;
     transition: none !important;

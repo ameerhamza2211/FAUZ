@@ -15,15 +15,21 @@
       "type": "announcement-bar",
       "settings": {
         "show_announcement": true,
-        "text": "Free nationwide delivery on orders over Rs. 5,000"
+        "text": "Free nationwide delivery on orders over Rs. 5,000",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "header": {
       "type": "header",
       "settings": {
+        "menu": "main-menu",
         "hashtag": "#NeverCompare"
       }
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }

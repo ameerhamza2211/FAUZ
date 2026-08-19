@@ -195,6 +195,7 @@
         "fc_skincare",
         "fc_haircare"
       ],
+      "name": "Featured Collections",
       "settings": {
         "eyebrow": "Shop by category",
         "heading": "Featured Collections",

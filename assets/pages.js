@@ -168,17 +168,42 @@
 
     if (!window.matchMedia('(max-width: 900px)').matches) return;
 
+    var dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem('fz-sticky-atc-dismissed') === '1';
+    } catch (e) {}
+
+    if (dismissed) bar.classList.add('is-dismissed');
+
+    function setVisible(show) {
+      if (dismissed) return;
+      bar.classList.toggle('is-visible', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+
     var observer = new IntersectionObserver(function (entries) {
-      var visible = !entries[0].isIntersecting;
-      bar.classList.toggle('is-visible', visible);
-      bar.setAttribute('aria-hidden', visible ? 'false' : 'true');
-    }, { threshold: 0, rootMargin: '0px' });
+      setVisible(!entries[0].isIntersecting);
+    }, { threshold: 0, rootMargin: '0px 0px -12px 0px' });
 
     observer.observe(buy);
+
+    var dismissBtn = bar.querySelector('[data-sticky-atc-dismiss]');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', function () {
+        dismissed = true;
+        try {
+          sessionStorage.setItem('fz-sticky-atc-dismissed', '1');
+        } catch (e) {}
+        bar.classList.remove('is-visible');
+        bar.classList.add('is-dismissed');
+        bar.setAttribute('aria-hidden', 'true');
+      });
+    }
 
     var stickyBtn = bar.querySelector('[data-sticky-atc-trigger]');
     if (stickyBtn) {
       stickyBtn.addEventListener('click', function () {
+        if (stickyBtn.disabled) return;
         var form = document.querySelector('[data-fz-atc-form]');
         if (form) form.requestSubmit();
       });

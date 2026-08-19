@@ -1060,22 +1060,7 @@
   }
 
   .fz-product--editorial .fz-product__gallery-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 28px;
-    padding: 10px 0 6px;
-  }
-
-  .fz-product--editorial .fz-product__gallery-btn {
-    min-width: 44px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--fz-hairline-2);
-    border-radius: 999px;
-    background: var(--fz-offwhite);
+    display: none;
   }
 
   .fz-product--editorial .fz-product__thumbs-col {
@@ -1326,31 +1311,76 @@
   right: 0;
   bottom: 0;
   z-index: 90;
-  padding: 12px var(--fz-gutter) calc(12px + env(safe-area-inset-bottom));
-  background: rgba(232, 234, 233, 0.92);
-  border-top: 1px solid var(--fz-hairline);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transform: translateY(110%);
+  padding: 0 var(--fz-gutter-sm) calc(12px + env(safe-area-inset-bottom));
+  pointer-events: none;
+  transform: translateY(calc(110% + 12px));
   transition: transform 0.35s var(--fz-btn-ease);
 }
 
 .fz-sticky-atc.is-visible {
   transform: translateY(0);
+  pointer-events: auto;
+}
+
+.fz-sticky-atc.is-dismissed {
+  transform: translateY(calc(110% + 12px));
+  pointer-events: none;
+}
+
+.fz-sticky-atc__sheet {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--fz-hairline-2);
+  border-radius: calc(var(--fz-radius) - 4px);
+  padding: 12px 14px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.fz-sticky-atc__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--fz-muted-grey);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.fz-sticky-atc__close:hover {
+  color: var(--fz-ink);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .fz-sticky-atc__inner {
-  max-width: var(--fz-content-max);
-  margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  padding-right: 28px;
+}
+
+.fz-sticky-atc__meta {
+  min-width: 0;
 }
 
 .fz-sticky-atc__title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -1360,6 +1390,7 @@
 .fz-sticky-atc__price {
   font-size: 13px;
   color: var(--fz-muted-grey);
+  margin: 4px 0 0;
 }
 
 .fz-sticky-atc__btn {
@@ -1368,12 +1399,13 @@
   background: var(--fz-ink);
   color: var(--fz-bg);
   border-radius: 999px;
-  padding: 14px 24px;
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  padding: 12px 20px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  min-height: 48px;
+  min-height: 44px;
+  white-space: nowrap;
 }
 
 .fz-sticky-atc__btn:disabled {

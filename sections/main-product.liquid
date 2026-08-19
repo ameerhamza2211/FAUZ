@@ -134,7 +134,7 @@
       {%- form 'product', product, data-fz-atc-form: '', data-product-form: '' -%}
         <input type="hidden" name="id" value="{{ variant.id }}">
 
-        <div class="fz-product__field" data-buy-area>
+        <div class="fz-product__field">
           <span class="fz-product__field-label">Quantity:</span>
           <div class="fz-qty fz-qty--editorial">
             <button type="button" class="fz-qty__btn" data-qty-change="-1" aria-label="Decrease quantity">−</button>
@@ -175,7 +175,7 @@
           </div>
         {%- endunless -%}
 
-        <div class="fz-buy fz-buy--editorial">
+        <div class="fz-buy fz-buy--editorial" data-buy-area>
           {%- if variant.available -%}
             <button type="submit" class="fz-atc fz-atc--ghost">
               Add to cart
@@ -304,14 +304,17 @@
 <script type="application/json" id="FzProductVariants">{{ product.variants | json }}</script>
 
 <div class="fz-sticky-atc" data-sticky-atc aria-hidden="true">
-  <div class="fz-sticky-atc__inner">
-    <div>
-      <p class="fz-sticky-atc__title">{{ product.title }}</p>
-      <p class="fz-sticky-atc__price"><span data-sticky-atc-price>{{ variant.price | money }}</span></p>
+  <div class="fz-sticky-atc__sheet">
+    <button type="button" class="fz-sticky-atc__close" data-sticky-atc-dismiss aria-label="Hide add to cart bar">×</button>
+    <div class="fz-sticky-atc__inner">
+      <div class="fz-sticky-atc__meta">
+        <p class="fz-sticky-atc__title">{{ product_title_short }}</p>
+        <p class="fz-sticky-atc__price"><span data-sticky-atc-price>{{ variant.price | money }}</span></p>
+      </div>
+      <button type="button" class="fz-sticky-atc__btn" data-sticky-atc-trigger{% unless variant.available %} disabled{% endunless %}>
+        {%- if variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+      </button>
     </div>
-    <button type="button" class="fz-sticky-atc__btn" data-sticky-atc-trigger{% unless variant.available %} disabled{% endunless %}>
-      {%- if variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
-    </button>
   </div>
 </div>
 

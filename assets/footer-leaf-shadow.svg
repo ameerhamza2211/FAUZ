@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 720" fill="none">
+  <defs>
+    <linearGradient id="fzLeafMint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C1DBD8"/>
+      <stop offset="55%" stop-color="#8FB8B2"/>
+      <stop offset="100%" stop-color="#548A83"/>
+    </linearGradient>
+    <linearGradient id="fzLeafSoft" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C1DBD8" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#548A83" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <path d="M168 0 C152 88 176 168 162 252 C148 336 172 412 158 498 C144 584 168 660 154 720" stroke="url(#fzLeafMint)" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+  <ellipse cx="118" cy="72" rx="34" ry="16" transform="rotate(-32 118 72)" fill="url(#fzLeafSoft)"/>
+  <ellipse cx="198" cy="118" rx="36" ry="15" transform="rotate(28 198 118)" fill="url(#fzLeafMint)" opacity="0.82"/>
+  <ellipse cx="108" cy="168" rx="38" ry="16" transform="rotate(-38 108 168)" fill="url(#fzLeafSoft)"/>
+  <ellipse cx="210" cy="214" rx="40" ry="17" transform="rotate(34 210 214)" fill="url(#fzLeafMint)" opacity="0.78"/>
+  <ellipse cx="102" cy="268" rx="36" ry="15" transform="rotate(-30 102 268)" fill="url(#fzLeafSoft)"/>
+  <ellipse cx="206" cy="318" rx="42" ry="18" transform="rotate(26 206 318)" fill="url(#fzLeafMint)" opacity="0.85"/>
+  <ellipse cx="112" cy="372" rx="38" ry="16" transform="rotate(-36 112 372)" fill="url(#fzLeafSoft)"/>
+  <ellipse cx="198" cy="428" rx="40" ry="17" transform="rotate(32 198 428)" fill="url(#fzLeafMint)" opacity="0.8"/>
+  <ellipse cx="106" cy="486" rx="36" ry="15" transform="rotate(-28 106 486)" fill="url(#fzLeafSoft)"/>
+  <ellipse cx="204" cy="544" rx="38" ry="16" transform="rotate(30 204 544)" fill="url(#fzLeafMint)" opacity="0.76"/>
+  <ellipse cx="118" cy="604" rx="34" ry="15" transform="rotate(-34 118 604)" fill="url(#fzLeafSoft)"/>
+  <ellipse cx="192" cy="662" rx="36" ry="16" transform="rotate(24 192 662)" fill="url(#fzLeafMint)" opacity="0.7"/>
+  <ellipse cx="88" cy="132" rx="22" ry="10" transform="rotate(-42 88 132)" fill="#C1DBD8" opacity="0.45"/>
+  <ellipse cx="228" cy="286" rx="24" ry="11" transform="rotate(38 228 286)" fill="#548A83" opacity="0.4"/>
+  <ellipse cx="84" cy="438" rx="22" ry="10" transform="rotate(-36 84 438)" fill="#C1DBD8" opacity="0.42"/>
+  <ellipse cx="224" cy="592" rx="24" ry="11" transform="rotate(40 224 592)" fill="#548A83" opacity="0.38"/>
+</svg>

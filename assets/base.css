@@ -50,7 +50,12 @@
   --fz-btn-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
   --fz-btn-shadow-hover: 0 16px 38px rgba(0, 0, 0, 0.14);
 
-  --fz-footer-gradient: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  --fz-footer-gradient: linear-gradient(
+    180deg,
+    #000000 0%,
+    #050807 45%,
+    #0a0f0e 100%
+  );
   --fz-footer-ink: rgba(255, 255, 255, 0.96);
   --fz-footer-muted: rgba(255, 255, 255, 0.72);
   --fz-footer-faint: rgba(255, 255, 255, 0.42);
@@ -1530,56 +1535,71 @@ img { max-width: 100%; }
   z-index: 0;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: 0.26;
-  filter: blur(14px);
+  opacity: 0.62;
+  filter: drop-shadow(0 0 48px rgba(84, 138, 131, 0.22));
   will-change: transform;
 }
 
 .fz-footer__leaf--left {
-  left: clamp(-32px, -1vw, 8px);
-  top: clamp(-40px, -3vw, 0px);
-  width: clamp(220px, 34vw, 420px);
-  height: clamp(420px, 72vh, 720px);
+  left: clamp(-48px, -2vw, 0px);
+  top: clamp(80px, 12vh, 160px);
+  width: clamp(200px, 28vw, 360px);
+  height: clamp(380px, 58vh, 640px);
   background-image: url('footer-leaf-shadow.svg');
-  background-position: left top;
-  transform: rotate(-10deg);
-  transform-origin: top left;
-  -webkit-mask-image: linear-gradient(to right, #000 0%, transparent 88%);
-  mask-image: linear-gradient(to right, #000 0%, transparent 88%);
-  animation: fz-footer-leaf-left 10s ease-in-out infinite;
+  background-position: left center;
+  transform: rotate(-8deg);
+  transform-origin: center left;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 55%, transparent 100%);
+  animation: fz-footer-leaf-left 11s ease-in-out infinite;
 }
 
 .fz-footer__leaf--right {
-  right: clamp(-32px, -1vw, 8px);
-  top: clamp(24px, 5vh, 80px);
-  width: clamp(220px, 34vw, 420px);
-  height: clamp(400px, 68vh, 700px);
+  right: clamp(-48px, -2vw, 0px);
+  top: clamp(120px, 16vh, 220px);
+  width: clamp(200px, 28vw, 360px);
+  height: clamp(360px, 54vh, 620px);
   background-image: url('footer-leaf-shadow-right.svg');
-  background-position: right top;
-  transform: rotate(10deg);
-  transform-origin: top right;
-  opacity: 0.3;
-  filter: blur(13px);
-  -webkit-mask-image: linear-gradient(to left, #000 0%, transparent 88%);
-  mask-image: linear-gradient(to left, #000 0%, transparent 88%);
-  animation: fz-footer-leaf-right 12s ease-in-out infinite;
+  background-position: right center;
+  transform: rotate(8deg);
+  transform-origin: center right;
+  opacity: 0.58;
+  filter: drop-shadow(0 0 52px rgba(193, 219, 216, 0.18));
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 0%, #000 55%, transparent 100%);
+  animation: fz-footer-leaf-right 13s ease-in-out infinite;
+}
+
+.fz-footer__leaf-glow {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(120px, 18vh, 220px);
+  width: min(72vw, 680px);
+  height: min(42vw, 320px);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 22% 50%, rgba(84, 138, 131, 0.16) 0%, transparent 72%),
+    radial-gradient(ellipse 70% 80% at 78% 50%, rgba(193, 219, 216, 0.12) 0%, transparent 72%);
+  opacity: 0.9;
 }
 
 @keyframes fz-footer-leaf-left {
   0%, 100% {
-    transform: rotate(-10deg) translate3d(0, 0, 0);
+    transform: rotate(-8deg) translate3d(0, 0, 0);
   }
   50% {
-    transform: rotate(-7deg) translate3d(8px, 14px, 0);
+    transform: rotate(-5deg) translate3d(6px, 10px, 0);
   }
 }
 
 @keyframes fz-footer-leaf-right {
   0%, 100% {
-    transform: rotate(10deg) translate3d(0, 0, 0);
+    transform: rotate(8deg) translate3d(0, 0, 0);
   }
   50% {
-    transform: rotate(13deg) translate3d(-8px, 12px, 0);
+    transform: rotate(11deg) translate3d(-6px, 8px, 0);
   }
 }
 
@@ -2274,15 +2294,23 @@ body:not(.fz-home) #MainContent {
   }
 
   .fz-footer__leaf--left {
-    width: clamp(160px, 46vw, 260px);
-    height: clamp(280px, 52vh, 440px);
-    opacity: 0.22;
+    width: clamp(140px, 38vw, 220px);
+    height: clamp(260px, 44vh, 400px);
+    opacity: 0.52;
+    top: clamp(64px, 10vh, 120px);
   }
 
   .fz-footer__leaf--right {
-    width: clamp(160px, 46vw, 260px);
-    height: clamp(280px, 52vh, 440px);
-    opacity: 0.24;
+    width: clamp(140px, 38vw, 220px);
+    height: clamp(260px, 44vh, 400px);
+    opacity: 0.48;
+    top: clamp(96px, 14vh, 160px);
+  }
+
+  .fz-footer__leaf-glow {
+    width: min(92vw, 520px);
+    height: min(50vw, 240px);
+    bottom: clamp(96px, 14vh, 180px);
   }
 
   .fz-hero__h1 { font-size: 48px; }

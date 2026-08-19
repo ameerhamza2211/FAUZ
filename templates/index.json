@@ -20,7 +20,8 @@
         "button_link": "shopify://collections",
         "background_type": "image",
         "image": "shopify://shop_images/ChatGPT_Image_Aug_17_2026_05_38_32_PM.png",
-        "mobile_background_type": "inherit",
+        "mobile_background_type": "image",
+        "mobile_image": "shopify://shop_images/ChatGPT_Image_Aug_18_2026_03_18_52_PM.png",
         "gradient_overlay_enable": true,
         "gradient_style": "bottom_fade",
         "gradient_color_1": "#c1dbd8",
@@ -102,13 +103,27 @@
           "settings": {
             "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
           }
+        },
+        "product_6FrwNG": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-makeup-remover-gentle-effective-for-all-skin-types"
+          }
+        },
+        "product_ee8LNA": {
+          "type": "product",
+          "settings": {
+            "product": "fauz-exfoliator-infused-with-rice-water"
+          }
         }
       },
       "block_order": [
         "bp_serum",
         "bp_cleanser",
         "bp_sunscreen",
-        "bp_shampoo"
+        "bp_shampoo",
+        "product_6FrwNG",
+        "product_ee8LNA"
       ],
       "settings": {
         "heading": "Best products",
@@ -116,7 +131,7 @@
         "see_all_link": "shopify://collections/all",
         "collection": "",
         "products_to_show": 8,
-        "padding_top": 0,
+        "padding_top": 80,
         "padding_bottom": 80
       }
     },

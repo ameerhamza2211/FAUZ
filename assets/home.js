@@ -45,7 +45,7 @@
     initHeaderScroll(lenis);
     initHero();
     initMarquee();
-    initShowcase();
+    initShowcase(lenis);
     initIngredients();
     initEditorial();
     initFooterVideo();
@@ -240,7 +240,7 @@
 
   /* ---------- Product showcase ---------- */
 
-  function initShowcase() {
+  function initShowcase(lenis) {
     var section = document.querySelector('[data-showcase]');
     var track = section && section.querySelector('[data-showcase-track]');
     if (!section || !track) return;
@@ -412,6 +412,12 @@
     mm.add('(min-width: 901px)', function () {
       syncShowcaseLayout();
 
+      var currentIndex = 0;
+      var isAnimating = false;
+      var wheelAccum = 0;
+      var wheelThreshold = 36;
+      var slideDuration = 0.38;
+
       function getHeaderOffset() {
         var root = getComputedStyle(document.documentElement);
         var h = parseFloat(root.getPropertyValue('--fz-header-height')) || 100;
@@ -427,39 +433,109 @@
       }
 
       function getScrollPerSlide() {
-        return Math.max(window.innerHeight * 0.82, 560);
+        return Math.max(window.innerHeight * 0.72, 480);
       }
 
-      var tween = gsap.to(track, {
-        x: function () { return -getHorizontalDistance(); },
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: function () { return 'top top+=' + getHeaderOffset(); },
-          end: function () { return '+=' + getScrollPerSlide() * (slides.length - 1); },
-          pin: '.fz-showcase__pin',
-          pinSpacing: true,
-          anticipatePin: 1,
-          scrub: 0.45,
-          invalidateOnRefresh: true,
-          snap: {
-            snapTo: function (value) {
-              var step = 1 / (slides.length - 1);
-              return Math.round(value / step) * step;
-            },
-            duration: { min: 0.18, max: 0.42 },
-            ease: 'power2.inOut'
-          },
-          onUpdate: function (self) {
-            var index = Math.round(self.progress * (slides.length - 1));
-            setActiveSlide(index);
-          }
+      function progressForIndex(index) {
+        return slides.length <= 1 ? 0 : index / (slides.length - 1);
+      }
+
+      function scrollYForIndex(index) {
+        if (!st) return 0;
+        return st.start + progressForIndex(index) * (st.end - st.start);
+      }
+
+      function setTrackProgress(progress, animate) {
+        gsap[animate ? 'to' : 'set'](track, {
+          x: -getHorizontalDistance() * progress,
+          duration: animate ? slideDuration : 0,
+          ease: 'power2.out',
+          overwrite: true
+        });
+      }
+
+      function animateToIndex(index) {
+        index = Math.max(0, Math.min(index, slides.length - 1));
+        if (isAnimating && index === currentIndex) return;
+
+        currentIndex = index;
+        var progress = progressForIndex(index);
+        var targetY = scrollYForIndex(index);
+
+        isAnimating = true;
+        setActiveSlide(index);
+        setTrackProgress(progress, true);
+
+        function finish() {
+          isAnimating = false;
+        }
+
+        if (lenis) {
+          lenis.scrollTo(targetY, {
+            duration: slideDuration,
+            lock: true,
+            onComplete: finish
+          });
+        } else {
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          setTimeout(finish, slideDuration * 1000 + 40);
+        }
+      }
+
+      function syncFromScrollProgress(progress, animate) {
+        var index = Math.round(progress * (slides.length - 1));
+        index = Math.max(0, Math.min(index, slides.length - 1));
+
+        if (index === currentIndex && !animate) {
+          setTrackProgress(progressForIndex(index), false);
+          return;
+        }
+
+        currentIndex = index;
+        setActiveSlide(index);
+        setTrackProgress(progressForIndex(index), animate);
+      }
+
+      var st = ScrollTrigger.create({
+        trigger: section,
+        start: function () { return 'top top+=' + getHeaderOffset(); },
+        end: function () { return '+=' + getScrollPerSlide() * (slides.length - 1); },
+        pin: '.fz-showcase__pin',
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) {
+          if (isAnimating) return;
+          syncFromScrollProgress(self.progress, false);
         }
       });
 
+      function onWheel(e) {
+        if (!st.isActive) return;
+
+        var atStart = currentIndex <= 0 && e.deltaY < 0;
+        var atEnd = currentIndex >= slides.length - 1 && e.deltaY > 0;
+        if (atStart || atEnd) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isAnimating) return;
+
+        wheelAccum += e.deltaY;
+        if (Math.abs(wheelAccum) < wheelThreshold) return;
+
+        var dir = wheelAccum > 0 ? 1 : -1;
+        wheelAccum = 0;
+        animateToIndex(currentIndex + dir);
+      }
+
+      section.addEventListener('wheel', onWheel, { passive: false, capture: true });
+      syncFromScrollProgress(st.progress || 0, false);
+
       return function () {
-        if (tween && tween.scrollTrigger) tween.scrollTrigger.kill();
-        tween.kill();
+        section.removeEventListener('wheel', onWheel, { capture: true });
+        st.kill();
         gsap.set(track, { clearProps: 'transform' });
         lastIndex = -1;
       };

@@ -297,6 +297,7 @@
 
   window.FAUZ = window.FAUZ || {};
   window.FAUZ.syncHeaderLayout = syncHeaderLayout;
+  window.FAUZ.formatMoney = formatMoney;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSiteHeader);

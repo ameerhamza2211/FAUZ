@@ -1,7 +1,14 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-page fz-page--wide"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <h1 class="fz-page__title">Your cart</h1>
 
+{% render 'fz-page-hero',
+  eyebrow: 'Your bag',
+  title: 'Your cart',
+  text: 'Review your ritual before checkout.',
+  tone: 'mint',
+  compact: true
+%}
+
+<div class="fz-page-shell fz-page-shell--narrow"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
   {%- if cart.item_count == 0 -%}
     <p class="fz-empty-note">Your cart is empty. Start your ritual — your skin will thank you.</p>
     <p style="margin-top: 24px;">
@@ -9,7 +16,7 @@
     </p>
   {%- else -%}
     <form action="{{ routes.cart_url }}" method="post">
-      <div style="display: flex; flex-direction: column; gap: 20px; max-width: 720px;">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
         {%- for item in cart.items -%}
           <div class="fz-cart-row">
             <div class="fz-cart-row__media">
@@ -31,13 +38,15 @@
             <span class="fz-cart-row__total">{{ item.final_line_price | money }}</span>
           </div>
         {%- endfor -%}
+      </div>
 
-        <div class="fz-drawer__subtotal" style="border-top: 1px solid var(--fz-hairline); padding-top: 20px;">
+      <div class="fz-cart-page__summary">
+        <div class="fz-drawer__subtotal">
           <span>Subtotal</span><span>{{ cart.total_price | money }}</span>
         </div>
         <span class="fz-drawer__note">Shipping and taxes calculated at checkout.</span>
-        <div>
-          <button type="submit" name="checkout" class="fz-drawer__checkout" style="width: auto; padding-left: 48px; padding-right: 48px;">
+        <div style="margin-top: 16px;">
+          <button type="submit" name="checkout" class="fz-drawer__checkout" style="width: 100%;">
             Checkout — {{ cart.total_price | money }}
           </button>
         </div>
@@ -62,8 +71,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -73,8 +81,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

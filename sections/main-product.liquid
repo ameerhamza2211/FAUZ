@@ -1,7 +1,6 @@
 {%- liquid
   assign variant = product.selected_or_first_available_variant
 
-  # Category + collection context
   assign product_collection = ''
   for c in product.collections
     unless c.handle == 'all' or c.handle == 'frontpage'
@@ -22,10 +21,11 @@
   assign benefits = product.metafields.custom.benefits.value
   assign how_to = product.metafields.custom.how_to_use.value
   assign badges = product.metafields.custom.badges.value
+  assign blurb = product.metafields.custom.blurb.value
 -%}
 
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-product"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+<div class="fz-product"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
   <a class="fz-back" href="{{ product_collection.url | default: routes.all_products_collection_url }}">← Back to the collection</a>
 
   <div class="fz-product__grid">
@@ -72,13 +72,10 @@
         <h1 class="fz-product__title">{{ product.title }}</h1>
         <div class="fz-product__price">
           {{ variant.price | money }}
-          {%- if size != blank %} <span class="fz-product__size">· {{ size }}</span>{% endif -%}
+          {%- if size != blank %} <span class="fz-product__size">· {{ size }}</span>{%- endif -%}
         </div>
       </div>
 
-      {%- liquid
-        assign blurb = product.metafields.custom.blurb.value
-      -%}
       {%- if blurb != blank -%}
         <div class="fz-product__blurb"><p>{{ blurb }}</p></div>
       {%- elsif product.description != blank -%}
@@ -93,8 +90,30 @@
         </div>
       {%- endif -%}
 
-      {%- form 'product', product, data-fz-atc-form: '' -%}
+      {%- form 'product', product, data-fz-atc-form: '', data-product-form: '' -%}
         <input type="hidden" name="id" value="{{ variant.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          <div class="fz-product__options">
+            {%- for option in product.options_with_values -%}
+              <div class="fz-product__option">
+                <span class="fz-product__option-label">{{ option.name }}</span>
+                <div class="fz-option-pills">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="fz-option-pill{% if option.selected_value == value %} is-selected{% endif %}"
+                      data-option-position="{{ option.position }}"
+                      data-option-value="{{ value | escape }}"
+                      aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                    >{{ value }}</button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
         <div class="fz-buy" data-buy-area>
           <div class="fz-qty">
             <button type="button" class="fz-qty__btn" data-qty-change="-1" aria-label="Decrease quantity">−</button>
@@ -111,6 +130,12 @@
           {%- endif -%}
         </div>
       {%- endform -%}
+
+      <div class="fz-product__trust">
+        {%- if section.settings.trust_1 != blank -%}<span class="fz-product__trust-item">{{ section.settings.trust_1 }}</span>{%- endif -%}
+        {%- if section.settings.trust_2 != blank -%}<span class="fz-product__trust-item">{{ section.settings.trust_2 }}</span>{%- endif -%}
+        {%- if section.settings.trust_3 != blank -%}<span class="fz-product__trust-item">{{ section.settings.trust_3 }}</span>{%- endif -%}
+      </div>
 
       {%- if badges != blank -%}
         <div class="fz-badges">
@@ -135,6 +160,15 @@
         {%- endif -%}
         <div class="fz-acc">
           <button type="button" class="fz-acc__toggle" data-acc-toggle aria-expanded="false">
+            <span>Shipping & returns</span><span class="fz-acc__sym">+</span>
+          </button>
+          <div class="fz-acc__body">
+            <div class="fz-acc__line"><span class="fz-acc__n">·</span><span>{{ section.settings.shipping_text }}</span></div>
+            <div class="fz-acc__line"><span class="fz-acc__n">·</span><span><a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">View return policy</a></span></div>
+          </div>
+        </div>
+        <div class="fz-acc">
+          <button type="button" class="fz-acc__toggle" data-acc-toggle aria-expanded="false">
             <span>Good to know</span><span class="fz-acc__sym">+</span>
           </button>
           <div class="fz-acc__body">
@@ -147,8 +181,24 @@
     </div>
   </div>
 
+  <div class="fz-product__details">
+    <div class="fz-product__details-grid">
+      <div class="fz-product__detail-card">
+        <h3 class="fz-product__detail-title">Quality</h3>
+        <p class="fz-product__detail-text">{{ section.settings.detail_quality }}</p>
+      </div>
+      <div class="fz-product__detail-card">
+        <h3 class="fz-product__detail-title">Routine</h3>
+        <p class="fz-product__detail-text">{{ section.settings.detail_routine }}</p>
+      </div>
+      <div class="fz-product__detail-card">
+        <h3 class="fz-product__detail-title">Support</h3>
+        <p class="fz-product__detail-text">{{ section.settings.detail_support }}</p>
+      </div>
+    </div>
+  </div>
+
   {%- liquid
-    # Related: same collection first, then fill from all
     assign related_handles = ''
     assign related_count = 0
     if product_collection != blank
@@ -187,6 +237,20 @@
   {%- endif -%}
 </div>
 
+<script type="application/json" id="FzProductVariants">{{ product.variants | json }}</script>
+
+<div class="fz-sticky-atc" data-sticky-atc aria-hidden="true">
+  <div class="fz-sticky-atc__inner">
+    <div>
+      <p class="fz-sticky-atc__title">{{ product.title }}</p>
+      <p class="fz-sticky-atc__price"><span data-sticky-atc-price>{{ variant.price | money }}</span></p>
+    </div>
+    <button type="button" class="fz-sticky-atc__btn" data-sticky-atc-trigger{% unless variant.available %} disabled{% endunless %}>
+      {%- if variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+    </button>
+  </div>
+</div>
+
 {% schema %}
 {
   "name": "Product",
@@ -196,6 +260,48 @@
       "id": "related_heading",
       "label": "Related products heading",
       "default": "Pairs well with"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust line 1",
+      "default": "Cruelty-free"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust line 2",
+      "default": "Clinically considered"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust line 3",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_text",
+      "label": "Shipping note",
+      "default": "Orders ship within 1–2 business days. Tracking provided once dispatched."
+    },
+    {
+      "type": "textarea",
+      "id": "detail_quality",
+      "label": "Quality detail",
+      "default": "Developed with modern actives and barrier-conscious formulations."
+    },
+    {
+      "type": "textarea",
+      "id": "detail_routine",
+      "label": "Routine detail",
+      "default": "Designed for daily use as part of a simple, consistent skincare ritual."
+    },
+    {
+      "type": "textarea",
+      "id": "detail_support",
+      "label": "Support detail",
+      "default": "Questions? Visit our FAQ or contact us — we're here to help."
     },
     {
       "type": "header",
@@ -209,8 +315,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -220,8 +325,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

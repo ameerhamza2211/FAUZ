@@ -12,7 +12,14 @@
     "main": {
       "type": "main-product",
       "settings": {
-        "related_heading": "Pairs well with"
+        "related_heading": "Pairs well with",
+        "trust_1": "Cruelty-free",
+        "trust_2": "Clinically considered",
+        "trust_3": "Secure checkout",
+        "shipping_text": "Orders ship within 1–2 business days. Tracking provided once dispatched.",
+        "detail_quality": "Developed with modern actives and barrier-conscious formulations.",
+        "detail_routine": "Designed for daily use as part of a simple, consistent skincare ritual.",
+        "detail_support": "Questions? Visit our FAQ or contact us — we're here to help."
       }
     }
   },

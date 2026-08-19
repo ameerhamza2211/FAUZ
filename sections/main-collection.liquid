@@ -1,15 +1,21 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-collection"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <div class="fz-collection__head">
-    <div class="fz-eyebrow fz-collection__eyebrow">{{ section.settings.eyebrow }}</div>
-    <div class="fz-collection__titlerow">
-      <h1 class="fz-collection__title">
-        {%- if collection.handle == 'all' -%}Everything{%- else -%}{{ collection.title }}{%- endif -%}
-      </h1>
-      <span class="fz-collection__count">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</span>
-    </div>
-  </div>
 
+{%- liquid
+  assign collection_title = collection.title
+  if collection.handle == 'all'
+    assign collection_title = 'Shop all'
+  endif
+-%}
+
+{% render 'fz-page-hero',
+  eyebrow: section.settings.eyebrow,
+  title: collection_title,
+  text: collection.description | strip_html,
+  tone: section.settings.hero_tone,
+  compact: true
+%}
+
+<div class="fz-collection"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
   {%- if section.settings.show_filters -%}
     <div class="fz-chips">
       <a class="fz-chip{% if collection.handle == 'all' %} fz-chip--active{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
@@ -34,8 +40,22 @@
     </div>
   {%- endif -%}
 
+  <div class="fz-collection__toolbar">
+    <span class="fz-collection__count">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</span>
+    {%- if collection.sort_options.size > 0 -%}
+      <div class="fz-collection__sort-wrap">
+        <label class="fz-collection__sort-label" for="FzCollectionSort">Sort</label>
+        <select id="FzCollectionSort" class="fz-collection__sort" data-collection-sort aria-label="Sort products">
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+    {%- endif -%}
+  </div>
+
   {%- paginate collection.products by section.settings.products_per_page -%}
-    <div class="fz-grid-3">
+    <div class="fz-collection__grid">
       {%- for product in collection.products -%}
         {% render 'product-card', card_product: product %}
       {%- else -%}
@@ -76,6 +96,16 @@
       "default": "The collection"
     },
     {
+      "type": "select",
+      "id": "hero_tone",
+      "label": "Hero tone",
+      "options": [
+        { "value": "default", "label": "Off-white" },
+        { "value": "mint", "label": "Mint" }
+      ],
+      "default": "default"
+    },
+    {
       "type": "checkbox",
       "id": "show_filters",
       "label": "Show category filter pills",
@@ -84,8 +114,7 @@
     {
       "type": "collection_list",
       "id": "filter_collections",
-      "label": "Filter collections",
-      "info": "Shown as pills after \"All\"."
+      "label": "Filter collections"
     },
     {
       "type": "range",
@@ -108,8 +137,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -119,8 +147,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

@@ -2,41 +2,41 @@
 
 {% render 'fz-page-hero',
   eyebrow: section.settings.eyebrow,
-  title: page.title,
+  title: policy.title,
   text: section.settings.intro,
-  image: section.settings.hero_image,
   tone: section.settings.hero_tone,
   compact: true
 %}
 
-<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  {%- if page.content != blank -%}
-    <div class="fz-page-shell__card fz-prose" data-page-reveal>
-      {{ page.content }}
+<div class="fz-page-shell fz-page-shell--legal"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+  <div class="fz-page-shell__card" data-page-reveal>
+    <div class="fz-page-meta">
+      <span class="fz-page-meta__item">{{ shop.name }}</span>
+      {%- if section.settings.show_updated -%}
+        <span class="fz-page-meta__item">Last updated {{ 'now' | date: '%B %Y' }}</span>
+      {%- endif -%}
     </div>
-  {%- endif -%}
+    <div class="fz-prose rte">
+      {{ policy.body }}
+    </div>
+  </div>
 </div>
 
 {% schema %}
 {
-  "name": "Page",
+  "name": "Policy",
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Fauz Cosmetics"
+      "default": "Legal"
     },
     {
       "type": "textarea",
       "id": "intro",
-      "label": "Intro text",
-      "default": "Thoughtfully written for clarity, care, and consistency."
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero image"
+      "label": "Intro",
+      "default": "Clear, readable information about how we protect your privacy and handle your orders."
     },
     {
       "type": "select",
@@ -44,10 +44,15 @@
       "label": "Hero tone",
       "options": [
         { "value": "default", "label": "Off-white" },
-        { "value": "mint", "label": "Mint" },
-        { "value": "dark", "label": "Dark" }
+        { "value": "mint", "label": "Mint" }
       ],
       "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_updated",
+      "label": "Show last updated",
+      "default": true
     },
     {
       "type": "header",

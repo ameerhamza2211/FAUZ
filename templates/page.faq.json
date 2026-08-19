@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-faq",
+      "settings": {
+        "eyebrow": "Support",
+        "intro": "Answers to the questions we hear most — from routines and ingredients to orders and returns.",
+        "cta_heading": "Still need help?",
+        "cta_text": "Our team is happy to guide you toward the right ritual for your skin.",
+        "cta_label": "Contact us"
+      },
+      "blocks": {
+        "cat_products": {
+          "type": "category",
+          "settings": { "title": "Products & routine" }
+        },
+        "q_start": {
+          "type": "question",
+          "settings": {
+            "question": "Which products should I start with?",
+            "answer": "Begin with cleanse, treat, and protect — our core ritual is designed to stay simple and consistent."
+          }
+        },
+        "q_sensitive": {
+          "type": "question",
+          "settings": {
+            "question": "Are Fauz formulas suitable for sensitive skin?",
+            "answer": "Our products are developed with tolerance in mind, but always patch test new actives and pause use if irritation occurs."
+          }
+        },
+        "cat_orders": {
+          "type": "category",
+          "settings": { "title": "Orders & shipping" }
+        },
+        "q_shipping": {
+          "type": "question",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Orders within Pakistan typically arrive within 3–5 business days depending on your city."
+          }
+        },
+        "q_track": {
+          "type": "question",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "Yes — you'll receive tracking details by email or SMS once your order ships."
+          }
+        },
+        "cat_returns": {
+          "type": "category",
+          "settings": { "title": "Returns" }
+        },
+        "q_returns": {
+          "type": "question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "Please review our return policy page for eligibility, timelines, and how to start a return."
+          }
+        }
+      },
+      "block_order": ["cat_products", "q_start", "q_sensitive", "cat_orders", "q_shipping", "q_track", "cat_returns", "q_returns"]
+    }
+  },
+  "order": ["main"]
+}

@@ -9,7 +9,20 @@
  */
 {
   "sections": {
-    "main": { "type": "main-contact", "settings": {} }
+    "main": {
+      "type": "main-contact",
+      "settings": {
+        "eyebrow": "Get in touch",
+        "intro": "Questions about products, orders, or your ritual? We're here to help.",
+        "hero_tone": "mint",
+        "info_heading": "Visit & reach us",
+        "address": "Race Course Road, Lahore, Pakistan",
+        "phone": "(+92) 329 0889049",
+        "hours": "Monday – Friday, 10am – 6pm",
+        "help_text": "Looking for quick answers? Browse our frequently asked questions.",
+        "faq_label": "View FAQs"
+      }
+    }
   },
   "order": ["main"]
 }

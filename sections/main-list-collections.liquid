@@ -1,6 +1,14 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-page fz-page--wide"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <h1 class="fz-page__title">Collections</h1>
+
+{% render 'fz-page-hero',
+  eyebrow: 'Browse',
+  title: 'Collections',
+  text: 'Explore skincare, haircare, sun care, and more.',
+  tone: 'mint',
+  compact: true
+%}
+
+<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
   <div class="fz-cats">
     {%- for c in collections -%}
       {%- unless c.handle == 'frontpage' -%}
@@ -35,8 +43,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -46,8 +53,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

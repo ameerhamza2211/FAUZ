@@ -1,10 +1,15 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-page" style="text-align: center;{% if fz_section_padding != blank %} {{ fz_section_padding | strip }}{% endif %}">
-  <h1 class="fz-page__title">Page not found</h1>
-  <p class="fz-empty-note">The page you're looking for doesn't exist — but your ritual does.</p>
-  <p style="margin-top: 24px;">
-    <a class="fz-btn fz-btn--primary fz-btn--primary-accent" href="{{ routes.all_products_collection_url }}">Shop the collection</a>
-  </p>
+
+{% render 'fz-page-hero',
+  eyebrow: '404',
+  title: 'Page not found',
+  text: "The page you're looking for doesn't exist — but your ritual does.",
+  tone: 'mint',
+  compact: true
+%}
+
+<div class="fz-page-shell fz-page-shell--narrow" style="text-align: center;{% if fz_section_padding != blank %} {{ fz_section_padding | strip }}{% endif %}" data-page-reveal>
+  <a class="fz-btn fz-btn--primary fz-btn--primary-accent" href="{{ routes.all_products_collection_url }}">Shop the collection</a>
 </div>
 
 {% schema %}
@@ -23,8 +28,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -34,8 +38,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

@@ -1,0 +1,234 @@
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+
+{% render 'fz-page-hero',
+  eyebrow: section.settings.eyebrow,
+  title: page.title | default: section.settings.heading,
+  text: section.settings.intro,
+  image: section.settings.hero_image,
+  tone: section.settings.hero_tone
+%}
+
+<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+  {%- if section.settings.story_heading != blank -%}
+    <div class="fz-about-story" data-page-reveal>
+      <div class="fz-about-story__copy">
+        <p class="fz-eyebrow">{{ section.settings.story_eyebrow }}</p>
+        <h2 class="fz-about-story__heading">{{ section.settings.story_heading }}</h2>
+        <div class="fz-prose">{{ section.settings.story_text }}</div>
+      </div>
+      <div class="fz-about-story__media">
+        {%- if section.settings.story_image != blank -%}
+          {{ section.settings.story_image | image_url: width: 1000 | image_tag: class: 'fz-about-story__img', loading: 'lazy', alt: section.settings.story_heading }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'fz-about-story__img' }}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="fz-about-values" data-page-reveal>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'value' -%}
+          <article class="fz-about-value" {{ block.shopify_attributes }}>
+            {%- if block.settings.eyebrow != blank -%}
+              <p class="fz-about-value__eyebrow">{{ block.settings.eyebrow }}</p>
+            {%- endif -%}
+            <h3 class="fz-about-value__title">{{ block.settings.title }}</h3>
+            <p class="fz-about-value__text">{{ block.settings.text }}</p>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'story' -%}
+      {%- liquid
+        assign reverse = false
+        if block.settings.layout == 'image_right'
+          assign reverse = true
+        endif
+      -%}
+      <article class="fz-about-story{% if reverse %} fz-about-story--reverse{% endif %}" data-page-reveal {{ block.shopify_attributes }}>
+        <div class="fz-about-story__media">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1000 | image_tag: class: 'fz-about-story__img', loading: 'lazy', alt: block.settings.heading }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'fz-about-story__img' }}
+          {%- endif -%}
+        </div>
+        <div class="fz-about-story__copy">
+          {%- if block.settings.eyebrow != blank -%}
+            <p class="fz-eyebrow">{{ block.settings.eyebrow }}</p>
+          {%- endif -%}
+          <h2 class="fz-about-story__heading">{{ block.settings.heading }}</h2>
+          <p class="fz-about-value__text">{{ block.settings.text }}</p>
+          {%- if block.settings.button_label != blank -%}
+            <a class="fz-btn fz-btn--outline" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{{ block.settings.button_label }}</a>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if section.settings.quote != blank -%}
+    <blockquote class="fz-about-quote" data-page-reveal>
+      <p class="fz-about-quote__text">
+        {{ section.settings.quote }}
+        {%- if section.settings.quote_script != blank -%}
+          <span class="fz-about-quote__script">{{ section.settings.quote_script }}</span>
+        {%- endif -%}
+      </p>
+    </blockquote>
+  {%- endif -%}
+
+  {%- if page.content != blank -%}
+    <div class="fz-prose" style="margin-top: 48px;" data-page-reveal>{{ page.content }}</div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "About page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Fallback heading",
+      "default": "About Fauz"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "hero_tone",
+      "label": "Hero tone",
+      "options": [
+        { "value": "default", "label": "Off-white" },
+        { "value": "mint", "label": "Mint" }
+      ],
+      "default": "mint"
+    },
+    {
+      "type": "header",
+      "content": "Lead story"
+    },
+    {
+      "type": "text",
+      "id": "story_eyebrow",
+      "label": "Story eyebrow",
+      "default": "The philosophy"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story heading",
+      "default": "Your skin is as unique as you are."
+    },
+    {
+      "type": "richtext",
+      "id": "story_text",
+      "label": "Story text",
+      "default": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image"
+    },
+    {
+      "type": "header",
+      "content": "Closing quote"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "Nothing more. Nothing less."
+    },
+    {
+      "type": "text",
+      "id": "quote_script",
+      "label": "Script line",
+      "default": "Just you."
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Clinically considered" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Every formula is developed with performance and tolerance in mind." }
+      ]
+    },
+    {
+      "type": "story",
+      "name": "Story block",
+      "settings": [
+        { "type": "select", "id": "layout", "label": "Layout", "options": [
+          { "value": "image_left", "label": "Image left" },
+          { "value": "image_right", "label": "Image right" }
+        ], "default": "image_right" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Made for modern skin" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "We design for daily use — lightweight textures, thoughtful actives, and rituals you'll actually keep." },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About page",
+      "blocks": [
+        { "type": "value", "settings": { "eyebrow": "01", "title": "Clinically considered", "text": "Performance-first formulas developed with modern skin in mind." } },
+        { "type": "value", "settings": { "eyebrow": "02", "title": "Clean & conscious", "text": "Paraben-free, cruelty-free, and designed for consistent daily use." } },
+        { "type": "value", "settings": { "eyebrow": "03", "title": "Uniquely yours", "text": "We never ask you to compare — your ritual should feel personal." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

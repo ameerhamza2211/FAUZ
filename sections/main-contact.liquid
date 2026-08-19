@@ -1,32 +1,189 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-page"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <h1 class="fz-page__title">{{ page.title | default: 'Contact us' }}</h1>
-  {%- if page.content != blank -%}
-    <div class="fz-page__body" style="margin-bottom: 32px;">{{ page.content }}</div>
-  {%- endif -%}
 
-  {%- form 'contact', class: 'fz-form' -%}
-    {%- if form.posted_successfully? -%}
-      <div class="fz-form__success">Thanks for reaching out — we'll get back to you soon.</div>
-    {%- endif -%}
-    {%- if form.errors -%}
-      <div class="fz-form__errors">
-        {%- for field in form.errors -%}
-          <div>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</div>
-        {%- endfor -%}
+{% render 'fz-page-hero',
+  eyebrow: section.settings.eyebrow,
+  title: page.title | default: 'Contact us',
+  text: section.settings.intro,
+  tone: section.settings.hero_tone,
+  compact: true
+%}
+
+<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+  <div class="fz-contact" data-page-reveal>
+    <div class="fz-contact__main">
+      {%- if page.content != blank -%}
+        <div class="fz-prose" style="margin-bottom: 28px;">{{ page.content }}</div>
+      {%- endif -%}
+
+      {%- form 'contact', class: 'fz-form fz-form--contact' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="fz-form__success" role="status">Thanks for reaching out — we'll get back to you soon.</div>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="fz-form__errors" role="alert">
+            {%- for field in form.errors -%}
+              <div>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="fz-form__row">
+          <div class="fz-form__field">
+            <label class="fz-form__label" for="ContactName">Name</label>
+            <input class="fz-input" id="ContactName" type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}" placeholder="Your name">
+          </div>
+          <div class="fz-form__field">
+            <label class="fz-form__label" for="ContactEmail">Email</label>
+            <input class="fz-input" id="ContactEmail" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}" placeholder="you@email.com">
+          </div>
+        </div>
+
+        {%- if section.settings.show_phone -%}
+          <div class="fz-form__field">
+            <label class="fz-form__label" for="ContactPhone">Phone</label>
+            <input class="fz-input" id="ContactPhone" type="tel" name="contact[phone]" autocomplete="tel" placeholder="+92 ...">
+          </div>
+        {%- endif -%}
+
+        <div class="fz-form__field">
+          <label class="fz-form__label" for="ContactMessage">Message</label>
+          <textarea class="fz-input" id="ContactMessage" name="contact[body]" required placeholder="How can we help?">{{ form.body }}</textarea>
+        </div>
+
+        <div>
+          <button type="submit" class="fz-btn fz-btn--primary fz-btn--primary-accent">{{ section.settings.button_label }}</button>
+        </div>
+      {%- endform -%}
+    </div>
+
+    <aside class="fz-contact__aside">
+      <div class="fz-contact__card">
+        <h2 class="fz-contact__card-title">{{ section.settings.info_heading }}</h2>
+        {%- if section.settings.address != blank -%}
+          <p class="fz-contact__line">{{ section.settings.address }}</p>
+        {%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <p class="fz-contact__line">
+            {%- if section.settings.phone_url != blank -%}
+              <a href="{{ section.settings.phone_url }}">{{ section.settings.phone }}</a>
+            {%- else -%}
+              {{ section.settings.phone }}
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <p class="fz-contact__line"><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>
+        {%- endif -%}
+        {%- if section.settings.hours != blank -%}
+          <p class="fz-contact__line">{{ section.settings.hours }}</p>
+        {%- endif -%}
       </div>
-    {%- endif -%}
-    <input class="fz-input" type="text" name="contact[name]" placeholder="Name" autocomplete="name" value="{{ form.name }}">
-    <input class="fz-input" type="email" name="contact[email]" placeholder="Email" autocomplete="email" required value="{{ form.email }}">
-    <textarea class="fz-input" name="contact[body]" placeholder="Message" required>{{ form.body }}</textarea>
-    <div><button type="submit" class="fz-btn fz-btn--primary fz-btn--primary-accent">Send message</button></div>
-  {%- endform -%}
+
+      <div class="fz-contact__help">
+        <p class="fz-contact__help-text">{{ section.settings.help_text }}</p>
+        <a class="fz-btn fz-btn--outline" href="{{ section.settings.faq_link | default: '/pages/faq' }}">{{ section.settings.faq_label }}</a>
+      </div>
+    </aside>
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Contact",
   "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Get in touch"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Questions about products, orders, or your ritual? We're here to help."
+    },
+    {
+      "type": "select",
+      "id": "hero_tone",
+      "label": "Hero tone",
+      "options": [
+        { "value": "default", "label": "Off-white" },
+        { "value": "mint", "label": "Mint" }
+      ],
+      "default": "mint"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone field",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button",
+      "default": "Send message"
+    },
+    {
+      "type": "header",
+      "content": "Contact details"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Info heading",
+      "default": "Visit & reach us"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "Race Course Road, Lahore, Pakistan"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "(+92) 329 0889049"
+    },
+    {
+      "type": "url",
+      "id": "phone_url",
+      "label": "Phone link"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Hours",
+      "default": "Monday – Friday, 10am – 6pm"
+    },
+    {
+      "type": "header",
+      "content": "FAQ CTA"
+    },
+    {
+      "type": "textarea",
+      "id": "help_text",
+      "label": "Help text",
+      "default": "Looking for quick answers? Browse our frequently asked questions."
+    },
+    {
+      "type": "text",
+      "id": "faq_label",
+      "label": "FAQ button",
+      "default": "View FAQs"
+    },
+    {
+      "type": "url",
+      "id": "faq_link",
+      "label": "FAQ link"
+    },
     {
       "type": "header",
       "content": "Section spacing"
@@ -39,8 +196,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -50,8 +206,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

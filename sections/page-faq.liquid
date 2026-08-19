@@ -1,0 +1,185 @@
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+
+{% render 'fz-page-hero',
+  eyebrow: section.settings.eyebrow,
+  title: page.title | default: section.settings.heading,
+  text: section.settings.intro,
+  tone: section.settings.hero_tone,
+  compact: true
+%}
+
+<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+  <div class="fz-faq">
+    {%- assign current_category = '' -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'category' -%}
+        {%- if current_category != blank -%}
+          </div></div>
+        {%- endif -%}
+        {%- assign current_category = block.settings.title -%}
+        <div class="fz-faq__group" data-page-reveal {{ block.shopify_attributes }}>
+          <h2 class="fz-faq__category-title">{{ block.settings.title }}</h2>
+          <div class="fz-faq__list">
+      {%- elsif block.type == 'question' -%}
+        {%- if current_category == blank -%}
+          <div class="fz-faq__group" data-page-reveal>
+            <div class="fz-faq__list">
+          {%- assign current_category = 'general' -%}
+        {%- endif -%}
+        <div class="fz-acc" {{ block.shopify_attributes }}>
+          <button type="button" class="fz-acc__toggle" data-acc-toggle aria-expanded="false">
+            <span>{{ block.settings.question }}</span><span class="fz-acc__sym">+</span>
+          </button>
+          <div class="fz-acc__body">
+            <div class="fz-acc__line"><span>{{ block.settings.answer }}</span></div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if current_category != blank -%}
+      </div></div>
+    {%- endif -%}
+
+    <div class="fz-faq__cta" data-page-reveal>
+      <div>
+        <h2 class="fz-faq__cta-title">{{ section.settings.cta_heading }}</h2>
+        <p class="fz-faq__cta-text">{{ section.settings.cta_text }}</p>
+      </div>
+      <a class="fz-btn fz-btn--outline" href="{{ section.settings.cta_link | default: '/pages/contact' }}">{{ section.settings.cta_label }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Fallback heading",
+      "default": "FAQs"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Answers to the questions we hear most — from routines and ingredients to orders and returns."
+    },
+    {
+      "type": "select",
+      "id": "hero_tone",
+      "label": "Hero tone",
+      "options": [
+        { "value": "default", "label": "Off-white" },
+        { "value": "mint", "label": "Mint" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "header",
+      "content": "Bottom CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Still need help?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Our team is happy to guide you toward the right ritual for your skin."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button",
+      "default": "Contact us"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category title",
+          "default": "Orders & shipping"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does shipping take?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Orders within Pakistan typically arrive within 3–5 business days."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ page",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Products & routine" } },
+        { "type": "question", "settings": { "question": "Which products should I start with?", "answer": "Begin with cleanse, treat, and protect — our core ritual is designed to stay simple and consistent." } },
+        { "type": "question", "settings": { "question": "Are Fauz formulas suitable for sensitive skin?", "answer": "Our products are developed with tolerance in mind, but always patch test new actives and pause use if irritation occurs." } },
+        { "type": "category", "settings": { "title": "Orders & shipping" } },
+        { "type": "question", "settings": { "question": "How long does shipping take?", "answer": "Orders within Pakistan typically arrive within 3–5 business days depending on your city." } },
+        { "type": "question", "settings": { "question": "Can I track my order?", "answer": "Yes — you'll receive tracking details by email or SMS once your order ships." } },
+        { "type": "category", "settings": { "title": "Returns" } },
+        { "type": "question", "settings": { "question": "What is your return policy?", "answer": "Please review our return policy page for eligibility, timelines, and how to start a return." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,8 +1,15 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
-<div class="fz-page fz-page--wide"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  <h1 class="fz-page__title">Search</h1>
 
-  <form action="{{ routes.search_url }}" method="get" role="search" class="fz-form" style="flex-direction: row; gap: 10px; margin-bottom: 44px;">
+{% render 'fz-page-hero',
+  eyebrow: 'Search',
+  title: 'Find your ritual',
+  text: 'Explore cleansers, treatments, sun care, and more.',
+  tone: 'default',
+  compact: true
+%}
+
+<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %} data-page-reveal>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="fz-search-bar">
     <input
       class="fz-input"
       type="search"
@@ -18,8 +25,9 @@
     {%- if search.results_count == 0 -%}
       <p class="fz-empty-note">No results for “{{ search.terms | escape }}”.</p>
     {%- else -%}
+      <p class="fz-collection__count" style="margin-bottom: 24px;">{{ search.results_count }} results</p>
       {%- paginate search.results by 24 -%}
-        <div class="fz-grid-3">
+        <div class="fz-collection__grid">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
               {% render 'product-card', card_product: item %}
@@ -59,8 +67,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     },
     {
       "type": "range",
@@ -70,8 +77,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 0,
-      "info": "0 keeps the theme default spacing."
+      "default": 0
     }
   ]
 }

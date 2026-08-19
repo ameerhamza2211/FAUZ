@@ -13,17 +13,12 @@
       "type": "main-collection",
       "settings": {
         "eyebrow": "The collection",
+        "hero_tone": "default",
         "show_filters": true,
         "products_per_page": 24,
-        "filter_collections": [
-          "skincare",
-          "haircare",
-          "sun-care"
-        ]
+        "filter_collections": ["skincare", "haircare", "sun-care"]
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

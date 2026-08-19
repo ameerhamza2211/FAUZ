@@ -1,0 +1,35 @@
+{%- comment -%}
+  Inner page hero.
+  Accepts: eyebrow, title, text, image, tone (default|mint|dark), compact (boolean)
+{%- endcomment -%}
+
+{%- liquid
+  assign hero_tone = tone | default: 'default'
+  assign hero_compact = compact | default: false
+-%}
+
+<header
+  class="fz-page-hero fz-page-hero--{{ hero_tone }}{% if hero_compact %} fz-page-hero--compact{% endif %}{% if image != blank %} fz-page-hero--has-media{% endif %}"
+  data-page-reveal
+>
+  <div class="fz-page-hero__inner fz-container">
+    <div class="fz-page-hero__copy">
+      {%- if eyebrow != blank -%}
+        <p class="fz-eyebrow fz-page-hero__eyebrow">{{ eyebrow }}</p>
+      {%- endif -%}
+      {%- if title != blank -%}
+        <h1 class="fz-page-hero__title">{{ title }}</h1>
+      {%- endif -%}
+      {%- if text != blank -%}
+        <p class="fz-page-hero__text">{{ text }}</p>
+      {%- endif -%}
+    </div>
+    {%- if image != blank -%}
+      <div class="fz-page-hero__media">
+        {{ image
+          | image_url: width: 1200
+          | image_tag: class: 'fz-page-hero__img', widths: '600, 900, 1200', loading: 'eager', alt: title }}
+      </div>
+    {%- endif -%}
+  </div>
+</header>

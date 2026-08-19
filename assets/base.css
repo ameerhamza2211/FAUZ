@@ -50,12 +50,7 @@
   --fz-btn-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
   --fz-btn-shadow-hover: 0 16px 38px rgba(0, 0, 0, 0.14);
 
-  --fz-footer-gradient: linear-gradient(
-    180deg,
-    #000000 0%,
-    #050807 45%,
-    #0a0f0e 100%
-  );
+  --fz-footer-gradient: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
   --fz-footer-ink: rgba(255, 255, 255, 0.96);
   --fz-footer-muted: rgba(255, 255, 255, 0.72);
   --fz-footer-faint: rgba(255, 255, 255, 0.42);
@@ -1535,8 +1530,8 @@ img { max-width: 100%; }
   z-index: 0;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: 0.62;
-  filter: drop-shadow(0 0 48px rgba(84, 138, 131, 0.22));
+  opacity: 0.34;
+  filter: none;
   will-change: transform;
 }
 
@@ -1549,8 +1544,8 @@ img { max-width: 100%; }
   background-position: left center;
   transform: rotate(-8deg);
   transform-origin: center left;
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 55%, transparent 100%);
-  mask-image: linear-gradient(to right, #000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 62%, transparent 100%);
   animation: fz-footer-leaf-left 11s ease-in-out infinite;
 }
 
@@ -1563,26 +1558,14 @@ img { max-width: 100%; }
   background-position: right center;
   transform: rotate(8deg);
   transform-origin: center right;
-  opacity: 0.58;
-  filter: drop-shadow(0 0 52px rgba(193, 219, 216, 0.18));
-  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 55%, transparent 100%);
-  mask-image: linear-gradient(to left, #000 0%, #000 55%, transparent 100%);
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 0%, #000 62%, transparent 100%);
   animation: fz-footer-leaf-right 13s ease-in-out infinite;
 }
 
 .fz-footer__leaf-glow {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(120px, 18vh, 220px);
-  width: min(72vw, 680px);
-  height: min(42vw, 320px);
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 80% at 22% 50%, rgba(84, 138, 131, 0.16) 0%, transparent 72%),
-    radial-gradient(ellipse 70% 80% at 78% 50%, rgba(193, 219, 216, 0.12) 0%, transparent 72%);
-  opacity: 0.9;
+  display: none;
 }
 
 @keyframes fz-footer-leaf-left {
@@ -2296,21 +2279,15 @@ body:not(.fz-home) #MainContent {
   .fz-footer__leaf--left {
     width: clamp(140px, 38vw, 220px);
     height: clamp(260px, 44vh, 400px);
-    opacity: 0.52;
+    opacity: 0.28;
     top: clamp(64px, 10vh, 120px);
   }
 
   .fz-footer__leaf--right {
     width: clamp(140px, 38vw, 220px);
     height: clamp(260px, 44vh, 400px);
-    opacity: 0.48;
+    opacity: 0.26;
     top: clamp(96px, 14vh, 160px);
-  }
-
-  .fz-footer__leaf-glow {
-    width: min(92vw, 520px);
-    height: min(50vw, 240px);
-    bottom: clamp(96px, 14vh, 180px);
   }
 
   .fz-hero__h1 { font-size: 48px; }

@@ -1,0 +1,169 @@
+{%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
+<section
+  class="fz-service-highlights"
+  style="
+    --fz-service-bg: {{ section.settings.background_color }};
+    --fz-service-icon: {{ section.settings.icon_color }};
+    --fz-service-title: {{ section.settings.title_color }};
+    --fz-service-text: {{ section.settings.text_color }};
+    --fz-service-divider: {{ section.settings.divider_color }};
+    {{ fz_section_padding | strip }}
+  "
+>
+  <div class="fz-service-highlights__inner">
+    <div class="fz-service-highlights__grid">
+      {%- for block in section.blocks -%}
+        <div class="fz-service-highlights__item" {{ block.shopify_attributes }}>
+          <div class="fz-service-highlights__icon" aria-hidden="true">
+            {%- render 'fz-service-icon', icon: block.settings.icon -%}
+          </div>
+          {%- if block.settings.title != blank -%}
+            <h3 class="fz-service-highlights__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="fz-service-highlights__text">{{ block.settings.text }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Service highlights",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#5A8F86"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description color",
+      "default": "#757575"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#E8EAE9"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0,
+      "info": "0 keeps the theme default spacing."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "Highlight",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "support", "label": "Support" },
+            { "value": "payment", "label": "Payment" }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "Free shipping for orders over Rs. 2,500"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service highlights",
+      "blocks": [
+        {
+          "type": "highlight",
+          "settings": {
+            "icon": "shipping",
+            "title": "Free shipping",
+            "text": "Free shipping for orders over Rs. 2,500"
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "icon": "returns",
+            "title": "Returns",
+            "text": "Within 30 days for an exchange"
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "icon": "support",
+            "title": "Online support",
+            "text": "24 hours a day, 7 days a week"
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "icon": "payment",
+            "title": "Flexible payment",
+            "text": "Pay with multiple credit cards"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -55,13 +55,12 @@
 
     <div class="fz-showcase__copy">
       <span class="fz-showcase__index">{{ slide_num_padded }}</span>
-      <h3 class="fz-showcase__title">{{ short_title }}</h3>
-      {%- if title_detail != blank -%}
-        <p class="fz-showcase__detail">{{ title_detail }}</p>
-      {%- endif -%}
-      {%- if card_product.description != blank -%}
-        <p class="fz-showcase__desc">{{ card_product.description | strip_html | truncate: 160 }}</p>
-      {%- endif -%}
+      <div class="fz-showcase__meta">
+        <h3 class="fz-showcase__title">{{ short_title }}</h3>
+        {%- if title_detail != blank -%}
+          <p class="fz-showcase__detail">{{ title_detail }}</p>
+        {%- endif -%}
+      </div>
       <div class="fz-showcase__foot">
         <span class="fz-showcase__price">{{ card_product.price | money }}</span>
         {%- if card_product.available -%}

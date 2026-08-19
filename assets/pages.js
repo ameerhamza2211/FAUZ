@@ -186,28 +186,73 @@
   }
 
   function initProductGallery() {
-    var thumbs = document.querySelectorAll('[data-gallery-thumbs] [data-thumb]');
+    var root = document.querySelector('[data-gallery-thumbs]');
+    if (!root) return;
+
+    var thumbs = root.querySelectorAll('[data-thumb]');
     if (!thumbs.length) return;
 
+    var main = document.querySelector('[data-main-image]');
     var current = 0;
 
-    function activate(index) {
+    function setActive(index) {
       if (index < 0) index = thumbs.length - 1;
       if (index >= thumbs.length) index = 0;
       current = index;
-      thumbs[current].click();
+
+      var thumb = thumbs[current];
+      if (main) {
+        main.src = thumb.getAttribute('data-thumb');
+        var srcset = thumb.getAttribute('data-thumb-srcset');
+        if (srcset) main.srcset = srcset;
+        else main.removeAttribute('srcset');
+      }
+
+      thumbs.forEach(function (btn, i) {
+        btn.classList.toggle('is-active', i === current);
+      });
+
+      if (thumb.scrollIntoView) {
+        thumb.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      }
     }
+
+    thumbs.forEach(function (thumb, i) {
+      thumb.addEventListener('click', function (e) {
+        e.preventDefault();
+        setActive(i);
+      });
+    });
 
     var prev = document.querySelector('[data-gallery-prev]');
     var next = document.querySelector('[data-gallery-next]');
-    if (prev) prev.addEventListener('click', function () { activate(current - 1); });
-    if (next) next.addEventListener('click', function () { activate(current + 1); });
+    if (prev) prev.addEventListener('click', function () { setActive(current - 1); });
+    if (next) next.addEventListener('click', function () { setActive(current + 1); });
 
-    thumbs.forEach(function (thumb, i) {
-      thumb.addEventListener('click', function () {
-        current = i;
-      });
-    });
+    var stage = document.querySelector('[data-gallery-stage]');
+    if (!stage || thumbs.length < 2) return;
+
+    var startX = 0;
+    var startY = 0;
+    var tracking = false;
+
+    stage.addEventListener('touchstart', function (e) {
+      if (!e.touches.length) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var touch = e.changedTouches[0];
+      if (!touch) return;
+      var dx = touch.clientX - startX;
+      var dy = touch.clientY - startY;
+      if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy)) return;
+      setActive(dx < 0 ? current + 1 : current - 1);
+    }, { passive: true });
   }
 
   function initReadMore() {

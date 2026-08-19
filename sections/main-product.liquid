@@ -73,7 +73,7 @@
           </div>
         {%- endif -%}
 
-        <div class="fz-product__stage">
+        <div class="fz-product__stage" data-gallery-stage>
           <div class="fz-product__main{% if tint == 'mint' %} fz-product__main--mint{% endif %}">
             {%- if product.featured_image -%}
               {%- assign main_alt = product.featured_image.alt | default: product.title -%}

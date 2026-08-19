@@ -996,6 +996,22 @@
 @media (max-width: 900px) {
   .fz-product.fz-product--editorial {
     padding: clamp(20px, 4vw, 32px) var(--fz-gutter-sm) clamp(48px, 8vw, 72px);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    box-sizing: border-box;
+  }
+
+  .fz-product--editorial .fz-product__layout,
+  .fz-product--editorial .fz-product__gallery,
+  .fz-product--editorial .fz-product__gallery-inner,
+  .fz-product--editorial .fz-product__stage,
+  .fz-product--editorial .fz-product__panel,
+  .fz-product--editorial [data-product-form] {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .fz-product--editorial .fz-product__crumbs {
@@ -1028,6 +1044,7 @@
     flex-direction: column;
     gap: 12px;
     width: 100%;
+    overflow: hidden;
   }
 
   .fz-product--editorial .fz-product__stage {
@@ -1035,6 +1052,7 @@
     width: 100%;
     gap: 0;
     align-items: stretch;
+    touch-action: pan-y;
   }
 
   .fz-product--editorial .fz-product__main {
@@ -1042,14 +1060,31 @@
   }
 
   .fz-product--editorial .fz-product__gallery-nav {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 10px 0 6px;
+  }
+
+  .fz-product--editorial .fz-product__gallery-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--fz-hairline-2);
+    border-radius: 999px;
+    background: var(--fz-offwhite);
   }
 
   .fz-product--editorial .fz-product__thumbs-col {
     order: 2;
     flex-direction: row;
     overflow-x: auto;
+    overflow-y: hidden;
     width: 100%;
+    max-width: 100%;
     gap: 10px;
     padding: 0 0 4px;
     -webkit-overflow-scrolling: touch;
@@ -1099,6 +1134,32 @@
     font-size: 11px;
     letter-spacing: 0.1em;
     max-width: none;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .fz-product--editorial .fz-product__desc,
+  .fz-product--editorial .fz-product__desc p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .fz-product--editorial .fz-product__trust,
+  .fz-product--editorial .fz-badges {
+    max-width: 100%;
+  }
+
+  .fz-product--editorial .fz-product__trust-item,
+  .fz-product--editorial .fz-badge {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  .fz-product--editorial .fz-benefits--editorial {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .fz-product--editorial .fz-product__price {

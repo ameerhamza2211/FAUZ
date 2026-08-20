@@ -356,6 +356,7 @@
         "i2",
         "i3"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Inside the formula",
         "heading": "Actives with intention",

@@ -879,15 +879,25 @@ a.fz-contact-page__item-value:hover {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 20px);
-  padding: clamp(20px, 3vw, 28px) 0;
+  align-items: center;
+  padding: clamp(22px, 3.5vw, 30px) 0;
   border-top: 1px solid var(--fz-hairline-2);
+  border-bottom: 1px solid var(--fz-hairline-2);
+}
+
+.fz-about-brand__stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100%;
 }
 
 .fz-about-brand__stat-value {
   font-family: var(--fz-font-display);
   font-size: clamp(26px, 3.5vw, 34px);
   line-height: 1;
-  margin: 0 0 8px;
+  margin: 0;
   letter-spacing: -0.02em;
 }
 
@@ -903,7 +913,6 @@ a.fz-contact-page__item-value:hover {
 .fz-about-brand__lower {
   margin-top: clamp(28px, 4vw, 44px);
   padding-top: clamp(28px, 4vw, 40px);
-  border-top: 1px solid var(--fz-hairline-2);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(24px, 4vw, 40px);
@@ -2260,7 +2269,8 @@ a.fz-contact-page__item-value:hover {
   .fz-about-brand__stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
-    padding-bottom: clamp(12px, 3vw, 20px);
+    padding: clamp(18px, 4vw, 24px) 0;
+    align-items: center;
   }
 
   .fz-about-brand__stat {
@@ -2268,6 +2278,7 @@ a.fz-contact-page__item-value:hover {
     flex-direction: column;
     gap: 6px;
     align-items: flex-start;
+    justify-content: center;
   }
 
   .fz-about-brand__stat-value {

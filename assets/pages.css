@@ -665,6 +665,232 @@ a.fz-contact-page__item-value:hover {
 
 /* ---------- About ---------- */
 
+.fz-page-shell--about {
+  padding-top: clamp(20px, 3vw, 32px);
+}
+
+.fz-about-brand {
+  background: linear-gradient(
+    145deg,
+    var(--fz-offwhite) 0%,
+    rgba(193, 219, 216, 0.42) 48%,
+    var(--fz-offwhite) 100%
+  );
+  border-radius: calc(var(--fz-radius) + 8px);
+  padding: clamp(28px, 4vw, 40px);
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.fz-about-brand__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.fz-about-brand__gallery {
+  position: relative;
+  min-height: clamp(360px, 42vw, 520px);
+}
+
+.fz-about-brand__main {
+  position: relative;
+  width: min(88%, 420px);
+  border-radius: calc(var(--fz-radius) + 4px);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--fz-mint);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+}
+
+.fz-about-brand__main-img,
+.fz-about-brand__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fz-about-brand__badge {
+  position: absolute;
+  top: clamp(16px, 3vw, 24px);
+  left: clamp(16px, 3vw, 24px);
+  z-index: 1;
+  background: #fff;
+  color: var(--fz-ink);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.fz-about-brand__inset {
+  position: absolute;
+  right: 0;
+  bottom: clamp(12px, 3vw, 24px);
+  width: min(46%, 220px);
+  aspect-ratio: 1;
+  border-radius: var(--fz-radius);
+  overflow: hidden;
+  border: 4px solid #fff;
+  background: var(--fz-mint);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+}
+
+.fz-about-brand__inset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fz-about-brand__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 3vw, 24px);
+}
+
+.fz-about-brand__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fz-eyebrow-color);
+}
+
+.fz-about-brand__eyebrow-line {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.fz-about-brand__heading {
+  font-family: var(--fz-font-display);
+  font-size: clamp(28px, 4.2vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 14ch;
+}
+
+.fz-about-brand__prose {
+  font-size: clamp(15px, 1.8vw, 16px);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 52ch;
+}
+
+.fz-about-brand__prose p {
+  margin: 0 0 14px;
+}
+
+.fz-about-brand__prose p:last-child {
+  margin-bottom: 0;
+}
+
+.fz-about-brand__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 20px);
+  padding: clamp(20px, 3vw, 28px) 0;
+  border-top: 1px solid var(--fz-hairline-2);
+  border-bottom: 1px solid var(--fz-hairline-2);
+}
+
+.fz-about-brand__stat-value {
+  font-family: var(--fz-font-display);
+  font-size: clamp(26px, 3.5vw, 34px);
+  line-height: 1;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.fz-about-brand__stat-label {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fz-muted-grey);
+  line-height: 1.45;
+}
+
+.fz-about-brand__values {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.5vw, 24px);
+}
+
+.fz-about-brand__value {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.fz-about-brand__value-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fz-ink);
+}
+
+.fz-about-brand__icon-svg {
+  width: 36px;
+  height: 36px;
+}
+
+.fz-about-brand__value-title {
+  font-family: var(--fz-font-display);
+  font-size: clamp(16px, 2vw, 18px);
+  margin: 0 0 6px;
+  letter-spacing: 0.02em;
+}
+
+.fz-about-brand__value-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--fz-body-text-color);
+  max-width: 44ch;
+}
+
+.fz-about-brand__cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.fz-about-brand__cta-arrow {
+  transition: transform 0.35s var(--fz-btn-ease);
+}
+
+.fz-about-brand__cta:hover .fz-about-brand__cta-arrow {
+  transform: translateX(4px);
+}
+
+.fz-about-brand__page-content {
+  margin-top: 48px;
+}
+
 .fz-about-values {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1845,8 +2071,33 @@ a.fz-contact-page__item-value:hover {
   .fz-contact-page__field-row,
   .fz-about-story,
   .fz-about-story--reverse .fz-about-story__media,
-  .fz-about-story--reverse .fz-about-story__copy {
+  .fz-about-story--reverse .fz-about-story__copy,
+  .fz-about-brand__layout {
     grid-template-columns: 1fr;
+  }
+
+  .fz-about-brand__gallery {
+    min-height: auto;
+    margin-bottom: 8px;
+  }
+
+  .fz-about-brand__main {
+    width: min(78%, 340px);
+    margin: 0 auto 0 0;
+  }
+
+  .fz-about-brand__inset {
+    width: min(42%, 180px);
+    right: clamp(8px, 4vw, 20px);
+  }
+
+  .fz-about-brand__heading {
+    max-width: none;
+  }
+
+  .fz-about-brand__cta {
+    width: 100%;
+    justify-content: center;
   }
 
   .fz-about-story--reverse .fz-about-story__media,
@@ -1864,6 +2115,36 @@ a.fz-contact-page__item-value:hover {
 }
 
 @media (max-width: 600px) {
+  .fz-about-brand {
+    padding: clamp(20px, 5vw, 28px);
+    border-radius: var(--fz-radius);
+  }
+
+  .fz-about-brand__stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .fz-about-brand__stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .fz-about-brand__stat-value {
+    margin: 0;
+    min-width: 64px;
+  }
+
+  .fz-about-brand__main {
+    width: 72%;
+  }
+
+  .fz-about-brand__inset {
+    width: 46%;
+  }
+
   .fz-faq__list {
     border-radius: calc(var(--fz-radius) - 4px);
   }

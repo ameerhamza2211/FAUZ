@@ -1,0 +1,35 @@
+{%- comment -%}
+  @param icon {string} clinical | clean | personal | leaf | heart | craft
+{%- endcomment -%}
+
+{%- case icon -%}
+  {%- when 'clinical' -%}
+    <svg class="fz-about-brand__icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M18 8v24M12 14h12M14 28h8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+      <path d="M26 12c3 2 5 5.5 5 9.5S29 29 26 31" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+    </svg>
+  {%- when 'clean' -%}
+    <svg class="fz-about-brand__icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M20 34c8.5 0 14-6 14-13.5C34 13 20 6 20 6S6 13 6 20.5C6 28 11.5 34 20 34Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+      <path d="M20 14v10M16 18h8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+    </svg>
+  {%- when 'personal' -%}
+    <svg class="fz-about-brand__icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M20 34s-10-6.5-10-14a5 5 0 0 1 9-2.8A5 5 0 0 1 30 20c0 7.5-10 14-10 14Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+    </svg>
+  {%- when 'craft' -%}
+    <svg class="fz-about-brand__icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M10 26l8-8 6 6 8-8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M28 10h4v4" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="8" y="28" width="24" height="4" rx="1" stroke="currentColor" stroke-width="1.35"/>
+    </svg>
+  {%- when 'heart' -%}
+    <svg class="fz-about-brand__icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M20 31s-9-5.6-12.2-11.4C5.2 15.1 7.8 10 12.5 10c2.8 0 5 1.4 6.5 3.5C20.5 11.4 22.7 10 25.5 10 30.2 10 32.8 15.1 30.2 19.6 27 25.4 20 31 20 31Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+    </svg>
+  {%- else -%}
+    <svg class="fz-about-brand__icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M20 8v24M14 18c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+      <path d="M12 30c2.5-4 5.5-6 8-6s5.5 2 8 6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+    </svg>
+{%- endcase -%}

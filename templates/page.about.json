@@ -11,55 +11,53 @@
   "sections": {
     "main": {
       "type": "page-about",
+      "settings": {
+        "eyebrow": "About",
+        "intro": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours.",
+        "hero_tone": "mint",
+        "badge_text": "Clean beauty",
+        "story_eyebrow": "Our story",
+        "story_heading": "Born from a love of considered skin",
+        "story_text": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p><p>Every texture, active, and ritual is chosen for modern skin — lightweight, thoughtful, and made for the routines you will actually keep.</p>",
+        "stat_1_value": "12+",
+        "stat_1_label": "Considered formulas",
+        "stat_2_value": "100%",
+        "stat_2_label": "Cruelty-free",
+        "stat_3_value": "500+",
+        "stat_3_label": "Happy customers",
+        "button_label": "Discover our collection",
+        "button_link": "/collections/all",
+        "quote": "Nothing more. Nothing less.",
+        "quote_script": "Just you."
+      },
       "blocks": {
-        "value_1": {
-          "type": "value",
+        "brand_value_1": {
+          "type": "brand_value",
           "settings": {
-            "eyebrow": "01",
+            "icon": "clinical",
             "title": "Clinically considered",
             "text": "Performance-first formulas developed with modern skin in mind."
           }
         },
-        "value_2": {
-          "type": "value",
+        "brand_value_2": {
+          "type": "brand_value",
           "settings": {
-            "eyebrow": "02",
+            "icon": "clean",
             "title": "Clean & conscious",
             "text": "Paraben-free, cruelty-free, and designed for consistent daily use."
           }
         },
-        "value_3": {
-          "type": "value",
+        "brand_value_3": {
+          "type": "brand_value",
           "settings": {
-            "eyebrow": "03",
+            "icon": "personal",
             "title": "Uniquely yours",
             "text": "We never ask you to compare — your ritual should feel personal."
           }
         }
       },
-      "block_order": [
-        "value_1",
-        "value_2",
-        "value_3"
-      ],
-      "settings": {
-        "eyebrow": "Our story",
-        "heading": "About Fauz",
-        "intro": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours.",
-        "hero_image": "shopify://shop_images/person-looks-forward-with-the-shadow-of-a-leaf-on-their-face.jpg",
-        "hero_tone": "mint",
-        "story_eyebrow": "The philosophy",
-        "story_heading": "Your skin is as unique as you are.",
-        "story_text": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p>",
-        "story_image": "shopify://shop_images/eyes-closed-while-a-plant-casts-a-shadow-on-their-face.jpg",
-        "quote": "Nothing more. Nothing less.",
-        "quote_script": "Just you.",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
+      "block_order": ["brand_value_1", "brand_value_2", "brand_value_3"]
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

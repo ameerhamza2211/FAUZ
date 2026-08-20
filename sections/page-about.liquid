@@ -5,42 +5,101 @@
   title: page.title | default: section.settings.heading,
   text: section.settings.intro,
   image: section.settings.hero_image,
-  tone: section.settings.hero_tone
+  tone: section.settings.hero_tone,
+  compact: true
 %}
 
-<div class="fz-page-shell"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
-  {%- if section.settings.story_heading != blank -%}
-    <div class="fz-about-story" data-page-reveal>
-      <div class="fz-about-story__copy">
-        <p class="fz-eyebrow">{{ section.settings.story_eyebrow }}</p>
-        <h2 class="fz-about-story__heading">{{ section.settings.story_heading }}</h2>
-        <div class="fz-prose">{{ section.settings.story_text }}</div>
-      </div>
-      <div class="fz-about-story__media">
-        {%- if section.settings.story_image != blank -%}
-          {{ section.settings.story_image | image_url: width: 1000 | image_tag: class: 'fz-about-story__img', loading: 'lazy', alt: section.settings.story_heading }}
-        {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'fz-about-story__img' }}
-        {%- endif -%}
-      </div>
-    </div>
-  {%- endif -%}
+<div class="fz-page-shell fz-page-shell--about"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+  <section class="fz-about-brand" data-page-reveal>
+    <div class="fz-about-brand__layout">
+      <div class="fz-about-brand__gallery">
+        <div class="fz-about-brand__main">
+          {%- if section.settings.badge_text != blank -%}
+            <span class="fz-about-brand__badge">{{ section.settings.badge_text }}</span>
+          {%- endif -%}
+          {%- if section.settings.main_image != blank -%}
+            {{ section.settings.main_image
+              | image_url: width: 1200
+              | image_tag: class: 'fz-about-brand__main-img', widths: '600, 900, 1200', loading: 'lazy', alt: section.settings.story_heading }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'fz-about-brand__main-img fz-about-brand__placeholder' }}
+          {%- endif -%}
+        </div>
 
-  {%- if section.blocks.size > 0 -%}
-    <div class="fz-about-values" data-page-reveal>
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'value' -%}
-          <article class="fz-about-value" {{ block.shopify_attributes }}>
-            {%- if block.settings.eyebrow != blank -%}
-              <p class="fz-about-value__eyebrow">{{ block.settings.eyebrow }}</p>
-            {%- endif -%}
-            <h3 class="fz-about-value__title">{{ block.settings.title }}</h3>
-            <p class="fz-about-value__text">{{ block.settings.text }}</p>
-          </article>
+        {%- if section.settings.inset_image != blank -%}
+          <div class="fz-about-brand__inset">
+            {{ section.settings.inset_image
+              | image_url: width: 600
+              | image_tag: class: 'fz-about-brand__inset-img', widths: '300, 450, 600', loading: 'lazy', alt: section.settings.story_heading }}
+          </div>
         {%- endif -%}
-      {%- endfor -%}
+      </div>
+
+      <div class="fz-about-brand__content">
+        {%- if section.settings.story_eyebrow != blank -%}
+          <p class="fz-about-brand__eyebrow">
+            <span class="fz-about-brand__eyebrow-line" aria-hidden="true"></span>
+            {{ section.settings.story_eyebrow }}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.story_heading != blank -%}
+          <h2 class="fz-about-brand__heading">{{ section.settings.story_heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.story_text != blank -%}
+          <div class="fz-about-brand__prose fz-prose">{{ section.settings.story_text }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.stat_1_value != blank or section.settings.stat_2_value != blank or section.settings.stat_3_value != blank -%}
+          <div class="fz-about-brand__stats">
+            {%- if section.settings.stat_1_value != blank -%}
+              <div class="fz-about-brand__stat">
+                <p class="fz-about-brand__stat-value">{{ section.settings.stat_1_value }}</p>
+                <p class="fz-about-brand__stat-label">{{ section.settings.stat_1_label }}</p>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.stat_2_value != blank -%}
+              <div class="fz-about-brand__stat">
+                <p class="fz-about-brand__stat-value">{{ section.settings.stat_2_value }}</p>
+                <p class="fz-about-brand__stat-label">{{ section.settings.stat_2_label }}</p>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.stat_3_value != blank -%}
+              <div class="fz-about-brand__stat">
+                <p class="fz-about-brand__stat-value">{{ section.settings.stat_3_value }}</p>
+                <p class="fz-about-brand__stat-label">{{ section.settings.stat_3_label }}</p>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- assign brand_values = section.blocks | where: 'type', 'brand_value' -%}
+        {%- if brand_values.size > 0 -%}
+          <ul class="fz-about-brand__values">
+            {%- for block in brand_values -%}
+              <li class="fz-about-brand__value" {{ block.shopify_attributes }}>
+                <span class="fz-about-brand__value-icon">
+                  {% render 'fz-about-icon', icon: block.settings.icon %}
+                </span>
+                <div class="fz-about-brand__value-copy">
+                  <h3 class="fz-about-brand__value-title">{{ block.settings.title }}</h3>
+                  <p class="fz-about-brand__value-text">{{ block.settings.text }}</p>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a class="fz-btn fz-btn--primary fz-about-brand__cta" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+            <span>{{ section.settings.button_label }}</span>
+            <span class="fz-about-brand__cta-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        {%- endif -%}
+      </div>
     </div>
-  {%- endif -%}
+  </section>
 
   {%- for block in section.blocks -%}
     {%- if block.type == 'story' -%}
@@ -84,7 +143,7 @@
   {%- endif -%}
 
   {%- if page.content != blank -%}
-    <div class="fz-prose" style="margin-top: 48px;" data-page-reveal>{{ page.content }}</div>
+    <div class="fz-prose fz-about-brand__page-content" data-page-reveal>{{ page.content }}</div>
   {%- endif -%}
 </div>
 
@@ -95,8 +154,8 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "Our story"
+      "label": "Hero eyebrow",
+      "default": "About"
     },
     {
       "type": "text",
@@ -107,7 +166,7 @@
     {
       "type": "textarea",
       "id": "intro",
-      "label": "Intro",
+      "label": "Hero intro",
       "default": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours."
     },
     {
@@ -127,30 +186,96 @@
     },
     {
       "type": "header",
-      "content": "Lead story"
+      "content": "Brand story section"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Image badge",
+      "default": "Clean beauty"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "inset_image",
+      "label": "Inset image"
     },
     {
       "type": "text",
       "id": "story_eyebrow",
       "label": "Story eyebrow",
-      "default": "The philosophy"
+      "default": "Our story"
     },
     {
       "type": "text",
       "id": "story_heading",
       "label": "Story heading",
-      "default": "Your skin is as unique as you are."
+      "default": "Born from a love of considered skin"
     },
     {
       "type": "richtext",
       "id": "story_text",
       "label": "Story text",
-      "default": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p>"
+      "default": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p><p>Every texture, active, and ritual is chosen for modern skin — lightweight, thoughtful, and made for the routines you will actually keep.</p>"
     },
     {
-      "type": "image_picker",
-      "id": "story_image",
-      "label": "Story image"
+      "type": "header",
+      "content": "Statistics"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 value",
+      "default": "12+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "Considered formulas"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 value",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "Cruelty-free"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 value",
+      "default": "500+"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 label",
+      "default": "Happy customers"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Discover our collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
     },
     {
       "type": "header",
@@ -195,12 +320,25 @@
   ],
   "blocks": [
     {
-      "type": "value",
-      "name": "Value",
+      "type": "brand_value",
+      "name": "Brand value",
       "settings": [
-        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "01" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "clinical", "label": "Clinical" },
+            { "value": "clean", "label": "Clean" },
+            { "value": "personal", "label": "Personal" },
+            { "value": "leaf", "label": "Natural" },
+            { "value": "heart", "label": "Community" },
+            { "value": "craft", "label": "Craft" }
+          ],
+          "default": "clinical"
+        },
         { "type": "text", "id": "title", "label": "Title", "default": "Clinically considered" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Every formula is developed with performance and tolerance in mind." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Performance-first formulas developed with modern skin in mind." }
       ]
     },
     {
@@ -224,9 +362,9 @@
     {
       "name": "About page",
       "blocks": [
-        { "type": "value", "settings": { "eyebrow": "01", "title": "Clinically considered", "text": "Performance-first formulas developed with modern skin in mind." } },
-        { "type": "value", "settings": { "eyebrow": "02", "title": "Clean & conscious", "text": "Paraben-free, cruelty-free, and designed for consistent daily use." } },
-        { "type": "value", "settings": { "eyebrow": "03", "title": "Uniquely yours", "text": "We never ask you to compare — your ritual should feel personal." } }
+        { "type": "brand_value", "settings": { "icon": "clinical", "title": "Clinically considered", "text": "Performance-first formulas developed with modern skin in mind." } },
+        { "type": "brand_value", "settings": { "icon": "clean", "title": "Clean & conscious", "text": "Paraben-free, cruelty-free, and designed for consistent daily use." } },
+        { "type": "brand_value", "settings": { "icon": "personal", "title": "Uniquely yours", "text": "We never ask you to compare — your ritual should feel personal." } }
       ]
     }
   ]

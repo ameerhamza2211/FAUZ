@@ -1,15 +1,7 @@
 {%- capture fz_section_padding -%}{%- render 'fz-section-padding', section: section -%}{%- endcapture -%}
 
-{% render 'fz-page-hero',
-  eyebrow: section.settings.eyebrow,
-  title: page.title | default: section.settings.heading,
-  text: section.settings.intro,
-  image: section.settings.hero_image,
-  tone: section.settings.hero_tone,
-  variant: 'about'
-%}
-
 <div class="fz-page-shell fz-page-shell--about"{% if fz_section_padding != blank %} style="{{ fz_section_padding | strip }}"{% endif %}>
+  <h1 class="visually-hidden">{{ page.title | default: section.settings.heading }}</h1>
   <section class="fz-about-brand" data-page-reveal>
     <div class="fz-about-brand__layout">
       <div class="fz-about-brand__gallery">

@@ -745,7 +745,7 @@ a.fz-contact-page__item-value:hover {
 /* ---------- About ---------- */
 
 .fz-page-shell--about {
-  padding-top: clamp(24px, 4vw, 40px);
+  padding-top: calc(var(--fz-announcement-height) + var(--fz-header-height) + var(--fz-header-gap) + clamp(20px, 3vw, 32px));
 }
 
 .fz-about-brand {

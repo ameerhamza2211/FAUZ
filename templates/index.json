@@ -79,40 +79,8 @@
     },
     "best_products": {
       "type": "best-products",
-      "blocks": {
-        "bp_serum": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion"
-          }
-        },
-        "bp_cleanser": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-cleanser-gentle-daily-face-wash"
-          }
-        },
-        "bp_sunscreen": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine"
-          }
-        },
-        "bp_shampoo": {
-          "type": "product",
-          "settings": {
-            "product": "fauz-stem-cell-shampoo-anti-hair-loss-regrowth-formula-with-biotin"
-          }
-        }
-      },
-      "block_order": [
-        "bp_serum",
-        "bp_cleanser",
-        "bp_sunscreen",
-        "bp_shampoo"
-      ],
       "settings": {
-        "heading": "Best products",
+        "heading": "Best Products",
         "see_all_label": "See all",
         "see_all_link": "shopify://collections/all",
         "collection": "",

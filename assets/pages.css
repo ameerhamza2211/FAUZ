@@ -764,12 +764,12 @@ a.fz-contact-page__item-value:hover {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   gap: clamp(32px, 5vw, 72px);
-  align-items: center;
+  align-items: start;
 }
 
 .fz-about-brand__gallery {
   position: relative;
-  min-height: clamp(360px, 42vw, 520px);
+  min-height: 0;
 }
 
 .fz-about-brand__main {

@@ -1,4 +1,4 @@
-/* ============================================================
+  /* ============================================================
    FAUZ — pages.css (inner pages)
    ============================================================ */
 
@@ -118,6 +118,86 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.fz-page-hero--about {
+  min-height: 100vh;
+  min-height: 100svh;
+  border-bottom: none;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(193, 219, 216, 0.38) 0%, transparent 52%),
+    linear-gradient(
+      168deg,
+      rgba(193, 219, 216, 0.72) 0%,
+      rgba(232, 234, 233, 0.96) 46%,
+      var(--fz-offwhite) 100%
+    );
+  display: flex;
+  align-items: flex-end;
+  padding:
+    calc(var(--fz-announcement-height) + var(--fz-header-height) + var(--fz-header-gap) + clamp(24px, 4vh, 48px))
+    0
+    clamp(56px, 10vh, 112px);
+  position: relative;
+  overflow: hidden;
+}
+
+.fz-page-hero--about::after {
+  content: '';
+  position: absolute;
+  inset: auto auto 0 0;
+  width: min(42vw, 360px);
+  height: 1px;
+  margin: 0 var(--fz-gutter);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.14), transparent);
+  pointer-events: none;
+}
+
+.fz-page-hero--about.fz-page-hero--mint {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(193, 219, 216, 0.38) 0%, transparent 52%),
+    linear-gradient(
+      168deg,
+      rgba(193, 219, 216, 0.72) 0%,
+      rgba(232, 234, 233, 0.96) 46%,
+      var(--fz-offwhite) 100%
+    );
+}
+
+.fz-page-hero--about .fz-page-hero__inner {
+  grid-template-columns: 1fr;
+  max-width: var(--fz-content-max);
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: var(--fz-gutter);
+}
+
+.fz-page-hero--about .fz-page-hero__copy {
+  gap: clamp(16px, 2.5vh, 24px);
+  max-width: 720px;
+}
+
+.fz-page-hero--about .fz-page-hero__eyebrow {
+  letter-spacing: 0.22em;
+  font-size: 11px;
+}
+
+.fz-page-hero--about .fz-page-hero__title {
+  font-size: clamp(44px, 8vw, 92px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  max-width: 12ch;
+}
+
+.fz-page-hero--about .fz-page-hero__text {
+  font-size: clamp(15px, 1.7vw, 17px);
+  line-height: 1.7;
+  max-width: 40ch;
+  color: var(--fz-muted-dark);
+}
+
+.fz-page-hero + .fz-page-shell--about {
+  padding-top: clamp(32px, 5vw, 56px);
 }
 
 /* ---------- Prose (legal + rich pages) ---------- */
@@ -666,7 +746,7 @@ a.fz-contact-page__item-value:hover {
 /* ---------- About ---------- */
 
 .fz-page-shell--about {
-  padding-top: clamp(20px, 3vw, 32px);
+  padding-top: clamp(24px, 4vw, 40px);
 }
 
 .fz-about-brand {
@@ -2015,6 +2095,21 @@ a.fz-contact-page__item-value:hover {
 
   .fz-page-hero--compact {
     padding: clamp(28px, 6vw, 40px) 0;
+  }
+
+  .fz-page-hero--about {
+    min-height: calc(100svh - 24px);
+    align-items: flex-end;
+    padding-bottom: clamp(40px, 8vh, 72px);
+  }
+
+  .fz-page-hero--about .fz-page-hero__title {
+    max-width: none;
+    font-size: clamp(36px, 11vw, 56px);
+  }
+
+  .fz-page-hero--about .fz-page-hero__inner {
+    padding-inline: var(--fz-gutter-sm);
   }
 
   .fz-page-hero__title {

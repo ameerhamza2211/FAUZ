@@ -1,15 +1,16 @@
 {%- comment -%}
   Inner page hero.
-  Accepts: eyebrow, title, text, image, tone (default|mint|dark), compact (boolean)
+  Accepts: eyebrow, title, text, image, tone (default|mint|dark), compact (boolean), variant (default|about)
 {%- endcomment -%}
 
 {%- liquid
   assign hero_tone = tone | default: 'default'
   assign hero_compact = compact | default: false
+  assign hero_variant = variant | default: 'default'
 -%}
 
 <header
-  class="fz-page-hero fz-page-hero--{{ hero_tone }}{% if hero_compact %} fz-page-hero--compact{% endif %}{% if image != blank %} fz-page-hero--has-media{% endif %}"
+  class="fz-page-hero fz-page-hero--{{ hero_tone }}{% if hero_compact %} fz-page-hero--compact{% endif %}{% if hero_variant == 'about' %} fz-page-hero--about{% endif %}{% if image != blank %} fz-page-hero--has-media{% endif %}"
   data-page-reveal
 >
   <div class="fz-page-hero__inner fz-container">

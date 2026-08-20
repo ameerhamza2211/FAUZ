@@ -11,25 +11,6 @@
   "sections": {
     "main": {
       "type": "page-about",
-      "settings": {
-        "eyebrow": "About",
-        "intro": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours.",
-        "hero_tone": "mint",
-        "badge_text": "Clean beauty",
-        "story_eyebrow": "Our story",
-        "story_heading": "Born from a love of considered skin",
-        "story_text": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p><p>Every texture, active, and ritual is chosen for modern skin — lightweight, thoughtful, and made for the routines you will actually keep.</p>",
-        "stat_1_value": "12+",
-        "stat_1_label": "Considered formulas",
-        "stat_2_value": "100%",
-        "stat_2_label": "Cruelty-free",
-        "stat_3_value": "500+",
-        "stat_3_label": "Happy customers",
-        "button_label": "Discover our collection",
-        "button_link": "/collections/all",
-        "quote": "Nothing more. Nothing less.",
-        "quote_script": "Just you."
-      },
       "blocks": {
         "brand_value_1": {
           "type": "brand_value",
@@ -56,8 +37,38 @@
           }
         }
       },
-      "block_order": ["brand_value_1", "brand_value_2", "brand_value_3"]
+      "block_order": [
+        "brand_value_1",
+        "brand_value_2",
+        "brand_value_3"
+      ],
+      "settings": {
+        "eyebrow": "About",
+        "heading": "About Fauz",
+        "intro": "Skincare designed for real routines — clean, considered, and made for skin that is uniquely yours.",
+        "hero_tone": "mint",
+        "badge_text": "Clean beauty",
+        "main_image": "shopify://shop_images/eyes-closed-while-a-plant-casts-a-shadow-on-their-face.jpg",
+        "inset_image": "shopify://shop_images/person-looks-forward-with-the-shadow-of-a-leaf-on-their-face.jpg",
+        "story_eyebrow": "Our story",
+        "story_heading": "Born from a love of considered skin",
+        "story_text": "<p>Fauz was built on a simple belief: skincare should feel personal, not prescriptive. We create clinically considered formulas that respect your barrier, support consistency, and leave room for you to feel like yourself.</p><p>Every texture, active, and ritual is chosen for modern skin — lightweight, thoughtful, and made for the routines you will actually keep.</p>",
+        "stat_1_value": "12+",
+        "stat_1_label": "Considered formulas",
+        "stat_2_value": "100%",
+        "stat_2_label": "Cruelty-free",
+        "stat_3_value": "500+",
+        "stat_3_label": "Happy customers",
+        "button_label": "Discover our collection",
+        "button_link": "/collections/all",
+        "quote": "Nothing more. Nothing less.",
+        "quote_script": "Just you.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

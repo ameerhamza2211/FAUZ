@@ -1959,8 +1959,13 @@ html.lenis body {
 
 .fz-best-products__card-inner {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "media media"
+    "copy add";
+  align-items: end;
+  gap: 10px 10px;
   height: 100%;
   background: #ffffff;
   border: 1px solid var(--fz-hairline);
@@ -1981,13 +1986,13 @@ html.lenis body {
 }
 
 .fz-best-products__card-link {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
+  display: contents;
+  color: inherit;
+  text-decoration: none;
 }
 
 .fz-best-products__media {
+  grid-area: media;
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -2021,23 +2026,15 @@ html.lenis body {
   mix-blend-mode: multiply;
 }
 
-.fz-best-products__footer {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 10px;
-  margin-top: 12px;
-  min-height: 68px;
-  position: relative;
-  z-index: 2;
-}
-
 .fz-best-products__copy {
+  grid-area: copy;
   min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 6px;
+  margin-top: 2px;
+  min-height: 68px;
 }
 
 .fz-best-products__name {
@@ -2066,6 +2063,8 @@ html.lenis body {
 }
 
 .fz-best-products__add {
+  grid-area: add;
+  align-self: end;
   flex-shrink: 0;
   width: 36px;
   height: 36px;
@@ -2181,10 +2180,8 @@ html.lenis body {
     padding: 12px;
   }
 
-  .fz-best-products__footer {
-    margin-top: 10px;
+  .fz-best-products__copy {
     min-height: 58px;
-    gap: 8px;
   }
 
   .fz-best-products__name {

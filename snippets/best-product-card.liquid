@@ -27,49 +27,47 @@
 
 <article class="fz-best-products__card" data-best-products-card{% if block %}{{ block.shopify_attributes }}{% endif %}>
   <div class="fz-best-products__card-inner">
-    <a class="fz-best-products__card-link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}"></a>
-
-    <div class="fz-best-products__media{% if tint == 'mint' %} fz-best-products__media--mint{% endif %}">
-      <div class="fz-best-products__media-inner">
-        {%- if card_product.featured_image -%}
-          {{ card_product.featured_image
-            | image_url: width: 560
-            | image_tag:
-              class: 'fz-best-products__img',
-              widths: '280, 400, 560',
-              sizes: '(max-width: 749px) 72vw, 300px',
-              loading: 'lazy',
-              alt: card_product.title }}
-        {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
-        {%- endif -%}
+    <a class="fz-best-products__card-link" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}">
+      <div class="fz-best-products__media{% if tint == 'mint' %} fz-best-products__media--mint{% endif %}">
+        <div class="fz-best-products__media-inner">
+          {%- if card_product.featured_image -%}
+            {{ card_product.featured_image
+              | image_url: width: 560
+              | image_tag:
+                class: 'fz-best-products__img',
+                widths: '280, 400, 560',
+                sizes: '(max-width: 749px) 72vw, 300px',
+                loading: 'lazy',
+                alt: card_product.title }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'fz-best-products__img' }}
+          {%- endif -%}
+        </div>
       </div>
-    </div>
 
-    <div class="fz-best-products__footer">
       <div class="fz-best-products__copy">
         <h3 class="fz-best-products__name">{{ display_name }}</h3>
         <p class="fz-best-products__price">{{ card_product.price | money }}</p>
       </div>
+    </a>
 
-      {%- if card_product.available -%}
-        <button
-          type="button"
-          class="fz-best-products__add"
-          data-quick-add="{{ card_product.selected_or_first_available_variant.id }}"
-          aria-label="Add {{ card_product.title | escape }} to cart"
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
-          </svg>
-        </button>
-      {%- else -%}
-        <button type="button" class="fz-best-products__add fz-best-products__add--disabled" disabled aria-label="Sold out">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
-          </svg>
-        </button>
-      {%- endif -%}
-    </div>
+    {%- if card_product.available -%}
+      <button
+        type="button"
+        class="fz-best-products__add"
+        data-quick-add="{{ card_product.selected_or_first_available_variant.id }}"
+        aria-label="Add {{ card_product.title | escape }} to cart"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+        </svg>
+      </button>
+    {%- else -%}
+      <button type="button" class="fz-best-products__add fz-best-products__add--disabled" disabled aria-label="Sold out">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+        </svg>
+      </button>
+    {%- endif -%}
   </div>
 </article>

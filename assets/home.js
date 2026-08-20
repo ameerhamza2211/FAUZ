@@ -633,8 +633,9 @@
         momentum();
       }
 
-      if (drag.dragged) {
+      if (drag.dragged && Math.abs(e.clientX - drag.startX) > 8) {
         var blockClick = function (ev) {
+          if (ev.target.closest('[data-quick-add]')) return;
           ev.preventDefault();
           ev.stopImmediatePropagation();
         };
@@ -667,7 +668,7 @@
       if (!drag.active || e.pointerId !== drag.pointerId) return;
 
       var dx = e.clientX - drag.startX;
-      if (Math.abs(dx) > 4) drag.dragged = true;
+      if (Math.abs(dx) > 8) drag.dragged = true;
 
       var now = performance.now();
       var dt = now - drag.lastTime;

@@ -378,7 +378,11 @@
         "sh_shipping": {
           "type": "highlight",
           "settings": {
+            "icon_source": "preset",
             "icon": "shipping",
+            "icon_svg": "",
+            "icon_size_desktop": 80,
+            "icon_size_mobile": 38,
             "title": "Free shipping",
             "text": "Free shipping for orders over Rs. 2,500"
           }
@@ -386,7 +390,11 @@
         "sh_returns": {
           "type": "highlight",
           "settings": {
+            "icon_source": "preset",
             "icon": "returns",
+            "icon_svg": "",
+            "icon_size_desktop": 80,
+            "icon_size_mobile": 38,
             "title": "Returns",
             "text": "Within 30 days for an exchange"
           }
@@ -394,7 +402,11 @@
         "sh_support": {
           "type": "highlight",
           "settings": {
+            "icon_source": "preset",
             "icon": "support",
+            "icon_svg": "",
+            "icon_size_desktop": 80,
+            "icon_size_mobile": 38,
             "title": "Online support",
             "text": "24 hours a day, 7 days a week"
           }
@@ -402,7 +414,11 @@
         "sh_payment": {
           "type": "highlight",
           "settings": {
+            "icon_source": "preset",
             "icon": "payment",
+            "icon_svg": "",
+            "icon_size_desktop": 80,
+            "icon_size_mobile": 38,
             "title": "Flexible payment",
             "text": "Pay with multiple credit cards"
           }

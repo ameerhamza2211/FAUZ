@@ -881,7 +881,6 @@ a.fz-contact-page__item-value:hover {
   gap: clamp(12px, 2vw, 20px);
   padding: clamp(20px, 3vw, 28px) 0;
   border-top: 1px solid var(--fz-hairline-2);
-  border-bottom: 1px solid var(--fz-hairline-2);
 }
 
 .fz-about-brand__stat-value {

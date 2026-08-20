@@ -92,16 +92,30 @@
     "featured_collections": {
       "type": "featured-collections",
       "blocks": {
-        "fc_skincare": {
+        "fc_cleanse": {
           "type": "collection",
           "settings": {
             "collection": "skincare",
-            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion",
-            "label": "Skincare ritual",
-            "title": "Exfoliating Serum",
-            "description": "Targets blackheads, blemishes and uneven tone — the treatment step your routine has been missing.",
-            "badge": "Niacinamide • BHA • Vegan",
-            "button_label": "Explore collection"
+            "product": "fauz-cleanser-gentle-daily-face-wash",
+            "label": "Daily cleanse",
+            "title": "Gentle Cleanser",
+            "description": "A gentle daily face wash that lifts away the day without stripping your skin barrier.",
+            "badge": "Barrier-safe • All skin types",
+            "button_label": "Explore collection",
+            "video": "shopify://files/videos/fauz-step-cleanse.mp4"
+          }
+        },
+        "fc_suncare": {
+          "type": "collection",
+          "settings": {
+            "collection": "sun-care",
+            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine",
+            "label": "Sun care",
+            "title": "Sun Screen SPF 60",
+            "description": "High protection infused with aloe vera and caffeine — lightweight, no white cast, every day.",
+            "badge": "SPF 60 • Aloe • Caffeine",
+            "button_label": "Explore collection",
+            "video": "shopify://files/videos/fauz-cat-suncare.mp4"
           }
         },
         "fc_haircare": {
@@ -116,40 +130,28 @@
             "button_label": "Explore collection"
           }
         },
-        "fc_suncare": {
-          "type": "collection",
-          "settings": {
-            "collection": "sun-care",
-            "product": "fauz-sun-screen-spf-60-infused-with-aloe-vera-caffeine",
-            "label": "Sun care",
-            "title": "Sun Screen SPF 60",
-            "description": "High protection infused with aloe vera and caffeine — lightweight, no white cast, every day.",
-            "badge": "SPF 60 • Aloe • Caffeine",
-            "button_label": "Explore collection"
-          }
-        },
-        "fc_cleanse": {
+        "fc_skincare": {
           "type": "collection",
           "settings": {
             "collection": "skincare",
-            "product": "fauz-cleanser-gentle-daily-face-wash",
-            "label": "Daily cleanse",
-            "title": "Gentle Cleanser",
-            "description": "A gentle daily face wash that lifts away the day without stripping your skin barrier.",
-            "badge": "Barrier-safe • All skin types",
+            "product": "fauz-exfoliating-serum-targets-blackheads-blemishes-uneven-complexion",
+            "label": "Skincare ritual",
+            "title": "Exfoliating Serum",
+            "description": "Targets blackheads, blemishes and uneven tone — the treatment step your routine has been missing.",
+            "badge": "Niacinamide • BHA • Vegan",
             "button_label": "Explore collection"
           }
         }
       },
       "block_order": [
-        "fc_skincare",
-        "fc_haircare",
+        "fc_cleanse",
         "fc_suncare",
-        "fc_cleanse"
+        "fc_haircare",
+        "fc_skincare"
       ],
       "settings": {
         "eyebrow": "Shop by category",
-        "heading": "Featured collections",
+        "heading": "Featured Collections",
         "secondary_label": "View all collections",
         "secondary_link": "shopify://collections",
         "primary_label": "Shop all products",

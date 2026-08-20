@@ -901,61 +901,81 @@ a.fz-contact-page__item-value:hover {
   line-height: 1.45;
 }
 
+.fz-about-brand__lower {
+  margin-top: clamp(28px, 4vw, 44px);
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid var(--fz-hairline-2);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(24px, 4vw, 40px);
+  align-items: end;
+}
+
 .fz-about-brand__values {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(18px, 2.5vw, 24px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.5vw, 24px);
 }
 
 .fz-about-brand__value {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(20px, 3vw, 28px);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: calc(var(--fz-radius) - 2px);
+  min-height: 100%;
 }
 
 .fz-about-brand__value-icon {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: var(--fz-ink);
 }
 
 .fz-about-brand__icon-svg {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
 }
 
 .fz-about-brand__value-title {
   font-family: var(--fz-font-display);
-  font-size: clamp(16px, 2vw, 18px);
-  margin: 0 0 6px;
+  font-size: clamp(15px, 1.8vw, 17px);
+  margin: 0 0 8px;
   letter-spacing: 0.02em;
 }
 
 .fz-about-brand__value-text {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.65;
   font-weight: 300;
-  color: var(--fz-body-text-color);
-  max-width: 44ch;
+  color: var(--fz-muted-dark);
+}
+
+.fz-about-brand__cta-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-width: min(100%, 260px);
 }
 
 .fz-about-brand__cta {
-  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 4px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 11px;
+  white-space: nowrap;
+  padding-inline: clamp(22px, 3vw, 28px);
 }
 
 .fz-about-brand__cta-arrow {
@@ -2082,6 +2102,15 @@ a.fz-contact-page__item-value:hover {
     grid-template-columns: 1fr;
   }
 
+  .fz-about-brand__lower {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .fz-about-brand__cta-wrap {
+    justify-content: flex-start;
+  }
+
   .fz-product__details-grid {
     grid-template-columns: 1fr;
   }
@@ -2188,6 +2217,20 @@ a.fz-contact-page__item-value:hover {
 
   .fz-about-brand__heading {
     max-width: none;
+  }
+
+  .fz-about-brand__lower {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .fz-about-brand__values {
+    grid-template-columns: 1fr;
+  }
+
+  .fz-about-brand__cta-wrap {
+    min-width: 0;
+    justify-content: stretch;
   }
 
   .fz-about-brand__cta {

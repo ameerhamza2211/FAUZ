@@ -65,8 +65,12 @@
             {%- endif -%}
           </div>
         {%- endif -%}
+      </div>
+    </div>
 
-        {%- assign brand_values = section.blocks | where: 'type', 'brand_value' -%}
+    {%- assign brand_values = section.blocks | where: 'type', 'brand_value' -%}
+    {%- if brand_values.size > 0 or section.settings.button_label != blank -%}
+      <div class="fz-about-brand__lower">
         {%- if brand_values.size > 0 -%}
           <ul class="fz-about-brand__values">
             {%- for block in brand_values -%}
@@ -84,13 +88,15 @@
         {%- endif -%}
 
         {%- if section.settings.button_label != blank -%}
-          <a class="fz-btn fz-btn--primary fz-about-brand__cta" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
-            <span>{{ section.settings.button_label }}</span>
-            <span class="fz-about-brand__cta-arrow" aria-hidden="true">&rarr;</span>
-          </a>
+          <div class="fz-about-brand__cta-wrap">
+            <a class="fz-btn fz-btn--primary fz-about-brand__cta" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+              <span>{{ section.settings.button_label }}</span>
+              <span class="fz-about-brand__cta-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         {%- endif -%}
       </div>
-    </div>
+    {%- endif -%}
   </section>
 
   {%- for block in section.blocks -%}

@@ -1,0 +1,23 @@
+{%- comment -%}
+  Service highlight icon — preset, image, or custom SVG.
+  @param block {block} highlight block
+{%- endcomment -%}
+
+{%- liquid
+  assign icon_source = block.settings.icon_source | default: 'preset'
+  assign icon_alt = block.settings.title | default: 'Service highlight'
+-%}
+
+{%- if icon_source == 'image' and block.settings.icon_image != blank -%}
+  {{ block.settings.icon_image
+    | image_url: width: 240
+    | image_tag:
+      class: 'fz-service-highlights__icon-img',
+      widths: '80, 120, 160, 240',
+      loading: 'lazy',
+      alt: icon_alt }}
+{%- elsif icon_source == 'svg' and block.settings.icon_svg != blank -%}
+  <span class="fz-service-highlights__icon-custom">{{ block.settings.icon_svg }}</span>
+{%- else -%}
+  {%- render 'fz-service-icon', icon: block.settings.icon -%}
+{%- endif -%}

@@ -599,33 +599,93 @@
       dragged: false,
       pending: null,
       pointerId: null,
-      startX: 0,
-      scrollLeft: 0,
       lastX: 0,
       lastTime: 0,
       velocity: 0,
       momentumId: 0
     };
-    var dragThreshold = 12;
+    var dragThreshold = 10;
 
     function stopMomentum() {
       if (!drag.momentumId) return;
       cancelAnimationFrame(drag.momentumId);
       drag.momentumId = 0;
+      viewport.classList.remove('is-drag-momentum');
+    }
+
+    function clampScroll(value) {
+      var maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      return Math.max(0, Math.min(maxScroll, value));
+    }
+
+    function applyScrollDelta(dx) {
+      if (!dx) return;
+      viewport.scrollLeft = clampScroll(viewport.scrollLeft - dx);
+    }
+
+    function recordVelocity(clientX) {
+      var now = performance.now();
+      var dt = now - drag.lastTime;
+      if (dt > 0) {
+        var instant = (clientX - drag.lastX) / dt;
+        drag.velocity = drag.velocity * 0.6 + instant * 0.4;
+      }
+      drag.lastX = clientX;
+      drag.lastTime = now;
+    }
+
+    function runMomentum() {
+      var velocity = drag.velocity * 20;
+
+      viewport.classList.add('is-drag-momentum');
+
+      function step() {
+        if (Math.abs(velocity) < 0.2) {
+          drag.momentumId = 0;
+          viewport.classList.remove('is-drag-momentum');
+          return;
+        }
+
+        var maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+        var next = viewport.scrollLeft - velocity;
+
+        if (next <= 0) {
+          viewport.scrollLeft = 0;
+          drag.momentumId = 0;
+          viewport.classList.remove('is-drag-momentum');
+          return;
+        }
+
+        if (next >= maxScroll) {
+          viewport.scrollLeft = maxScroll;
+          drag.momentumId = 0;
+          viewport.classList.remove('is-drag-momentum');
+          return;
+        }
+
+        viewport.scrollLeft = next;
+        velocity *= 0.93;
+        drag.momentumId = requestAnimationFrame(step);
+      }
+
+      step();
     }
 
     function activateDrag(e) {
       drag.active = true;
-      drag.dragged = false;
+      drag.dragged = true;
       drag.pointerId = e.pointerId;
-      drag.startX = drag.pending.startX;
-      drag.scrollLeft = drag.pending.scrollLeft;
+      drag.velocity = 0;
       drag.lastX = e.clientX;
       drag.lastTime = performance.now();
-      drag.velocity = 0;
-      drag.pending = null;
+
+      if (drag.pending) {
+        applyScrollDelta(e.clientX - drag.pending.startX);
+        drag.pending = null;
+      }
+
       viewport.classList.add('is-grabbing');
-      viewport.setPointerCapture(e.pointerId);
+      try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
     }
 
     function endDrag(e) {
@@ -636,25 +696,17 @@
 
       if (!drag.active || e.pointerId !== drag.pointerId) return;
 
+      var didDrag = drag.dragged;
       drag.active = false;
+      drag.dragged = false;
       viewport.classList.remove('is-grabbing');
       try { viewport.releasePointerCapture(e.pointerId); } catch (_) {}
 
-      if (drag.dragged && Math.abs(drag.velocity) > 0.15) {
-        var vel = drag.velocity;
-        function momentum() {
-          if (Math.abs(vel) < 0.02) {
-            drag.momentumId = 0;
-            return;
-          }
-          viewport.scrollLeft -= vel * 14;
-          vel *= 0.92;
-          drag.momentumId = requestAnimationFrame(momentum);
-        }
-        momentum();
+      if (didDrag && Math.abs(drag.velocity) > 0.06) {
+        runMomentum();
       }
 
-      if (drag.dragged && Math.abs(e.clientX - drag.startX) > dragThreshold) {
+      if (didDrag) {
         var blockClick = function (ev) {
           if (ev.target.closest('[data-quick-add]')) return;
           ev.preventDefault();
@@ -665,8 +717,6 @@
           viewport.removeEventListener('click', blockClick, true);
         }, 0);
       }
-
-      drag.dragged = false;
     }
 
     viewport.addEventListener('pointerdown', function (e) {
@@ -675,44 +725,44 @@
       if (e.target.closest('button, [data-quick-add]')) return;
 
       stopMomentum();
+      drag.velocity = 0;
       drag.pending = {
         pointerId: e.pointerId,
         startX: e.clientX,
-        startY: e.clientY,
-        scrollLeft: viewport.scrollLeft
+        startY: e.clientY
       };
     });
 
     viewport.addEventListener('pointermove', function (e) {
       if (drag.pending && e.pointerId === drag.pending.pointerId && !drag.active) {
-        var dx = e.clientX - drag.pending.startX;
-        var dy = e.clientY - drag.pending.startY;
+        var pendingDx = e.clientX - drag.pending.startX;
+        var pendingDy = e.clientY - drag.pending.startY;
 
-        if (Math.abs(dx) < dragThreshold && Math.abs(dy) < dragThreshold) return;
-        if (Math.abs(dy) > Math.abs(dx)) {
+        if (Math.abs(pendingDx) < dragThreshold && Math.abs(pendingDy) < dragThreshold) return;
+        if (Math.abs(pendingDy) > Math.abs(pendingDx)) {
           drag.pending = null;
           return;
         }
 
         activateDrag(e);
+        return;
       }
 
       if (!drag.active || e.pointerId !== drag.pointerId) return;
 
-      var moveX = e.clientX - drag.startX;
-      if (Math.abs(moveX) > dragThreshold) drag.dragged = true;
+      var dx = e.clientX - drag.lastX;
+      if (Math.abs(dx) > 0) drag.dragged = true;
 
-      var now = performance.now();
-      var dt = now - drag.lastTime;
-      if (dt > 0) drag.velocity = (e.clientX - drag.lastX) / dt;
-      drag.lastX = e.clientX;
-      drag.lastTime = now;
-
-      viewport.scrollLeft = drag.scrollLeft - moveX;
+      recordVelocity(e.clientX);
+      applyScrollDelta(dx);
     });
 
     viewport.addEventListener('pointerup', endDrag);
     viewport.addEventListener('pointercancel', endDrag);
+
+    viewport.addEventListener('dragstart', function (e) {
+      e.preventDefault();
+    });
   }
 
   /* ---------- Featured collections ---------- */

@@ -1909,9 +1909,11 @@ html.lenis body {
   padding-block: 4px 2px;
   cursor: grab;
   touch-action: pan-x;
+  overscroll-behavior-x: contain;
 }
 
-.fz-best-products__viewport.is-grabbing {
+.fz-best-products__viewport.is-grabbing,
+.fz-best-products__viewport.is-drag-momentum {
   cursor: grabbing;
   scroll-snap-type: none;
   user-select: none;

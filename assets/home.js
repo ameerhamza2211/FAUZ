@@ -597,6 +597,7 @@
     var drag = {
       active: false,
       dragged: false,
+      pending: null,
       pointerId: null,
       startX: 0,
       scrollLeft: 0,
@@ -605,6 +606,7 @@
       velocity: 0,
       momentumId: 0
     };
+    var dragThreshold = 12;
 
     function stopMomentum() {
       if (!drag.momentumId) return;
@@ -612,7 +614,26 @@
       drag.momentumId = 0;
     }
 
+    function activateDrag(e) {
+      drag.active = true;
+      drag.dragged = false;
+      drag.pointerId = e.pointerId;
+      drag.startX = drag.pending.startX;
+      drag.scrollLeft = drag.pending.scrollLeft;
+      drag.lastX = e.clientX;
+      drag.lastTime = performance.now();
+      drag.velocity = 0;
+      drag.pending = null;
+      viewport.classList.add('is-grabbing');
+      viewport.setPointerCapture(e.pointerId);
+    }
+
     function endDrag(e) {
+      if (drag.pending && e.pointerId === drag.pending.pointerId) {
+        drag.pending = null;
+        return;
+      }
+
       if (!drag.active || e.pointerId !== drag.pointerId) return;
 
       drag.active = false;
@@ -633,7 +654,7 @@
         momentum();
       }
 
-      if (drag.dragged && Math.abs(e.clientX - drag.startX) > 8) {
+      if (drag.dragged && Math.abs(e.clientX - drag.startX) > dragThreshold) {
         var blockClick = function (ev) {
           if (ev.target.closest('[data-quick-add]')) return;
           ev.preventDefault();
@@ -644,6 +665,8 @@
           viewport.removeEventListener('click', blockClick, true);
         }, 0);
       }
+
+      drag.dragged = false;
     }
 
     viewport.addEventListener('pointerdown', function (e) {
@@ -652,23 +675,32 @@
       if (e.target.closest('button, [data-quick-add]')) return;
 
       stopMomentum();
-      drag.active = true;
-      drag.dragged = false;
-      drag.pointerId = e.pointerId;
-      drag.startX = e.clientX;
-      drag.scrollLeft = viewport.scrollLeft;
-      drag.lastX = e.clientX;
-      drag.lastTime = performance.now();
-      drag.velocity = 0;
-      viewport.classList.add('is-grabbing');
-      viewport.setPointerCapture(e.pointerId);
+      drag.pending = {
+        pointerId: e.pointerId,
+        startX: e.clientX,
+        startY: e.clientY,
+        scrollLeft: viewport.scrollLeft
+      };
     });
 
     viewport.addEventListener('pointermove', function (e) {
+      if (drag.pending && e.pointerId === drag.pending.pointerId && !drag.active) {
+        var dx = e.clientX - drag.pending.startX;
+        var dy = e.clientY - drag.pending.startY;
+
+        if (Math.abs(dx) < dragThreshold && Math.abs(dy) < dragThreshold) return;
+        if (Math.abs(dy) > Math.abs(dx)) {
+          drag.pending = null;
+          return;
+        }
+
+        activateDrag(e);
+      }
+
       if (!drag.active || e.pointerId !== drag.pointerId) return;
 
-      var dx = e.clientX - drag.startX;
-      if (Math.abs(dx) > 8) drag.dragged = true;
+      var moveX = e.clientX - drag.startX;
+      if (Math.abs(moveX) > dragThreshold) drag.dragged = true;
 
       var now = performance.now();
       var dt = now - drag.lastTime;
@@ -676,7 +708,7 @@
       drag.lastX = e.clientX;
       drag.lastTime = now;
 
-      viewport.scrollLeft = drag.scrollLeft - dx;
+      viewport.scrollLeft = drag.scrollLeft - moveX;
     });
 
     viewport.addEventListener('pointerup', endDrag);
